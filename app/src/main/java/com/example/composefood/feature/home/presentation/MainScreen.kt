@@ -1,6 +1,7 @@
 package com.example.composefood.feature.home.presentation
 
 import android.graphics.drawable.shapes.Shape
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,9 +24,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.composefood.R
+import com.example.composefood.components.FoodDetailsText
 import com.example.composefood.components.MediumHeightText
 import com.example.composefood.components.SubTitleText
 import com.example.composefood.ui.theme.PaleWhite
@@ -55,22 +59,30 @@ fun MainScreen(
 fun FeedListItem(){
 
 
-        Card(
-            modifier = Modifier.heightIn(60.dp),
-            shape = RoundedCornerShape(6.dp)
-
+    Card(
+        shape = RoundedCornerShape(12.dp),
+        modifier = Modifier
+            .padding(12.dp)
+            .background(Color.White),
         ) {
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                MediumHeightText(color = Color.Black)
-                Spacer(modifier = Modifier.height(8.dp))
-                SubTitleText()
-            }
 
+        Column(
+            modifier = Modifier
+                .size(250.dp)
+                .padding(top = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+            Image(
+                painter = painterResource(id = R.drawable.image_sample),
+                contentDescription = "",
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .size(100.dp))
+            MediumHeightText(text = "HamBurger")
+            SubTitleText(text = "Barbeque Chicken Burger")
+            FoodDetailsText(text="78 Calories")
 
         }
-
-
-
+    }
 }

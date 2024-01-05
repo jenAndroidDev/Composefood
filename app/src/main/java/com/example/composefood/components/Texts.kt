@@ -14,6 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.composefood.R
+import com.example.composefood.ui.theme.GoldenYellow
+import com.example.composefood.ui.theme.OrangeRed
 import com.example.composefood.ui.theme.PaleGrey
 
 
@@ -55,6 +57,27 @@ fun SubTitleText(
         overflow = TextOverflow.Ellipsis,
 
     )
+}
+
+@Preview
+@Composable
+fun FoodDetailsText(
+    color: Color = OrangeRed,
+    text: String = "78 Calories"
+
+){
+    Text(text = text, color = color)
+}
+
+@Preview
+@Composable
+fun CurrencyText(
+    color: Color = GoldenYellow,
+    text: String = "hello"
+){
+
+    Text(text = text, color = color)
+
 }
 
 
