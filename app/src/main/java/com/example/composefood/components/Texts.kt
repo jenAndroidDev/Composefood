@@ -13,8 +13,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.composefood.R
 import com.example.composefood.ui.theme.GoldenYellow
+import com.example.composefood.ui.theme.InkBlack
 import com.example.composefood.ui.theme.OrangeRed
 import com.example.composefood.ui.theme.PaleGrey
 
@@ -22,7 +25,7 @@ import com.example.composefood.ui.theme.PaleGrey
 @Preview
 @Composable
 fun MediumHeightText(
-    color: Color = Color.White,
+    color: Color = InkBlack,
     text:String = "Sample Text",
     fontFamily: androidx.compose.ui.text.font.FontFamily = FontFamily(
         Font(R.font.roboto_black, FontWeight.Normal),
@@ -37,7 +40,7 @@ fun MediumHeightText(
         text = text,
         color = color,
         fontFamily = fontFamily,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Bold,
         overflow = TextOverflow.Ellipsis
         )
 
@@ -55,6 +58,7 @@ fun SubTitleText(
         text = text,
         color = color,
         overflow = TextOverflow.Ellipsis,
+        fontSize = 10.sp,
 
     )
 }
@@ -79,6 +83,7 @@ fun CurrencyText(
     Text(text = text, color = color)
 
 }
+
 
 
 
