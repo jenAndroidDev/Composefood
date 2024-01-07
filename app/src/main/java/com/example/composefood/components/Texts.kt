@@ -47,6 +47,31 @@ fun MediumHeightText(
 
 }
 
+@Composable
+fun LargeHeightText(
+    color: Color = InkBlack,
+    text:String = "Sample Text",
+    fontFamily: androidx.compose.ui.text.font.FontFamily = FontFamily(
+        Font(R.font.roboto_black, FontWeight.Normal),
+        Font(R.font.roboto_light, FontWeight.Light),
+        Font(R.font.roboto_medium, FontWeight.Medium),
+        Font(R.font.roboto_bold, FontWeight.Bold)
+
+    )
+
+){
+    Text(
+        text = text,
+        color = color,
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Bold,
+        overflow = TextOverflow.Ellipsis,
+        fontSize = 20.sp
+    )
+
+
+}
+
 @Preview
 @Composable
 fun SubTitleText(
@@ -83,6 +108,8 @@ fun CurrencyText(
     Text(text = text, color = color)
 
 }
+
+
 
 
 
