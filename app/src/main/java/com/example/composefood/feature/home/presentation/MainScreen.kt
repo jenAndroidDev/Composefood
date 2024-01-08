@@ -22,6 +22,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +38,7 @@ import com.example.composefood.components.LargeHeightText
 import com.example.composefood.components.MediumHeightText
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.components.SubTitleText
+import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.GreyWhite
 
 
@@ -157,11 +159,24 @@ fun HeaderTitle(
 fun SearchFoodSection(modifier: Modifier = Modifier){
 
     Row (
-        modifier = modifier.fillMaxWidth(0.6f),
+        modifier = modifier.fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween){
+
         SearchFoodTextField()
 
-        Icon(imageVector = Icons.Default.Search, contentDescription =null )
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = modifier
+                .clip(RoundedCornerShape(6.dp))
+                .background(color = GoldenYellow)
+                .size(50.dp)) {
+
+            Icon(imageVector = Icons.Default.Search, contentDescription =null )
+        }
+
+
 
     }
 }
@@ -172,7 +187,7 @@ fun SearchFoodTextField(){
 
     Column (
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(0.8f)
             .clip(RoundedCornerShape(12.dp))
             .background(color = GreyWhite)
             .padding(12.dp)
@@ -189,7 +204,8 @@ fun SearchFoodTextField(){
                 imageVector = Icons.Default.Search,
                 contentDescription = "search",)
             Spacer(modifier = Modifier.width(12.dp))
-            SubTitleText(text = "Search")
+
+            Text(text = "Search...")
         }
 
     }
