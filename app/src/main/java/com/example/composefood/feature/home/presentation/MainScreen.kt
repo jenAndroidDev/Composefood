@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -29,8 +31,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.composefood.R
 import com.example.composefood.components.FoodDetailsText
 import com.example.composefood.components.HeaderIcon
@@ -48,19 +53,6 @@ fun MainScreen(
     onClick:()->Unit = {},
 
 ){
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(PaleWhite),
-//        contentAlignment = Alignment.Center,
-//    ) {
-//        Text(
-//            modifier = Modifier.clickable { onClick() },
-//            text = "Home Screen",
-//            fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-//            fontWeight = FontWeight.Bold
-//        )
-//    }
 
     Surface(modifier = Modifier.fillMaxSize()) {
 
@@ -78,10 +70,7 @@ fun MainScreen(
 
             SearchFoodSection()
 
-
-
-
-
+            FoodCategoryLazyRow()
 
         }
 
@@ -114,14 +103,16 @@ fun FeedListItem(){
                     .clip(CircleShape)
                     .size(100.dp))
             MediumHeightText(text = "HamBurger")
+
             SubTitleText(text = "Barbeque Chicken Burger")
+
             FoodDetailsText(text="78 Calories")
 
         }
     }
 }
 
-@Preview
+
 @Composable
 fun HomeHeaderSection(modifier: Modifier = Modifier){
 
@@ -138,7 +129,7 @@ fun HomeHeaderSection(modifier: Modifier = Modifier){
     }
 }
 
-@Preview
+
 @Composable
 fun HeaderTitle(
     title:String = "Lets Eat Quality Food",
@@ -159,7 +150,8 @@ fun HeaderTitle(
 fun SearchFoodSection(modifier: Modifier = Modifier){
 
     Row (
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween){
 
@@ -175,13 +167,10 @@ fun SearchFoodSection(modifier: Modifier = Modifier){
 
             Icon(imageVector = Icons.Default.Search, contentDescription =null )
         }
-
-
-
     }
 }
 
-@Preview
+
 @Composable
 fun SearchFoodTextField(){
 
@@ -210,3 +199,62 @@ fun SearchFoodTextField(){
 
     }
 }
+
+
+@Composable
+fun FoodCategoryItem(modifier: Modifier = Modifier){
+
+    Row(modifier = modifier
+        .clip(RoundedCornerShape(12.dp))
+        .background(color = GoldenYellow)
+        .height(40.dp)
+        .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center) {
+        
+        Text(text = "Vegetable", textAlign = TextAlign.Center,
+            fontSize = 12.sp, fontWeight = FontWeight.Bold)
+
+    }
+
+}
+
+
+@Composable
+fun FoodCategoryLazyRow(){
+
+    val list = arrayListOf(
+        FoodCategoryItem(1,"Vegetable"),
+        FoodCategoryItem(2,"Fruit"),
+        FoodCategoryItem(3,"Meat"),
+        FoodCategoryItem(4,"Dairy"),
+        FoodCategoryItem(5,"Spices")
+        )
+
+
+    LazyRow(contentPadding = PaddingValues(16.dp)){
+        items(
+            list.size,
+            ){
+            FoodCategoryItem()
+            Spacer(modifier = Modifier.padding(12.dp))
+
+
+        }
+
+    }
+}
+
+@Composable
+fun RecommendedFoodItem(){
+
+
+}
+
+
+data class FoodCategoryItem(
+    val id:Int,
+    val name:String
+)
+
+
