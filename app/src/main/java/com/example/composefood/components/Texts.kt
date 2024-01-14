@@ -67,7 +67,8 @@ fun LargeHeightText(
         fontFamily = fontFamily,
         fontWeight = FontWeight.Bold,
         overflow = TextOverflow.Ellipsis,
-        fontSize = 20.sp
+        fontSize = 28.sp,
+        lineHeight = 36.sp
     )
 
 

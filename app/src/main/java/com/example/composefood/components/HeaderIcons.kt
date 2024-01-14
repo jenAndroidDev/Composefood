@@ -1,5 +1,6 @@
 package com.example.composefood.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,11 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefood.ui.theme.GoldenYellow
+import com.example.composefood.ui.theme.PaleGrey
 
 
 @Composable
@@ -27,8 +30,9 @@ fun HeaderIcon(
     ){
 
     Column(modifier = modifier
-        .clip(RoundedCornerShape(6.dp))
+        .clip(RoundedCornerShape(8.dp))
         .background(Color.White)
+        .shadow(6.dp, spotColor = Color.White, ambientColor = Color.Gray.copy(alpha = 0.2f))
         .size(50.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -50,8 +54,9 @@ fun ProfileIcon(modifier: Modifier){
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-        Icon(imageVector = Icons.Default.Person, contentDescription = null,
-            )
+//        Icon(imageVector = Icons.Default.Person, contentDescription = null,
+//            )
+
 
     }
 }
