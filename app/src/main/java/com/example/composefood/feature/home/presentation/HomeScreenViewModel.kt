@@ -1,16 +1,26 @@
 package com.example.composefood.feature.home.presentation
 
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-
+/*
+* Revamp this viewmodel w.r.to R J Jenin Joseph R J*/
 class HomeScreenViewModel:ViewModel() {
+
+    private val _uiState = MutableStateFlow(FilterFoodUiState())
+    val uiState = _uiState.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = FilterFoodUiState()
+    )
 
 
     val filterFoodsState:StateFlow<FilterFoodState> =
@@ -50,6 +60,10 @@ sealed interface FilterFoodState{
 
     object Loading:FilterFoodState
 }
+
+data class FilterFoodUiState(
+    val data:SnapshotStateList<FilterFoodCategory> = SnapshotStateList()
+)
 
 sealed interface RecommendedFoodState{
 

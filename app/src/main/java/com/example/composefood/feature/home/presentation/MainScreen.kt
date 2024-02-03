@@ -28,6 +28,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,6 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.composefood.R
 import com.example.composefood.components.CurrencyText
 import com.example.composefood.components.FoodDetailsText
@@ -49,6 +51,7 @@ import com.example.composefood.components.ProfileIcon
 import com.example.composefood.components.SubTitleText
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.GreyWhite
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 @Preview
@@ -237,7 +240,11 @@ fun FoodCategoryItem(modifier: Modifier = Modifier){
 
 
 @Composable
-fun FoodCategoryLazyRow(){
+fun FoodCategoryLazyRow(viewModel: HomeScreenViewModel = hiltViewModel()){
+
+    val uiState = viewModel.uiState.collectAsState()
+
+
 
     val list = arrayListOf(
         FoodCategoryItem(1,"Vegetable"),
