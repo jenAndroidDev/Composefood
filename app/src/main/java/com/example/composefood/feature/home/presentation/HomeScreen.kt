@@ -80,10 +80,8 @@ fun CustomBottomBar(navHostController: NavHostController){
                 navHostController = navHostController,
             )
         }
-
     }
 }
-
 @Deprecated("Not in use only for M3 bottom navigation")
 @Composable
 fun RowScope.AddItem(
@@ -91,7 +89,6 @@ fun RowScope.AddItem(
     currentDestination: NavDestination?,
     navHostController: NavHostController
 ){
-
     BottomNavigationItem(
         label = { Text(text = screen.title) },
         icon = { Icon(imageVector = screen.icon, contentDescription = "") },
@@ -135,20 +132,12 @@ fun RowScope.CustomBottomNavigationItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-
             Icon(imageVector = screen.icon, contentDescription = "")
             AnimatedVisibility(visible = isSelected ) {
-
                 Text(text = screen.title, color = contentColor,)
             }
-            
         }
     }
-
-
-
-
-
 }
 
 

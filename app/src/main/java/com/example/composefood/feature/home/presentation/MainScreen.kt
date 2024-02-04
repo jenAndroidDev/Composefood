@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -41,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefood.R
 import com.example.composefood.components.CurrencyText
 import com.example.composefood.components.FoodDetailsText
@@ -51,49 +50,32 @@ import com.example.composefood.components.ProfileIcon
 import com.example.composefood.components.SubTitleText
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.GreyWhite
-import dagger.hilt.android.lifecycle.HiltViewModel
-
 
 @Preview
 @Composable
 fun MainScreen(
     onClick:()->Unit = {},
-
-){
-
+    ){
     Surface(modifier = Modifier.fillMaxSize()) {
-
         Column (
             modifier = Modifier.padding(12.dp),
             horizontalAlignment = Alignment.Start,
-
             ){
-
             Spacer(modifier = Modifier.height(30.dp) )
-
             HomeHeaderSection()
-
             Spacer(modifier = Modifier.height(12.dp))
-
             HeaderTitle(title = "Lets Eat Quality Food")
-
             Spacer(modifier = Modifier.height(16.dp))
-
             SearchFoodSection()
-
             Spacer(modifier = Modifier.height(16.dp))
-
-            FoodCategoryLazyRow()
-
+            FoodCategoryList()
             RecommendedFoodsLazyRow()
         }
-
     }
 }
 
 @Composable
 fun FeedListItem(){
-
 
     Card(
         shape = RoundedCornerShape(12.dp),
@@ -125,8 +107,6 @@ fun FeedListItem(){
         }
     }
 }
-
-
 @Composable
 fun HomeHeaderSection(modifier: Modifier = Modifier){
 
@@ -141,9 +121,6 @@ fun HomeHeaderSection(modifier: Modifier = Modifier){
         }
 
         ProfileIcon(modifier = modifier)
-
-
-
     }
 }
 
@@ -215,13 +192,12 @@ fun SearchFoodTextField(){
 
             Text(text = "Search...")
         }
-
     }
 }
 
 
 @Composable
-fun FoodCategoryItem(modifier: Modifier = Modifier){
+fun FoodCategoryItem(modifier: Modifier = Modifier,data:FilterFoodCategory){
 
     Row(modifier = modifier
         .clip(RoundedCornerShape(12.dp))
@@ -231,20 +207,17 @@ fun FoodCategoryItem(modifier: Modifier = Modifier){
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center) {
         
-        Text(text = "Vegetable", textAlign = TextAlign.Center,
+        Text(text = data.title, textAlign = TextAlign.Center,
             fontSize = 12.sp, fontWeight = FontWeight.Bold)
-
     }
-
 }
 
 
 @Composable
-fun FoodCategoryLazyRow(viewModel: HomeScreenViewModel = hiltViewModel()){
+fun FoodCategoryList(viewModel: HomeScreenViewModel = hiltViewModel()){
 
-    val uiState = viewModel.uiState.collectAsState()
-
-
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val data = uiState.value.data
 
     val list = arrayListOf(
         FoodCategoryItem(1,"Vegetable"),
@@ -254,19 +227,17 @@ fun FoodCategoryLazyRow(viewModel: HomeScreenViewModel = hiltViewModel()){
         FoodCategoryItem(5,"Spices")
         )
 
-
     LazyRow(contentPadding = PaddingValues(16.dp)){
         items(
-            list.size,
+            data.size,
             ){
-            FoodCategoryItem()
+            FoodCategoryItem(data = data[it])
             Spacer(modifier = Modifier.padding(12.dp))
-
-
         }
-
     }
 }
+
+
 
 @Composable
 fun RecommendedFoodsLazyRow(){
@@ -302,7 +273,6 @@ fun RecommendedFoodItem(modifier: Modifier = Modifier){
             .clip(RoundedCornerShape(16.dp))
             .background(color = Color.White)
     ) {
-
 
         Image(
             painter = painterResource(id = R.drawable.image_sample),
