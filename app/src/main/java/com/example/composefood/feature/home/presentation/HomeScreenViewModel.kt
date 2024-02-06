@@ -60,11 +60,22 @@ class HomeScreenViewModel:ViewModel() {
 
         )
     }
+    fun toggleFilterSelection(id:Int){
+        val data = uiState.value.data.listIterator()
+        while (data.hasNext()){
+            val currentItem = data.next()
+            if (id==currentItem.id){
+                data.set(currentItem.copy(isSelected = !currentItem.isSelected))
+            }
+
+        }
+    }
 }
 sealed interface FilterFoodState{
     data class Success(val data:List<FilterFoodCategory>):FilterFoodState
     data object Loading:FilterFoodState
-}data class FilterFoodUiState(
+}
+data class FilterFoodUiState(
     val data:SnapshotStateList<FilterFoodCategory> = SnapshotStateList()
 )
 sealed interface RecommendedFoodState{
