@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -12,9 +13,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,7 +25,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -44,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefood.R
+import com.example.composefood.commons.CircleImage
 import com.example.composefood.commons.recomposeHighlighter
 import com.example.composefood.components.CurrencyText
 import com.example.composefood.components.FoodDetailsText
@@ -74,40 +81,6 @@ fun MainScreen(
             Spacer(modifier = Modifier.height(16.dp))
             FoodCategoryList()
             RecommendedFoodsLazyRow()
-        }
-    }
-}
-
-@Composable
-fun FeedListItem(){
-
-    Card(
-        shape = RoundedCornerShape(12.dp),
-        modifier = Modifier
-            .padding(12.dp)
-            .background(Color.White),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
-        ) {
-
-        Column(
-            modifier = Modifier
-                .size(250.dp)
-                .padding(top = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-            Image(
-                painter = painterResource(id = R.drawable.image_sample),
-                contentDescription = "",
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .size(100.dp))
-            MediumHeightText(text = "HamBurger")
-
-            SubTitleText(text = "Barbeque Chicken Burger")
-
-            FoodDetailsText(text="78 Calories")
-
         }
     }
 }
@@ -211,7 +184,7 @@ fun FilterFoods(modifier: Modifier = Modifier, data:FilterFoodCategory, onClick:
         .height(40.dp)
         .padding(12.dp)
         .clickable {
-                  onClick.invoke(data.id)
+            onClick.invoke(data.id)
         }
         ,
         verticalAlignment = Alignment.CenterVertically,
@@ -311,6 +284,38 @@ fun RecommendedFoodItem(modifier: Modifier = Modifier){
         CurrencyText()
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+fun CardWithOffsetImage(){
+    Box (modifier = Modifier
+        .fillMaxWidth()
+        .height(300.dp)
+        .padding(40.dp)
+        .background(shape = RoundedCornerShape(12.dp), color = Color.Gray),
+        ){
+        Image(
+            modifier = Modifier
+                .size(50.dp)
+                .align(alignment = Alignment.TopCenter)
+                .offset(y = (-30).dp, x = 50.dp),
+            painter = painterResource(id = R.drawable.flame_icon),
+            contentDescription = null,
+        )
+        CircleImage()
+        Column(verticalArrangement = Arrangement.Center) {
+            Text(text = "kdnkzdnckzmn")
+            Text(text = "")
+            Text(text = "")
+            Text(text = "")
+
+        }
+
+    }
+
+}
+
 
 
 data class FoodCategoryItem(
