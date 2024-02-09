@@ -3,12 +3,12 @@ package com.example.composefood.commons
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -25,13 +25,13 @@ fun CircleImage(
     modifier: Modifier = Modifier,
     image: Int = R.drawable.item_b,
     imageWidth:Dp = 70.dp,
-    imageHeight:Dp = 70.dp
+    imageHeight:Dp = 70.dp,
+    imageSize:Dp = 70.dp
     ) {
     Box(
         modifier = modifier
-            .height(imageWidth)
-            .width(imageHeight)
-            .background(Color.White, shape = RoundedCornerShape(200.dp)),
+            .size(50.dp)
+            .background(Color.Transparent),
     ) {
         Image(
             painter = painterResource(id = image),
@@ -39,7 +39,10 @@ fun CircleImage(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(70.dp)
+                .align(alignment = Alignment.TopCenter)
+                .offset(y= (-30).dp)
                 .clip(CircleShape)
+
         )
     }
 }

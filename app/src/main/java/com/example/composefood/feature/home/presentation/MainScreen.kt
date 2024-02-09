@@ -285,31 +285,31 @@ fun RecommendedFoodItem(modifier: Modifier = Modifier){
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Preview
 @Composable
 fun CardWithOffsetImage(){
     Box (modifier = Modifier
         .fillMaxWidth()
         .height(300.dp)
-        .padding(40.dp)
-        .background(shape = RoundedCornerShape(12.dp), color = Color.Gray),
+        .padding(60.dp)
+        .background(shape = RoundedCornerShape(12.dp), color = Color.White),
         ){
+        val imageSize = 100.dp
         Image(
+            painter = painterResource(id = R.drawable.item_b),
+            contentDescription = "image",
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(50.dp)
+                .size(100.dp)
                 .align(alignment = Alignment.TopCenter)
-                .offset(y = (-30).dp, x = 50.dp),
-            painter = painterResource(id = R.drawable.flame_icon),
-            contentDescription = null,
-        )
-        CircleImage()
-        Column(verticalArrangement = Arrangement.Center) {
-            Text(text = "kdnkzdnckzmn")
-            Text(text = "")
-            Text(text = "")
-            Text(text = "")
+                .offset(y = (-35).dp)
+                .clip(CircleShape)
 
+        )
+        Column(modifier = Modifier.padding(top = (imageSize),
+            start =imageSize )){
+            Text(text = "kjsdksajdk")
         }
 
     }
