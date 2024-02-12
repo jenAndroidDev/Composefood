@@ -25,10 +25,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -40,17 +37,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefood.R
-import com.example.composefood.commons.CircleImage
 import com.example.composefood.commons.recomposeHighlighter
 import com.example.composefood.components.CurrencyText
 import com.example.composefood.components.FoodDetailsText
@@ -236,6 +235,7 @@ fun RecommendedFoodsLazyRow(){
 
 }
 
+@Deprecated("Refer Offset Image View")
 @Preview
 @Composable
 fun RecommendedFoodItem(modifier: Modifier = Modifier){
@@ -288,29 +288,50 @@ fun RecommendedFoodItem(modifier: Modifier = Modifier){
 
 @Preview
 @Composable
-fun CardWithOffsetImage(){
-    Box (modifier = Modifier
+fun CardWithOffsetImage(
+    cardHeight: Dp = 300.dp,
+    cardWidth:Dp = 60.dp,
+    shape:Shape = RoundedCornerShape(12.dp),
+    imageSize:Dp = 100.dp,
+    offsetImage:Int = R.drawable.item_b,
+    contentDescription:String = "",
+    alignment: Alignment = Alignment.Center,
+    modifier: Modifier = Modifier
+    ){
+    Box (modifier = modifier
         .fillMaxWidth()
-        .height(300.dp)
-        .padding(60.dp)
-        .background(shape = RoundedCornerShape(12.dp), color = Color.White),
+        .wrapContentHeight()
+        .padding(cardWidth)
+        .background(shape = shape, color = Color.White),
         ){
-        val imageSize = 100.dp
         Image(
-            painter = painterResource(id = R.drawable.item_b),
+            painter = painterResource(id = offsetImage),
             contentDescription = "image",
             contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(100.dp)
+            modifier = modifier
+                .size(imageSize)
                 .align(alignment = Alignment.TopCenter)
-                .offset(y = (-35).dp)
+                .offset(y = (-30).dp)
                 .clip(CircleShape)
 
         )
-        Column(modifier = Modifier.padding(top = (imageSize),
-            start =imageSize )){
-            Text(text = "kjsdksajdk")
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center) {
+            Column(modifier = Modifier.padding(top = (imageSize-20.dp),
+                 ),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally){
+                MediumHeightText(text = "Italian Coffee")
+                Spacer(modifier =modifier.height(8.dp) )
+                SubTitleText(text = "Best Aroma Coffee")
+                Spacer(modifier =modifier.height(8.dp) )
+                FoodDetailsText()
+                Spacer(modifier =modifier.height(16.dp) )
+                CurrencyText()
+
+            }
         }
+
 
     }
 
