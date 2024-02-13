@@ -89,8 +89,8 @@ fun MainScreen(
             HeaderTitle(title = "Lets Eat Quality Food",modifier)
             Spacer(modifier = modifier.height(16.dp))
             SearchFoodSection(modifier)
-            Spacer(modifier = modifier.height(16.dp))
-            FoodCategoryList()
+            Spacer(modifier = modifier.height(4.dp))
+            FoodCategoryList(modifier = modifier)
 
         }
     }
@@ -202,7 +202,7 @@ fun FilterFoods(modifier: Modifier = Modifier, data:FilterFoodCategory, onClick:
     }
 }
 @Composable
-fun FoodCategoryList(viewModel: HomeScreenViewModel = hiltViewModel()){
+fun FoodCategoryList(viewModel: HomeScreenViewModel = hiltViewModel(),modifier: Modifier){
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val data = uiState.value.data
     val trendingFeed = uiState.value.trendingData
@@ -220,40 +220,37 @@ fun FoodCategoryList(viewModel: HomeScreenViewModel = hiltViewModel()){
                 Spacer(modifier = Modifier.padding(12.dp))
             }
         }
-        TrendingFeed(data = trendingFeed)
+        TrendingFeed(data = trendingFeed, modifier =modifier)
     }
 
 }
 
 @Composable
-fun TrendingFeed(data:SnapshotStateList<TrendingFoods>){
+fun TrendingFeed(data:SnapshotStateList<TrendingFoods>,modifier: Modifier){
     LazyRow(contentPadding = PaddingValues(2.dp)){
         items(
             data.size,
         ){
-            CardWithOffsetImage()
-            Spacer(modifier = Modifier.padding(12.dp))
+            CardWithOffsetImage(modifier)
+            Spacer(modifier = Modifier.padding(8.dp))
         }
     }
 }
+
 @Preview
 @Composable
 fun CardWithOffsetImage(
-    cardHeight: Dp = 300.dp,
+    modifier: Modifier = Modifier,
     cardWidth:Dp = 80.dp,
     shape:Shape = RoundedCornerShape(12.dp),
     imageSize:Dp = 100.dp,
     offsetImage:Int = R.drawable.item_b,
-    contentDescription:String = "",
-    alignment: Alignment = Alignment.Center,
-    modifier: Modifier = Modifier
     ){
     Box (modifier = modifier
         .width(150.dp)
         .wrapContentHeight()
-        .padding(top = cardWidth)
-        .background(shape = shape, color = Color.White,
-            )
+        .padding(top = 36.dp)
+        .background(shape = shape, color = Color.White)
         ){
         Image(
             painter = painterResource(id = offsetImage),
@@ -266,9 +263,9 @@ fun CardWithOffsetImage(
                 .clip(CircleShape)
 
         )
-        Row(modifier = Modifier.fillMaxWidth(),
+        Row(modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center) {
-            Column(modifier = Modifier.padding(top = (imageSize-20.dp),
+            Column(modifier = modifier.padding(top = (imageSize-20.dp),
                  ),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally){
