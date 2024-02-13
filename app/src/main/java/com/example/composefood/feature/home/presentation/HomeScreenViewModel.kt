@@ -4,6 +4,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.composefood.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /*
-* Revamp this viewmodel w.r.to R J Jenin Joseph R J*/
+* Revamp this viewmodel */
 
 private const val Tag = "HomeScreenViewModel"
 class HomeScreenViewModel:ViewModel() {
@@ -28,6 +29,7 @@ class HomeScreenViewModel:ViewModel() {
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = FilterFoodUiState()
     )
+
     init {
         getFilterFeedState()
     }
@@ -38,9 +40,14 @@ class HomeScreenViewModel:ViewModel() {
             tempList.addAll(
                 getFilterFoodList().toMutableStateList()
             )
+            val dataList = uiState.value.trendingData
+            dataList.addAll(
+                getTrendingFoodList().toMutableStateList()
+            )
             _uiState.update {
                 it.copy(
-                    data = tempList
+                    data = tempList,
+                    trendingData = dataList
                 )
             }
         }
@@ -67,8 +74,21 @@ class HomeScreenViewModel:ViewModel() {
             if (id==currentItem.id){
                 data.set(currentItem.copy(isSelected = !currentItem.isSelected))
             }
-
         }
+    }
+    private fun getTrendingFoodList(): ArrayList<TrendingFoods> {
+
+        return arrayListOf(
+            TrendingFoods(1, R.drawable.item_b,"Italian Coffee",
+                "Natural Aromatic Coffee","200","20"),
+            TrendingFoods(2, R.drawable.item_b,"Italian Coffee",
+                "Natural Aromatic Coffee","200","20"),
+            TrendingFoods(3, R.drawable.item_b,"Italian Coffee",
+                "Natural Aromatic Coffee","200","20"),
+            TrendingFoods(4, R.drawable.item_b,"Italian Coffee",
+                "Natural Aromatic Coffee","200","20")
+
+        )
     }
 }
 sealed interface FilterFoodState{
@@ -76,7 +96,8 @@ sealed interface FilterFoodState{
     data object Loading:FilterFoodState
 }
 data class FilterFoodUiState(
-    val data:SnapshotStateList<FilterFoodCategory> = SnapshotStateList()
+    val data:SnapshotStateList<FilterFoodCategory> = SnapshotStateList(),
+    val trendingData:SnapshotStateList<TrendingFoods> = SnapshotStateList()
 )
 sealed interface RecommendedFoodState{
     data class Success(val data:List<RecommendedFoods>):RecommendedFoodState
@@ -94,4 +115,12 @@ data class RecommendedFoods(
     val price:String,
     val calories:String,
     val description:String
+)
+data class TrendingFoods(
+    val id:Int,
+    val image:Int,
+    val foodName:String,
+    val foodDescription:String,
+    val calories:String,
+    val price: String
 )

@@ -33,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -58,15 +59,23 @@ import com.example.composefood.components.LargeHeightText
 import com.example.composefood.components.MediumHeightText
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.components.SubTitleText
+import com.example.composefood.ui.theme.CementGrey
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.GreyWhite
+import com.example.composefood.ui.theme.PurpleGrey40
+
+/*
+* 1.Scroll the Entire Screen With Collapsing Mode
+* 2.Get the Feed List From ViewModel*/
 
 @Preview
 @Composable
 fun MainScreen(
     onClick:()->Unit = {},
     ){
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(modifier = Modifier.fillMaxSize()
+        .background(color = CementGrey),
+        ) {
         Column (
             modifier = Modifier.padding(12.dp),
             horizontalAlignment = Alignment.Start,
@@ -79,7 +88,7 @@ fun MainScreen(
             SearchFoodSection()
             Spacer(modifier = Modifier.height(16.dp))
             FoodCategoryList()
-            RecommendedFoodsLazyRow()
+
         }
     }
 }
@@ -95,7 +104,6 @@ fun HomeHeaderSection(modifier: Modifier = Modifier){
         Card(elevation = CardDefaults.elevatedCardElevation()) {
             HeaderIcon(icon = Icons.Default.Menu)
         }
-
         ProfileIcon(modifier = modifier)
     }
 }
@@ -106,7 +114,6 @@ fun HeaderTitle(
     title:String = "Let's Eat \n " +
             "Quality Food 😀 ",
     ){
-
     Column(
         modifier = Modifier
             .fillMaxWidth(0.5f)
@@ -145,7 +152,6 @@ fun SearchFoodSection(modifier: Modifier = Modifier){
 
 @Composable
 fun SearchFoodTextField(){
-
     Column (
         modifier = Modifier
             .fillMaxWidth(0.8f)
@@ -188,109 +194,50 @@ fun FilterFoods(modifier: Modifier = Modifier, data:FilterFoodCategory, onClick:
         ,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center) {
-        
         Text(text = data.title, textAlign = TextAlign.Center,
             fontSize = 12.sp, fontWeight = FontWeight.Bold)
     }
 }
-
-
 @Composable
 fun FoodCategoryList(viewModel: HomeScreenViewModel = hiltViewModel()){
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val data = uiState.value.data
+    val trendingFeed = uiState.value.trendingData
     val onClick = remember {
         { index: Int ->
             viewModel.toggleFilterSelection(index)
         }
     }
-    LazyRow(contentPadding = PaddingValues(16.dp)){
+    Column {
+        LazyRow(contentPadding = PaddingValues(16.dp)){
+            items(
+                data.size,
+            ){
+                FilterFoods(data = data[it], onClick = onClick, modifier = Modifier.recomposeHighlighter())
+                Spacer(modifier = Modifier.padding(12.dp))
+            }
+        }
+        TrendingFeed(data = trendingFeed)
+    }
+
+}
+
+@Composable
+fun TrendingFeed(data:SnapshotStateList<TrendingFoods>){
+    LazyRow(contentPadding = PaddingValues(2.dp)){
         items(
             data.size,
-            ){
-            FilterFoods(data = data[it], onClick = onClick, modifier = Modifier.recomposeHighlighter())
+        ){
+            CardWithOffsetImage()
             Spacer(modifier = Modifier.padding(12.dp))
         }
     }
 }
-@Composable
-fun RecommendedFoodsLazyRow(){
-
-    val list = arrayListOf(
-        FoodCategoryItem(1,"Vegetable"),
-        FoodCategoryItem(2,"Fruit"),
-        FoodCategoryItem(3,"Meat"),
-        FoodCategoryItem(4,"Dairy"),
-        FoodCategoryItem(5,"Spices")
-    )
-
-   LazyRow(contentPadding = PaddingValues(16.dp)){
-
-       items(list.size){
-           RecommendedFoodItem()
-           Spacer(modifier = Modifier.padding(12.dp))
-
-       }
-   }
-
-}
-
-@Deprecated("Refer Offset Image View")
-@Preview
-@Composable
-fun RecommendedFoodItem(modifier: Modifier = Modifier){
-
-    Column(verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .width(200.dp)
-            .padding(16.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .background(color = Color.White)
-    ) {
-
-        Image(
-            painter = painterResource(id = R.drawable.image_sample),
-            contentDescription =null,
-            modifier = modifier
-                .clip(CircleShape)
-                .size(100.dp),
-            contentScale = ContentScale.Crop
-
-            )
-
-        Spacer(modifier = modifier.height(12.dp))
-
-        MediumHeightText()
-
-        Spacer(modifier = modifier.height(12.dp))
-
-        SubTitleText()
-
-        Spacer(modifier = modifier.height(12.dp))
-
-        Row (modifier = modifier,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically){
-
-            Image(painter = painterResource(id = R.drawable.flame_icon),
-                contentDescription = null, modifier = modifier.size(18.dp))
-
-            FoodDetailsText(text = "78 Calories")
-        }
-
-        Spacer(modifier = modifier.height(12.dp))
-
-        CurrencyText()
-    }
-}
-
-
 @Preview
 @Composable
 fun CardWithOffsetImage(
     cardHeight: Dp = 300.dp,
-    cardWidth:Dp = 60.dp,
+    cardWidth:Dp = 80.dp,
     shape:Shape = RoundedCornerShape(12.dp),
     imageSize:Dp = 100.dp,
     offsetImage:Int = R.drawable.item_b,
@@ -299,10 +246,10 @@ fun CardWithOffsetImage(
     modifier: Modifier = Modifier
     ){
     Box (modifier = modifier
-        .fillMaxWidth()
+        .width(150.dp)
         .wrapContentHeight()
-        .padding(cardWidth)
-        .background(shape = shape, color = Color.White),
+        .padding(top = cardWidth)
+        .background(shape = shape, color = CementGrey),
         ){
         Image(
             painter = painterResource(id = offsetImage),
@@ -311,7 +258,7 @@ fun CardWithOffsetImage(
             modifier = modifier
                 .size(imageSize)
                 .align(alignment = Alignment.TopCenter)
-                .offset(y = (-30).dp)
+                .offset(y = (-25).dp)
                 .clip(CircleShape)
 
         )
@@ -328,20 +275,10 @@ fun CardWithOffsetImage(
                 FoodDetailsText()
                 Spacer(modifier =modifier.height(16.dp) )
                 CurrencyText()
-
             }
         }
-
-
     }
-
 }
 
-
-
-data class FoodCategoryItem(
-    val id:Int,
-    val name:String
-)
 
 
