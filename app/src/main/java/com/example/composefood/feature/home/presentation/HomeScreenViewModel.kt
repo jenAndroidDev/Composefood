@@ -54,6 +54,7 @@ class HomeScreenViewModel:ViewModel() {
     }
     private fun getFilterFoodList(): ArrayList<FilterFoodCategory> {
         return arrayListOf(
+            FilterFoodCategory(11,"All", 2,isSelected = true),
             FilterFoodCategory(1,"vegetable",1,false),
             FilterFoodCategory(2,"Meat",3,false),
             FilterFoodCategory(3,"Dairy",4,false),

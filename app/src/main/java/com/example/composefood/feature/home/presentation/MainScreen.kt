@@ -37,6 +37,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
@@ -63,6 +64,7 @@ import com.example.composefood.ui.theme.CementGrey
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.GreyWhite
 import com.example.composefood.ui.theme.PurpleGrey40
+import com.example.composefood.ui.theme.WhiteGrey
 
 /*
 * 1.Scroll the Entire Screen With Collapsing Mode
@@ -71,30 +73,30 @@ import com.example.composefood.ui.theme.PurpleGrey40
 @Preview
 @Composable
 fun MainScreen(
+    modifier: Modifier = Modifier,
     onClick:()->Unit = {},
     ){
-    Surface(modifier = Modifier.fillMaxSize()
-        .background(color = CementGrey),
+    Surface(modifier = modifier.fillMaxSize()
+        .background(color = WhiteGrey),
         ) {
         Column (
-            modifier = Modifier.padding(12.dp),
+            modifier = modifier.padding(12.dp),
             horizontalAlignment = Alignment.Start,
             ){
-            Spacer(modifier = Modifier.height(30.dp) )
-            HomeHeaderSection()
-            Spacer(modifier = Modifier.height(12.dp))
-            HeaderTitle(title = "Lets Eat Quality Food")
-            Spacer(modifier = Modifier.height(16.dp))
-            SearchFoodSection()
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(30.dp) )
+            HomeHeaderSection(modifier)
+            Spacer(modifier = modifier.height(12.dp))
+            HeaderTitle(title = "Lets Eat Quality Food",modifier)
+            Spacer(modifier = modifier.height(16.dp))
+            SearchFoodSection(modifier)
+            Spacer(modifier = modifier.height(16.dp))
             FoodCategoryList()
 
         }
     }
 }
 @Composable
-fun HomeHeaderSection(modifier: Modifier = Modifier){
-
+fun HomeHeaderSection(modifier: Modifier){
     Row(modifier = modifier
         .fillMaxWidth()
         .padding(start = 12.dp, end = 12.dp),
@@ -113,9 +115,10 @@ fun HomeHeaderSection(modifier: Modifier = Modifier){
 fun HeaderTitle(
     title:String = "Let's Eat \n " +
             "Quality Food 😀 ",
+    modifier: Modifier
     ){
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(0.5f)
             .padding(start = 18.dp),
         horizontalAlignment = Alignment.Start,
@@ -126,7 +129,7 @@ fun HeaderTitle(
 }
 
 @Composable
-fun SearchFoodSection(modifier: Modifier = Modifier){
+fun SearchFoodSection(modifier: Modifier){
 
     Row (
         modifier = modifier
@@ -249,7 +252,8 @@ fun CardWithOffsetImage(
         .width(150.dp)
         .wrapContentHeight()
         .padding(top = cardWidth)
-        .background(shape = shape, color = CementGrey),
+        .background(shape = shape, color = Color.White,
+            )
         ){
         Image(
             painter = painterResource(id = offsetImage),
@@ -269,7 +273,7 @@ fun CardWithOffsetImage(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally){
                 MediumHeightText(text = "Italian Coffee")
-                Spacer(modifier =modifier.height(8.dp) )
+                Spacer(modifier =modifier.height(12.dp) )
                 SubTitleText(text = "Best Aroma Coffee")
                 Spacer(modifier =modifier.height(8.dp) )
                 FoodDetailsText()
