@@ -37,11 +37,9 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -60,15 +58,14 @@ import com.example.composefood.components.LargeHeightText
 import com.example.composefood.components.MediumHeightText
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.components.SubTitleText
-import com.example.composefood.ui.theme.CementGrey
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.GreyWhite
-import com.example.composefood.ui.theme.PurpleGrey40
-import com.example.composefood.ui.theme.WhiteGrey
 
 /*
 * 1.Scroll the Entire Screen With Collapsing Mode
-* 2.Get the Feed List From ViewModel*/
+* 2.Bottom Navigation Font Style
+* 3.
+* */
 
 @Preview
 @Composable
@@ -76,16 +73,18 @@ fun MainScreen(
     modifier: Modifier = Modifier,
     onClick:()->Unit = {},
     ){
-    Surface(modifier = modifier.fillMaxSize()
-        .background(color = WhiteGrey),
+    Surface(modifier = modifier
+        .fillMaxSize()
+        .background(color = Color.Black),
         ) {
         Column (
-            modifier = modifier.padding(12.dp),
+            modifier = modifier
+                .background(color = GoldenYellow.copy(alpha = 0.1f)),
             horizontalAlignment = Alignment.Start,
             ){
             Spacer(modifier = modifier.height(30.dp) )
             HomeHeaderSection(modifier)
-            Spacer(modifier = modifier.height(12.dp))
+            Spacer(modifier = modifier.height(8.dp))
             HeaderTitle(title = "Lets Eat Quality Food",modifier)
             Spacer(modifier = modifier.height(16.dp))
             SearchFoodSection(modifier)
@@ -146,7 +145,6 @@ fun SearchFoodSection(modifier: Modifier){
                 .clip(RoundedCornerShape(6.dp))
                 .background(color = GoldenYellow)
                 .size(50.dp)) {
-
             Icon(imageVector = Icons.Default.Search, contentDescription =null )
         }
     }
@@ -222,7 +220,6 @@ fun FoodCategoryList(viewModel: HomeScreenViewModel = hiltViewModel(),modifier: 
         }
         TrendingFeed(data = trendingFeed, modifier =modifier)
     }
-
 }
 
 @Composable
@@ -231,6 +228,7 @@ fun TrendingFeed(data:SnapshotStateList<TrendingFoods>,modifier: Modifier){
         items(
             data.size,
         ){
+            Spacer(modifier = Modifier.padding(4.dp))
             CardWithOffsetImage(modifier)
             Spacer(modifier = Modifier.padding(8.dp))
         }
@@ -244,7 +242,7 @@ fun CardWithOffsetImage(
     cardWidth:Dp = 80.dp,
     shape:Shape = RoundedCornerShape(12.dp),
     imageSize:Dp = 100.dp,
-    offsetImage:Int = R.drawable.item_b,
+    offsetImage:Int = R.drawable.sample_circle3,
     ){
     Box (modifier = modifier
         .width(150.dp)
@@ -262,6 +260,7 @@ fun CardWithOffsetImage(
                 .offset(y = (-25).dp)
                 .clip(CircleShape)
 
+
         )
         Row(modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center) {
@@ -270,14 +269,32 @@ fun CardWithOffsetImage(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally){
                 MediumHeightText(text = "Italian Coffee")
-                Spacer(modifier =modifier.height(12.dp) )
+                Spacer(modifier =modifier.height(4.dp) )
                 SubTitleText(text = "Best Aroma Coffee")
                 Spacer(modifier =modifier.height(8.dp) )
-                FoodDetailsText()
-                Spacer(modifier =modifier.height(16.dp) )
-                CurrencyText()
+                CaloriesDetails(modifier = modifier)
+                Spacer(modifier =modifier.height(4.dp) )
+                PriceDetails(modifier)
             }
         }
+    }
+}
+
+@Composable
+fun CaloriesDetails(modifier:Modifier){
+    Row (verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start){
+        Image(painter = painterResource(id = R.drawable.flame_icon), contentDescription = null,
+            modifier = modifier.size(18.dp))
+        Spacer(modifier = modifier.width(2.dp))
+        FoodDetailsText()
+    }
+}
+@Composable
+fun PriceDetails(modifier: Modifier){
+    Row (verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start){
+        CurrencyText(modifier = modifier)
     }
 }
 

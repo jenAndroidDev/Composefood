@@ -30,12 +30,12 @@ import com.example.composefood.ui.theme.PaleGrey
 @Composable
 fun MediumHeightText(
     color: Color = InkBlack,
-    text:String = "Sample Text",
+    text:String = "Sample Text1",
     fontFamily:FontFamily = FontFamily(
-        Font(R.font.roboto_black, FontWeight.Normal),
-        Font(R.font.roboto_light, FontWeight.Light),
-        Font(R.font.roboto_medium, FontWeight.Medium),
-        Font(R.font.roboto_bold, FontWeight.Bold)
+        Font(R.font.gilroy_regular, FontWeight.Normal),
+        Font(R.font.gilroy_thin, FontWeight.Light),
+        Font(R.font.gilroy_medium, FontWeight.Medium),
+        Font(R.font.gilroy_semibold, FontWeight.SemiBold)
 
     )
 
@@ -48,8 +48,6 @@ fun MediumHeightText(
         overflow = TextOverflow.Ellipsis,
         fontSize = 16.sp
         )
-
-
 }
 
 @Preview
@@ -58,10 +56,10 @@ fun LargeHeightText(
     color: Color = InkBlack,
     text:String = "Sample Text",
     fontFamily: androidx.compose.ui.text.font.FontFamily = FontFamily(
-        Font(R.font.roboto_black, FontWeight.Normal),
-        Font(R.font.roboto_light, FontWeight.Light),
-        Font(R.font.roboto_medium, FontWeight.Medium),
-        Font(R.font.roboto_bold, FontWeight.Bold)
+        Font(R.font.gilroy_regular, FontWeight.Normal),
+        Font(R.font.gilroy_thin, FontWeight.Light),
+        Font(R.font.gilroy_medium, FontWeight.Medium),
+        Font(R.font.gilroy_semibold, FontWeight.SemiBold)
 
     )
 
@@ -74,7 +72,7 @@ fun LargeHeightText(
         overflow = TextOverflow.Ellipsis,
         fontSize = 28.sp,
         lineHeight = 36.sp,
-        maxLines = 1
+        maxLines = 2
     )
 
 
@@ -84,9 +82,13 @@ fun LargeHeightText(
 @Composable
 fun SubTitleText(
     color: Color = PaleGrey,
-    text: String = "Eat Delicious Pizza"
-
-    ){
+    text: String = "Eat Delicious Pizza",
+    fontFamily:FontFamily = FontFamily(
+        Font(R.font.gilroy_regular, FontWeight.Normal),
+        Font(R.font.gilroy_thin, FontWeight.Light),
+        Font(R.font.gilroy_medium, FontWeight.Medium),
+        Font(R.font.gilroy_semibold, FontWeight.SemiBold)
+    )){
     Text(
         text = text,
         color = color,
@@ -100,10 +102,24 @@ fun SubTitleText(
 @Composable
 fun FoodDetailsText(
     color: Color = OrangeRed,
-    text: String = "78 Calories"
+    text: String = "78 Calories",
+    fontFamily: androidx.compose.ui.text.font.FontFamily = FontFamily(
+        Font(R.font.gilroy_regular, FontWeight.Normal),
+        Font(R.font.gilroy_thin, FontWeight.Light),
+        Font(R.font.gilroy_medium, FontWeight.Medium),
+        Font(R.font.gilroy_semibold, FontWeight.SemiBold)
+
+    )
+
 
 ){
-    Text(text = text, color = color, fontSize = 12.sp)
+    Text(
+        text = text,
+        color = color,
+        fontSize = 12.sp,
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.SemiBold
+        )
 }
 
 @Preview
@@ -113,29 +129,26 @@ fun CurrencyText(
     symbolValue:String="$",
     priceColor:Color = InkBlack,
     price: Float = 9.80f,
-    modifier: Modifier = Modifier
+    modifier: Modifier,
+    fontFamily: FontFamily = FontFamily(
+        Font(R.font.gilroy_regular, FontWeight.Normal),
+        Font(R.font.gilroy_thin, FontWeight.Light),
+        Font(R.font.gilroy_medium, FontWeight.Medium),
+        Font(R.font.gilroy_semibold, FontWeight.SemiBold)
+
+    )
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
-        Text(text = symbolValue, color = currencySymbolColor)
-        Spacer(modifier = modifier.width(8.dp))
-        Text(text = price.toString(), color = priceColor,
-            fontSize = 24.sp)
+        Text(text = symbolValue, color = currencySymbolColor,
+            fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium)
+        Spacer(modifier = modifier.width(4.dp))
+        Text(text = price.toString(),
+            color = priceColor,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.SemiBold)
     }
 }
-
-
-
-
-
-
-@RequiresApi(Build.VERSION_CODES.Q)
-val fontFamily = FontFamily(
-    Font(R.font.roboto_black, FontWeight.Normal),
-    Font(R.font.roboto_light, FontWeight.Light),
-    Font(R.font.roboto_medium, FontWeight.Medium),
-    Font(R.font.roboto_bold, FontWeight.Bold)
-
-)

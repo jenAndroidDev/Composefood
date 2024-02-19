@@ -32,6 +32,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.composefood.components.MediumHeightText
 import com.example.composefood.navigation.BottomBarScreen
 import com.example.composefood.navigation.navgraphs.HomeScreenNavGraph
 import timber.log.Timber
@@ -46,7 +47,6 @@ fun HomeScreen(navHostController: NavHostController = rememberNavController()){
     ) {it->
         HomeScreenNavGraph(navHostController)
         Timber.tag(Tag).d("homeScreen...$it")
-
     }
 }
 
@@ -90,7 +90,7 @@ fun RowScope.AddItem(
     navHostController: NavHostController
 ){
     BottomNavigationItem(
-        label = { Text(text = screen.title) },
+        label = { MediumHeightText(text = screen.title) },
         icon = { Icon(imageVector = screen.icon, contentDescription = "") },
         selected = currentDestination?.hierarchy?.any { it.route==screen.route }!!,
         unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
@@ -121,7 +121,7 @@ fun RowScope.CustomBottomNavigationItem(
             .clip(CircleShape)
             .background(backgroundColor)
             .clickable {
-                navHostController.navigate(screen.route){
+                navHostController.navigate(screen.route) {
                     popUpTo(navHostController.graph.findStartDestination().id)
                     launchSingleTop = true
                 }
