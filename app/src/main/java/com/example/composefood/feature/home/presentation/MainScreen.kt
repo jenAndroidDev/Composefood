@@ -1,6 +1,7 @@
 package com.example.composefood.feature.home.presentation
 
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,6 +20,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -30,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -60,13 +64,14 @@ import com.example.composefood.components.ProfileIcon
 import com.example.composefood.components.SubTitleText
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.GreyWhite
+import timber.log.Timber
 
 /*
 * 1.Scroll the Entire Screen With Collapsing Mode
 * 2.Bottom Navigation Font Style
 * 3.
 * */
-
+private const val Tag = "MainScreen"
 @Preview
 @Composable
 fun MainScreen(
@@ -84,13 +89,12 @@ fun MainScreen(
             ){
             Spacer(modifier = modifier.height(30.dp) )
             HomeHeaderSection(modifier)
-            Spacer(modifier = modifier.height(8.dp))
-            HeaderTitle(title = "Lets Eat Quality Food",modifier)
             Spacer(modifier = modifier.height(16.dp))
+            HeaderTitle(title = "Lets Eat Quality Food 😋",modifier)
+            Spacer(modifier = modifier.height(24.dp))
             SearchFoodSection(modifier)
-            Spacer(modifier = modifier.height(4.dp))
+            Spacer(modifier = modifier.height(16.dp))
             FoodCategoryList(modifier = modifier)
-
         }
     }
 }
@@ -98,10 +102,9 @@ fun MainScreen(
 fun HomeHeaderSection(modifier: Modifier){
     Row(modifier = modifier
         .fillMaxWidth()
-        .padding(start = 12.dp, end = 12.dp),
+        .padding(start = 16.dp, end = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically) {
-
         Card(elevation = CardDefaults.elevatedCardElevation()) {
             HeaderIcon(icon = Icons.Default.Menu)
         }
@@ -133,11 +136,9 @@ fun SearchFoodSection(modifier: Modifier){
     Row (
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp),
+            .padding(start = 24.dp, end = 24.dp),
         horizontalArrangement = Arrangement.SpaceBetween){
-
         SearchFoodTextField()
-
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -224,25 +225,31 @@ fun FoodCategoryList(viewModel: HomeScreenViewModel = hiltViewModel(),modifier: 
 
 @Composable
 fun TrendingFeed(data:SnapshotStateList<TrendingFoods>,modifier: Modifier){
-    LazyRow(contentPadding = PaddingValues(2.dp)){
+    val lazyListState = rememberLazyListState()
+    LazyRow(contentPadding = PaddingValues(2.dp), state = lazyListState){
         items(
             data.size,
         ){
+            val scale by remember {
+                derivedStateOf {
+                    lazyListState.firstVisibleItemIndex
+                }
+            }
+            Timber.tag(Tag).d("visibleItemPosition....$scale")
             Spacer(modifier = Modifier.padding(4.dp))
-            CardWithOffsetImage(modifier)
+            CardWithOffsetImage(modifier, offsetImage = data[it].image)
             Spacer(modifier = Modifier.padding(8.dp))
         }
     }
 }
 
-@Preview
 @Composable
 fun CardWithOffsetImage(
     modifier: Modifier = Modifier,
     cardWidth:Dp = 80.dp,
     shape:Shape = RoundedCornerShape(12.dp),
     imageSize:Dp = 100.dp,
-    offsetImage:Int = R.drawable.sample_circle3,
+    offsetImage:Int,
     ){
     Box (modifier = modifier
         .width(150.dp)
@@ -250,18 +257,19 @@ fun CardWithOffsetImage(
         .padding(top = 36.dp)
         .background(shape = shape, color = Color.White)
         ){
-        Image(
-            painter = painterResource(id = offsetImage),
-            contentDescription = "image",
-            contentScale = ContentScale.Crop,
-            modifier = modifier
-                .size(imageSize)
-                .align(alignment = Alignment.TopCenter)
-                .offset(y = (-25).dp)
-                .clip(CircleShape)
+        AnimatedVisibility(visible = true) {
+            Image(
+                painter = painterResource(id = offsetImage),
+                contentDescription = "image",
+                contentScale = ContentScale.Crop,
+                modifier = modifier
+                    .size(imageSize)
+                    .align(alignment = Alignment.TopCenter)
+                    .offset(y = (-25).dp)
+                    .clip(CircleShape)
+            )
+        }
 
-
-        )
         Row(modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center) {
             Column(modifier = modifier.padding(top = (imageSize-20.dp),
@@ -275,6 +283,7 @@ fun CardWithOffsetImage(
                 CaloriesDetails(modifier = modifier)
                 Spacer(modifier =modifier.height(4.dp) )
                 PriceDetails(modifier)
+                Spacer(modifier = Modifier.height(12.dp))
             }
         }
     }

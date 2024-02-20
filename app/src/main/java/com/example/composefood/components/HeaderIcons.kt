@@ -65,10 +65,7 @@ fun ProfileIcon(modifier: Modifier){
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-//        Icon(imageVector = Icons.Default.Person, contentDescription = null,
-//            )
-
-
+        Image(imageVector = Icons.Default.Person, contentDescription = null)
     }
 }
 

@@ -46,7 +46,8 @@ fun MediumHeightText(
         fontFamily = fontFamily,
         fontWeight = FontWeight.Bold,
         overflow = TextOverflow.Ellipsis,
-        fontSize = 16.sp
+        fontSize = 16.sp,
+        maxLines = 2
         )
 }
 

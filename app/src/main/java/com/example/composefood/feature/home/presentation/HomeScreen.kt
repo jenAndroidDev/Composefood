@@ -35,6 +35,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.composefood.components.MediumHeightText
 import com.example.composefood.navigation.BottomBarScreen
 import com.example.composefood.navigation.navgraphs.HomeScreenNavGraph
+import com.example.composefood.ui.theme.GoldenYellow
 import timber.log.Timber
 
 
@@ -59,11 +60,8 @@ fun CustomBottomBar(navHostController: NavHostController){
         BottomBarScreen.FOODERSHUB,
         BottomBarScreen.FAVOURITES,
     )
-
     val navBackStackEntry by navHostController.currentBackStackEntryAsState()
-
     val currentDestination = navBackStackEntry?.destination
-
     val bottomBarDestination = screens.any { it.route==currentDestination?.route }
     
     Row (modifier = Modifier
@@ -111,9 +109,7 @@ fun RowScope.CustomBottomNavigationItem(
 
     val isSelected = currentDestination?.hierarchy?.any { it.route==screen.route }
         ?:false
-
-    val backgroundColor = if (isSelected) MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)else Color.Transparent
-
+    val backgroundColor = if (isSelected) GoldenYellow.copy(alpha = 0.3f)else Color.Transparent
     val contentColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground
 
     Box(
