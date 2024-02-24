@@ -82,19 +82,19 @@ class HomeScreenViewModel:ViewModel() {
         return arrayListOf(
             TrendingFoods(1, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(2, R.drawable.sample_circle,"Italian Coffee",
+            TrendingFoods(2, R.drawable.sample_circle3,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
             TrendingFoods(3, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
             TrendingFoods(4, R.drawable.sample_circle3,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(4, R.drawable.sample_circle,"Italian Coffee",
+            TrendingFoods(4, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
             TrendingFoods(4, R.drawable.sample_circle3,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
             TrendingFoods(4, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(4, R.drawable.sample_circle,"Italian Coffee",
+            TrendingFoods(4, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20")
 
         )

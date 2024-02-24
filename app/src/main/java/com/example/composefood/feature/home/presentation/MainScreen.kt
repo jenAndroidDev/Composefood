@@ -2,6 +2,17 @@ package com.example.composefood.feature.home.presentation
 
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideIn
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOut
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,8 +46,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,11 +57,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -251,42 +266,41 @@ fun CardWithOffsetImage(
     imageSize:Dp = 100.dp,
     offsetImage:Int,
     ){
+
     Box (modifier = modifier
-        .width(150.dp)
-        .wrapContentHeight()
-        .padding(top = 36.dp)
-        .background(shape = shape, color = Color.White)
+            .width(150.dp)
+            .wrapContentHeight()
+            .padding(top = 36.dp)
+            .background(shape = shape, color = Color.White)
         ){
-        AnimatedVisibility(visible = true) {
             Image(
                 painter = painterResource(id = offsetImage),
                 contentDescription = "image",
                 contentScale = ContentScale.Crop,
                 modifier = modifier
-                    .size(imageSize)
+                    .size(100.dp)
                     .align(alignment = Alignment.TopCenter)
                     .offset(y = (-25).dp)
                     .clip(CircleShape)
             )
-        }
 
-        Row(modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center) {
-            Column(modifier = modifier.padding(top = (imageSize-20.dp),
-                 ),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally){
-                MediumHeightText(text = "Italian Coffee")
-                Spacer(modifier =modifier.height(4.dp) )
-                SubTitleText(text = "Best Aroma Coffee")
-                Spacer(modifier =modifier.height(8.dp) )
-                CaloriesDetails(modifier = modifier)
-                Spacer(modifier =modifier.height(4.dp) )
-                PriceDetails(modifier)
-                Spacer(modifier = Modifier.height(12.dp))
+            Row(modifier = modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center) {
+                Column(modifier = modifier.padding(top = (imageSize-20.dp),
+                ),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally){
+                    MediumHeightText(text = "Italian Coffee")
+                    Spacer(modifier =modifier.height(4.dp) )
+                    SubTitleText(text = "Best Aroma Coffee")
+                    Spacer(modifier =modifier.height(8.dp) )
+                    CaloriesDetails(modifier = modifier)
+                    Spacer(modifier =modifier.height(4.dp) )
+                    PriceDetails(modifier)
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
             }
         }
-    }
 }
 
 @Composable

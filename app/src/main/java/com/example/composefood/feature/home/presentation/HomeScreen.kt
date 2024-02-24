@@ -36,6 +36,7 @@ import com.example.composefood.components.MediumHeightText
 import com.example.composefood.navigation.BottomBarScreen
 import com.example.composefood.navigation.navgraphs.HomeScreenNavGraph
 import com.example.composefood.ui.theme.GoldenYellow
+import com.example.composefood.ui.theme.InkBlack
 import timber.log.Timber
 
 
@@ -110,7 +111,7 @@ fun RowScope.CustomBottomNavigationItem(
     val isSelected = currentDestination?.hierarchy?.any { it.route==screen.route }
         ?:false
     val backgroundColor = if (isSelected) GoldenYellow.copy(alpha = 0.3f)else Color.Transparent
-    val contentColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground
+    val contentColor = if (isSelected) InkBlack else MaterialTheme.colorScheme.onBackground
 
     Box(
         modifier = Modifier
