@@ -94,8 +94,7 @@ fun MainScreen(
     onClick:()->Unit = {},
     ){
     Surface(modifier = modifier
-        .fillMaxSize()
-        .background(color = Color.Black),
+        .fillMaxSize(),
         ) {
         Column (
             modifier = modifier
