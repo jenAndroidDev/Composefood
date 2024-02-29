@@ -40,7 +40,9 @@ fun HomeScreenNavGraph(navHostController: NavHostController){
             }
         }
         composable(route = BottomBarScreen.PREMIUM.route){
-            PremiumScreen()
+            PremiumScreen(){
+
+            }
         }
         composable(route = BottomBarScreen.FOODERSHUB.route){
             FoodersHubScreen()

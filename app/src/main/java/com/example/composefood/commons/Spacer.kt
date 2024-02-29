@@ -10,3 +10,8 @@ import androidx.compose.ui.unit.dp
 fun SpacerVertical16Dp(modifier: Modifier){
     Spacer(modifier = modifier.height(16.dp))
 }
+
+@Composable
+fun HeaderSpacing(modifier: Modifier){
+    Spacer(modifier = modifier.height(30.dp))
+}
