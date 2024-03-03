@@ -39,6 +39,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
@@ -244,8 +245,8 @@ fun TrendingFeed(data:SnapshotStateList<TrendingFoods>,modifier: Modifier){
 fun CardWithOffsetImage(
     modifier: Modifier = Modifier,
     cardWidth:Dp = 80.dp,
-    shape:Shape = RoundedCornerShape(12.dp),
-    imageSize:Dp = 100.dp,
+    shape:Shape = RoundedCornerShape(18.dp),
+    imageSize:Dp = 140.dp,
     offsetImage:Int,
     ){
 
@@ -260,10 +261,11 @@ fun CardWithOffsetImage(
                 contentDescription = "image",
                 contentScale = ContentScale.Crop,
                 modifier = modifier
-                    .size(100.dp)
+                    .size(imageSize)
                     .align(alignment = Alignment.TopCenter)
-                    .offset(y = (-25).dp)
+                    .offset(y = (-36).dp)
                     .clip(CircleShape)
+
             )
 
             Row(modifier = modifier.fillMaxWidth(),

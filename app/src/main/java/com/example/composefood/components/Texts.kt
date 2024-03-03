@@ -54,6 +54,7 @@ fun MediumHeightText(
 @Preview
 @Composable
 fun LargeHeightText(
+    modifier: Modifier = Modifier,
     color: Color = InkBlack,
     text:String = "Sample Text",
     fontFamily: androidx.compose.ui.text.font.FontFamily = FontFamily(
@@ -66,6 +67,7 @@ fun LargeHeightText(
 
 ){
     Text(
+        modifier = modifier,
         text = text,
         color = color,
         fontFamily = fontFamily,
