@@ -46,3 +46,12 @@ fun CircleImage(
         )
     }
 }
+
+@Composable
+fun RoundedCornerAvatar(
+    modifier: Modifier = Modifier
+){
+
+
+
+}

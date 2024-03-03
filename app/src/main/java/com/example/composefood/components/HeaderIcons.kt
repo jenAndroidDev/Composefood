@@ -14,11 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,11 +29,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefood.ui.theme.GoldenYellow
-import com.example.composefood.ui.theme.PaleGrey
 
 
 @Composable
-fun HeaderIcon(
+fun HeaderBackIcon(
     modifier: Modifier = Modifier,
     icon: ImageVector
     ){
@@ -55,7 +52,10 @@ fun HeaderIcon(
 }
 
 @Composable
-fun ProfileIcon(modifier: Modifier){
+fun ProfileIcon(
+    modifier: Modifier,
+    imageVector: ImageVector = Icons.Default.Person
+    ){
 
     Column(modifier = modifier
         .clip(RoundedCornerShape(6.dp))
@@ -65,7 +65,7 @@ fun ProfileIcon(modifier: Modifier){
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-        Image(imageVector = Icons.Default.Person, contentDescription = null)
+        Image(imageVector = imageVector, contentDescription = null)
     }
 }
 
