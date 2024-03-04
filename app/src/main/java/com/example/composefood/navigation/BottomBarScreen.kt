@@ -3,7 +3,9 @@ package com.example.composefood.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.IconButtonDefaults
@@ -23,20 +25,20 @@ sealed class BottomBarScreen (
 
     object PREMIUM:BottomBarScreen(
         route ="PREMIUM",
-        title ="Premium",
-        icon = Icons.Filled.Star
+        title ="Search",
+        icon = Icons.Filled.Search
     )
 
     object FOODERSHUB:BottomBarScreen(
         route = "HUB",
-        title = "Hub",
-        icon = Icons.Filled.Share
+        title = "Card",
+        icon = Icons.Filled.ShoppingCart
     )
 
     object FAVOURITES:BottomBarScreen(
         route = "LIKED",
-        title = "Liked",
-        icon = Icons.Filled.ThumbUp
+        title = "Profile",
+        icon = Icons.Filled.Person
     )
 
     object PROFILE:BottomBarScreen(

@@ -254,6 +254,7 @@ fun CardWithOffsetImage(
             .width(150.dp)
             .wrapContentHeight()
             .padding(top = 36.dp)
+
             .background(shape = shape, color = Color.White)
         ){
             Image(

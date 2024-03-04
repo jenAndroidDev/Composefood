@@ -27,6 +27,8 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.example.composefood.ui.theme.GoldenYellow
 
@@ -54,13 +56,14 @@ fun HeaderBackIcon(
 @Composable
 fun ProfileIcon(
     modifier: Modifier,
-    imageVector: ImageVector = Icons.Default.Person
+    imageVector: ImageVector = Icons.Default.Person,
+    size: Dp = 50.dp
     ){
 
     Column(modifier = modifier
         .clip(RoundedCornerShape(6.dp))
         .background(GoldenYellow)
-        .size(50.dp),
+        .size(size),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
         ) {

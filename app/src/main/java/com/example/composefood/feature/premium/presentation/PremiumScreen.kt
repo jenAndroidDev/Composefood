@@ -62,6 +62,7 @@ fun PremiumScreen(
                 text = "Found 80 results"
             )
             SearchFeed(modifier = modifier)
+            Spacer(modifier = modifier.height(40.dp))
         }
     }
 
@@ -90,7 +91,8 @@ private fun Header(modifier: Modifier){
             contentAlignment = Alignment.CenterEnd
         ){
             ProfileIcon(modifier = modifier,
-                imageVector = Icons.Default.Search)
+                imageVector = Icons.Default.Search,
+                size = 40.dp)
         }
     }
 }
