@@ -31,7 +31,7 @@ sealed class BottomBarScreen (
 
     object FOODERSHUB:BottomBarScreen(
         route = "HUB",
-        title = "Card",
+        title = "Orders",
         icon = Icons.Filled.ShoppingCart
     )
 
