@@ -1,5 +1,6 @@
 package com.example.composefood.feature.foodersHub.presentation
 
+import android.graphics.drawable.shapes.RoundRectShape
 import android.preference.PreferenceActivity.Header
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -104,16 +105,28 @@ fun OrderedItem(modifier: Modifier = Modifier){
 
         Card(modifier = modifier
             .fillMaxWidth(0.85f)
-            .height(200.dp)
-            .align(Alignment.CenterEnd)
+            .height(150.dp)
+            .align(Alignment.CenterEnd),
+            shape = RoundedCornerShape(topStart = 20.dp,
+                bottomStart = 20.dp,
+                topEnd = 10.dp,
+                bottomEnd = 10.dp)
         ) {
-            MediumHeightText()
-            Spacer(modifier = modifier.height(12.dp))
-            MediumHeightText()
+            Text(text = "hello world")
+            Column (
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.End,
+                modifier = modifier.padding(start = 70.dp)){
+                MediumHeightText()
+                Spacer(modifier = modifier.height(12.dp))
+                MediumHeightText()
+            }
+
 
         }
         CircleMenuItem(
             modifier = modifier.align(Alignment.CenterStart)
+
         )
 
     }
@@ -123,15 +136,15 @@ fun OrderedItem(modifier: Modifier = Modifier){
 @Composable
 fun CircleMenuItem(modifier: Modifier=Modifier){
     Box(modifier = modifier
-        .height(80.dp)
-        .width(80.dp)
+        .height(140.dp)
+        .width(140.dp)
         .background(Color.White, RoundedCornerShape(200.dp))){
         Image(
             painter = painterResource(id = R.drawable.item_b),
             contentDescription = "avatar",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(80.dp)
+                .size(140.dp)
                 .clip(CircleShape)
         )
 
