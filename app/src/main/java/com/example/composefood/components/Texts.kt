@@ -86,6 +86,7 @@ fun LargeHeightText(
 fun SubTitleText(
     color: Color = PaleGrey,
     text: String = "Eat Delicious Pizza",
+    modifier: Modifier = Modifier,
     fontFamily:FontFamily = FontFamily(
         Font(R.font.gilroy_regular, FontWeight.Normal),
         Font(R.font.gilroy_thin, FontWeight.Light),
@@ -97,6 +98,7 @@ fun SubTitleText(
         color = color,
         overflow = TextOverflow.Ellipsis,
         fontSize = 10.sp,
+        fontWeight = FontWeight.SemiBold
 
     )
 }
@@ -132,7 +134,7 @@ fun CurrencyText(
     symbolValue:String="$",
     priceColor:Color = InkBlack,
     price: Float = 9.80f,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     fontFamily: FontFamily = FontFamily(
         Font(R.font.gilroy_regular, FontWeight.Normal),
         Font(R.font.gilroy_thin, FontWeight.Light),

@@ -23,9 +23,12 @@ import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,10 +41,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefood.R
 import com.example.composefood.commons.CircleImage
+import com.example.composefood.commons.CounterButton
 import com.example.composefood.commons.HeaderSpacing
+import com.example.composefood.components.CurrencyText
 import com.example.composefood.components.HeaderBackIcon
+import com.example.composefood.components.LargeHeightText
 import com.example.composefood.components.MediumHeightText
 import com.example.composefood.components.ProfileIcon
+import com.example.composefood.components.SubTitleText
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.InkBlack
 
@@ -107,20 +114,27 @@ fun OrderedItem(modifier: Modifier = Modifier){
             .fillMaxWidth(0.85f)
             .height(150.dp)
             .align(Alignment.CenterEnd),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
             shape = RoundedCornerShape(topStart = 20.dp,
                 bottomStart = 20.dp,
                 topEnd = 10.dp,
-                bottomEnd = 10.dp)
+                bottomEnd = 10.dp),
+
         ) {
-            Text(text = "hello world")
             Column (
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.End,
-                modifier = modifier.padding(start = 70.dp)){
-                MediumHeightText()
-                Spacer(modifier = modifier.height(12.dp))
-                MediumHeightText()
+                modifier = modifier.padding(start = 90.dp,
+                    top = 12.dp)){
+                MediumHeightText(text = "Egg Pasta")
+                Spacer(modifier = modifier.height(6.dp))
+                SubTitleText(text = "Spicy Egg Pasta")
+                Spacer(modifier = modifier.height(26.dp))
+                Row(horizontalArrangement = Arrangement.End) {
+                    CurrencyText()
+
+                }
+
             }
+
 
 
         }
@@ -128,6 +142,7 @@ fun OrderedItem(modifier: Modifier = Modifier){
             modifier = modifier.align(Alignment.CenterStart)
 
         )
+
 
     }
 }
