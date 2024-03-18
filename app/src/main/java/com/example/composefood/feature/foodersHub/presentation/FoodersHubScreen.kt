@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -30,6 +33,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,6 +43,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefood.R
 import com.example.composefood.commons.CircleImage
 import com.example.composefood.commons.CounterButton
@@ -66,6 +72,7 @@ fun OrderScreen(
         )) {
             HeaderSpacing(modifier = modifier)
             Header(modifier = modifier)
+            OrdersFeed()
         }
 
     }
@@ -102,9 +109,9 @@ private fun Header(modifier: Modifier){
 
 }
 
-@Preview
+
 @Composable
-fun OrderedItem(modifier: Modifier = Modifier){
+fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
 
     Box(modifier = modifier
         .fillMaxWidth()
@@ -124,38 +131,57 @@ fun OrderedItem(modifier: Modifier = Modifier){
             Column (
                 modifier = modifier.padding(start = 90.dp,
                     top = 12.dp)){
-                MediumHeightText(text = "Egg Pasta")
+                MediumHeightText(text = data.name)
                 Spacer(modifier = modifier.height(6.dp))
-                SubTitleText(text = "Spicy Egg Pasta")
+                SubTitleText(text = data.description)
                 Spacer(modifier = modifier.height(26.dp))
                 Row(horizontalArrangement = Arrangement.End) {
-                    CurrencyText()
-
+                    CurrencyText(price = data.price.toFloat())
                 }
 
             }
 
-
-
         }
         CircleMenuItem(
-            modifier = modifier.align(Alignment.CenterStart)
+            modifier = modifier.align(Alignment.CenterStart),
+            image = data.image
 
         )
+    }
+}
 
+@Composable
+fun OrdersFeed(viewModel: FoodersHubViewModel = hiltViewModel()){
+
+    val data = viewModel.uiState.collectAsStateWithLifecycle()
+
+    val list = data.value.data
+    OrdersList(data = list)
+}
+
+@Composable
+fun OrdersList(data:SnapshotStateList<UiModel>){
+
+    LazyColumn(contentPadding = PaddingValues(16.dp)){
+        
+        items(data.size){
+            OrderedItem(data = data[it])
+        }
 
     }
+
 }
 
 @Preview
 @Composable
-fun CircleMenuItem(modifier: Modifier=Modifier){
+fun CircleMenuItem(modifier: Modifier=Modifier,
+                   image: Int = R.drawable.sample_circle2){
     Box(modifier = modifier
         .height(140.dp)
         .width(140.dp)
         .background(Color.White, RoundedCornerShape(200.dp))){
         Image(
-            painter = painterResource(id = R.drawable.item_b),
+            painter = painterResource(id = image),
             contentDescription = "avatar",
             contentScale = ContentScale.Crop,
             modifier = Modifier
