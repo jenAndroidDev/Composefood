@@ -4,6 +4,7 @@ import android.graphics.drawable.shapes.RoundRectShape
 import android.preference.PreferenceActivity.Header
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -28,6 +30,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -37,6 +40,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -115,19 +119,23 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
 
     Box(modifier = modifier
         .fillMaxWidth()
-        .height(200.dp)){
+        .height(180.dp)){
 
-        Card(modifier = modifier
-            .fillMaxWidth(0.85f)
-            .height(150.dp)
-            .align(Alignment.CenterEnd),
+        Card(
+            modifier = modifier
+                .fillMaxWidth(0.85f)
+                .height(150.dp)
+                .align(Alignment.CenterEnd),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            shape = RoundedCornerShape(topStart = 20.dp,
+            shape = RoundedCornerShape(
+                topStart = 20.dp,
                 bottomStart = 20.dp,
                 topEnd = 10.dp,
-                bottomEnd = 10.dp),
+                bottomEnd = 10.dp
+            ),
 
-        ) {
+            ) {
             Column (
                 modifier = modifier.padding(start = 90.dp,
                     top = 12.dp)){
@@ -162,7 +170,9 @@ fun OrdersFeed(viewModel: FoodersHubViewModel = hiltViewModel()){
 @Composable
 fun OrdersList(data:SnapshotStateList<UiModel>){
 
-    LazyColumn(contentPadding = PaddingValues(16.dp)){
+    LazyColumn(modifier = Modifier
+        .systemBarsPadding()
+        .fillMaxSize(), contentPadding = PaddingValues(8.dp)){
         
         items(data.size){
             OrderedItem(data = data[it])
@@ -179,17 +189,24 @@ fun CircleMenuItem(modifier: Modifier=Modifier,
     Box(modifier = modifier
         .height(140.dp)
         .width(140.dp)
-        .background(Color.White, RoundedCornerShape(200.dp))){
+        ){
         Image(
             painter = painterResource(id = image),
             contentDescription = "avatar",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(140.dp)
+                .shadow(
+                    elevation = 12.dp,
+                    RoundedCornerShape(80.dp),
+                    ambientColor = Color.Black,
+                    spotColor = Color.Black
+
+                )
                 .clip(CircleShape)
+                .border(1.dp, Color.DarkGray, RoundedCornerShape(200.dp))
+
         )
-
-
     }
 }
 
@@ -200,6 +217,5 @@ fun CircleMenuItem(modifier: Modifier=Modifier,
 fun PreviewFoodOrdersScreen(){
 
     OrderScreen {
-
     }
 }
