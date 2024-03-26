@@ -172,7 +172,9 @@ fun OrdersList(data:SnapshotStateList<UiModel>){
 
     LazyColumn(modifier = Modifier
         .systemBarsPadding()
-        .fillMaxSize(), contentPadding = PaddingValues(8.dp)){
+        .fillMaxSize(),
+        contentPadding = PaddingValues(start = 12.dp, bottom = 60.dp,
+            end = 12.dp)){
         
         items(data.size){
             OrderedItem(data = data[it])

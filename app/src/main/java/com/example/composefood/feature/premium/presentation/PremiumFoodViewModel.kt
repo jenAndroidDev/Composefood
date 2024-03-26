@@ -53,13 +53,19 @@ class PremiumFoodViewModel:ViewModel() {
                 "Natural Aromatic Coffee","200","20"),
             PremiumFoodModel(4, R.drawable.sample_circle3,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(4, R.drawable.sample_circle2,"Italian Coffee",
+            PremiumFoodModel(5, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(4, R.drawable.sample_circle3,"Italian Coffee",
+            PremiumFoodModel(6, R.drawable.sample_circle3,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(4, R.drawable.sample_circle2,"Italian Coffee",
+            PremiumFoodModel(7, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(4, R.drawable.sample_circle2,"Italian Coffee",
+            PremiumFoodModel(8, R.drawable.sample_circle2,"Italian Coffee",
+                "Natural Aromatic Coffee","200","20"),
+            PremiumFoodModel(9, R.drawable.sample_circle3,"Italian Coffee",
+                "Natural Aromatic Coffee","200","20"),
+            PremiumFoodModel(10, R.drawable.sample_circle2,"Italian Coffee",
+                "Natural Aromatic Coffee","200","20"),
+            PremiumFoodModel(11, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20")
 
         )

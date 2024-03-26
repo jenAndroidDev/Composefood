@@ -123,7 +123,8 @@ private fun SearchFeed(viewModel: PremiumFoodViewModel = hiltViewModel(),modifie
 
     LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(12.dp)
+        contentPadding = PaddingValues(start = 12.dp, end = 12.dp,
+            bottom = 70.dp)
         ){
         items(data.size){
             Spacer(modifier = Modifier.padding(4.dp))

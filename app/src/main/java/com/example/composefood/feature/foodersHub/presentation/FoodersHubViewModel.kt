@@ -47,6 +47,16 @@ class FoodersHubViewModel:ViewModel() {
                 "10"),
             UiModel(5, R.drawable.item_b,"Italian Coffee","Hot Special Coffee ",
                 "10"),
+            UiModel(6, R.drawable.item_b,"Italian Coffee","Hot Special Coffee ",
+                "10"),
+            UiModel(7, R.drawable.item_b,"Italian Coffee","Hot Special Coffee ",
+                "10"),
+            UiModel(8, R.drawable.item_b,"Italian Coffee","Hot Special Coffee ",
+                "10"),
+            UiModel(9, R.drawable.item_b,"Italian Coffee","Hot Special Coffee ",
+                "10"),
+            UiModel(10, R.drawable.item_b,"Italian Coffee","Hot Special Coffee ",
+                "10"),
 
         )
     }
