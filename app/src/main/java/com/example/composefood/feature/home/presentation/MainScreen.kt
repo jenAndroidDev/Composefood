@@ -61,6 +61,7 @@ import com.example.composefood.components.LargeHeightText
 import com.example.composefood.components.MediumHeightText
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.components.SubTitleText
+import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.GreyWhite
 import timber.log.Timber
@@ -82,7 +83,7 @@ fun MainScreen(
         ) {
         Column (
             modifier = modifier
-                .background(color = GoldenYellow.copy(alpha = 0.1f)),
+                .background(color = GREY_10),
             horizontalAlignment = Alignment.Start,
             ){
             Spacer(modifier = modifier.height(30.dp) )
@@ -254,7 +255,6 @@ fun CardWithOffsetImage(
             .width(150.dp)
             .wrapContentHeight()
             .padding(top = 36.dp)
-
             .background(shape = shape, color = Color.White)
         ){
             Image(

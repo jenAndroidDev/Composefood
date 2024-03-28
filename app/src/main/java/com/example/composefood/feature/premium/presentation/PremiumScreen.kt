@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,6 +39,7 @@ import com.example.composefood.components.MediumHeightText
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.feature.home.presentation.CardWithOffsetImage
 import com.example.composefood.feature.home.presentation.SearchFoodTextField
+import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,7 +53,7 @@ fun PremiumScreen(
 
     Surface(modifier = modifier.fillMaxSize()) {
         Column(modifier = modifier
-            .background(color = GoldenYellow.copy(alpha = 0.1f))) {
+            .background(color = GREY_10)) {
             HeaderSpacing(modifier = modifier)
             Header(modifier = modifier)
             Spacer(modifier = Modifier.height(32.dp))

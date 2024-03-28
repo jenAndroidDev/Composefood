@@ -59,6 +59,7 @@ import com.example.composefood.components.LargeHeightText
 import com.example.composefood.components.MediumHeightText
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.components.SubTitleText
+import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.InkBlack
 
@@ -67,18 +68,16 @@ fun OrderScreen(
     modifier: Modifier = Modifier,
     onClick:()->Unit
 ){
-
     Surface(modifier = modifier
         .fillMaxSize()
     ) {
         Column(modifier = modifier.background(
-            color = GoldenYellow.copy(alpha = 0.3f)
+            color = GREY_10
         )) {
             HeaderSpacing(modifier = modifier)
             Header(modifier = modifier)
             OrdersFeed()
         }
-
     }
 }
 
