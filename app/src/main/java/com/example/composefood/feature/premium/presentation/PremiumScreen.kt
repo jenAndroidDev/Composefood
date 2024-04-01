@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefood.commons.HeaderSpacing
+import com.example.composefood.components.FoodDetailCard
 import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.components.LargeHeightText
 import com.example.composefood.components.MediumHeightText
@@ -130,7 +131,14 @@ private fun SearchFeed(viewModel: PremiumFoodViewModel = hiltViewModel(),modifie
         ){
         items(data.size){
             Spacer(modifier = Modifier.padding(4.dp))
-            CardWithOffsetImage(modifier, offsetImage = data[it].image)
+            FoodDetailCard(
+                modifier = modifier,
+                name = data[it].foodName,
+                description = data[it].foodDescription,
+                itemImage = data[it].image,
+                price = data[it].price,
+                calories = data[it].calories
+            )
             Spacer(modifier = Modifier.padding(8.dp))
         }
     }

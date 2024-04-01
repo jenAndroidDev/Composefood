@@ -47,6 +47,7 @@ fun FoodDetailCard(
         Row(modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center) {
             Column(modifier = modifier.padding(top = 20.dp,
+                bottom = 20.dp
             ),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally){
