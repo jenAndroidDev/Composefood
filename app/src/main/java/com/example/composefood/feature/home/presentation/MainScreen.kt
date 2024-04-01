@@ -53,8 +53,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefood.R
+import com.example.composefood.commons.CircleAvatarWithShadow
+import com.example.composefood.commons.CircleImageWithShadow
 import com.example.composefood.commons.recomposeHighlighter
 import com.example.composefood.components.CurrencyText
+import com.example.composefood.components.FoodDetailCard
 import com.example.composefood.components.FoodDetailsText
 import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.components.LargeHeightText
@@ -236,26 +239,34 @@ fun TrendingFeed(data:SnapshotStateList<TrendingFoods>,modifier: Modifier){
             }
             Timber.tag(Tag).d("visibleItemPosition....$scale")
             Spacer(modifier = Modifier.padding(4.dp))
-            CardWithOffsetImage(modifier, offsetImage = data[it].image)
+            FoodDetailCard(
+                modifier = modifier,
+                itemImage = data[it].image,
+                name = data[it].foodName,
+                description = data[it].foodDescription,
+                price = data[it].price,
+                calories = data[it].price
+            )
             Spacer(modifier = Modifier.padding(8.dp))
         }
     }
 }
 
+@Preview
 @Composable
 fun CardWithOffsetImage(
     modifier: Modifier = Modifier,
     cardWidth:Dp = 80.dp,
     shape:Shape = RoundedCornerShape(18.dp),
     imageSize:Dp = 140.dp,
-    offsetImage:Int,
+    offsetImage:Int = 0,
     ){
 
     Box (modifier = modifier
-            .width(150.dp)
-            .wrapContentHeight()
-            .padding(top = 36.dp)
-            .background(shape = shape, color = Color.White)
+        .width(150.dp)
+        .wrapContentHeight()
+        .padding(top = 40.dp)
+        .background(shape = shape, color = Color.White)
         ){
             Image(
                 painter = painterResource(id = offsetImage),
@@ -263,11 +274,16 @@ fun CardWithOffsetImage(
                 contentScale = ContentScale.Crop,
                 modifier = modifier
                     .size(imageSize)
+                    .shadow(
+                        shape = CircleShape,
+                        elevation = 10.dp,
+                        spotColor = Color.Blue,
+                    )
                     .align(alignment = Alignment.TopCenter)
-                    .offset(y = (-36).dp)
-                    .clip(CircleShape)
+
 
             )
+        //CircleAvatarWithShadow()
 
             Row(modifier = modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center) {

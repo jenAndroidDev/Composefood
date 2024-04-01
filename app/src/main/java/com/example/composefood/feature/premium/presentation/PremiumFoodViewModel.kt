@@ -45,9 +45,9 @@ class PremiumFoodViewModel:ViewModel() {
     private fun getTrendingFoodList(): ArrayList<PremiumFoodModel> {
 
         return arrayListOf(
-            PremiumFoodModel(1, R.drawable.sample_circle2,"Italian Coffee",
+            PremiumFoodModel(1, R.drawable.item_b,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(2, R.drawable.sample_circle3,"Italian Coffee",
+            PremiumFoodModel(2, R.drawable.item_b,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
             PremiumFoodModel(3, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),

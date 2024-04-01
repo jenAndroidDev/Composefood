@@ -35,7 +35,8 @@ fun MediumHeightText(
         Font(R.font.gilroy_regular, FontWeight.Normal),
         Font(R.font.gilroy_thin, FontWeight.Light),
         Font(R.font.gilroy_medium, FontWeight.Medium),
-        Font(R.font.gilroy_semibold, FontWeight.SemiBold)
+        Font(R.font.gilroy_semibold, FontWeight.SemiBold),
+        Font(R.font.gilroy_bold,FontWeight.Bold)
 
     )
 
@@ -91,14 +92,15 @@ fun SubTitleText(
         Font(R.font.gilroy_regular, FontWeight.Normal),
         Font(R.font.gilroy_thin, FontWeight.Light),
         Font(R.font.gilroy_medium, FontWeight.Medium),
-        Font(R.font.gilroy_semibold, FontWeight.SemiBold)
+        Font(R.font.gilroy_semibold, FontWeight.SemiBold),
+        Font(R.font.gilroy_bold, FontWeight.Bold)
     )){
     Text(
         text = text,
         color = color,
         overflow = TextOverflow.Ellipsis,
         fontSize = 10.sp,
-        fontWeight = FontWeight.SemiBold
+        fontWeight = FontWeight.Bold
 
     )
 }
