@@ -124,10 +124,11 @@ private fun SearchFeed(viewModel: PremiumFoodViewModel = hiltViewModel(),modifie
     val uiState  = viewModel.uiState.collectAsStateWithLifecycle()
     val data = uiState.value.data
 
-    LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2),
+    LazyVerticalStaggeredGrid(
+        columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(start = 12.dp, end = 12.dp,
-            bottom = 70.dp)
+        verticalItemSpacing = 12.dp,
+        contentPadding = PaddingValues(16.dp, bottom = 40.dp)
         ){
         items(data.size){
             Spacer(modifier = Modifier.padding(4.dp))

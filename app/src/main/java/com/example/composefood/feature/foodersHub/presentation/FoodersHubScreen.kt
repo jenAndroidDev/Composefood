@@ -118,26 +118,24 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
 
     Box(modifier = modifier
         .fillMaxWidth()
-        .height(180.dp)){
-
+        .height(140.dp)){
         Card(
             modifier = modifier
                 .fillMaxWidth(0.85f)
-                .height(150.dp)
+                .height(120.dp)
                 .align(Alignment.CenterEnd),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
             shape = RoundedCornerShape(
-                topStart = 20.dp,
-                bottomStart = 20.dp,
+                topStart = 40.dp,
+                bottomStart = 40.dp,
                 topEnd = 10.dp,
                 bottomEnd = 10.dp
             ),
 
             ) {
             Column (
-                modifier = modifier.padding(start = 90.dp,
-                    top = 12.dp)){
+                modifier = modifier.padding(start = 70.dp, top = 16.dp)){
                 MediumHeightText(text = data.name)
                 Spacer(modifier = modifier.height(6.dp))
                 SubTitleText(text = data.description)
@@ -145,12 +143,11 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
                 Row(horizontalArrangement = Arrangement.End) {
                     CurrencyText(price = data.price.toFloat())
                 }
-
             }
-
         }
         CircleMenuItem(
-            modifier = modifier.align(Alignment.CenterStart),
+            modifier = modifier.align(Alignment.CenterStart)
+                .padding(start = 24.dp),
             image = data.image
 
         )
@@ -172,8 +169,7 @@ fun OrdersList(data:SnapshotStateList<UiModel>){
     LazyColumn(modifier = Modifier
         .systemBarsPadding()
         .fillMaxSize(),
-        contentPadding = PaddingValues(start = 12.dp, bottom = 60.dp,
-            end = 12.dp)){
+        ){
         
         items(data.size){
             OrderedItem(data = data[it])
@@ -188,15 +184,15 @@ fun OrdersList(data:SnapshotStateList<UiModel>){
 fun CircleMenuItem(modifier: Modifier=Modifier,
                    image: Int = R.drawable.sample_circle2){
     Box(modifier = modifier
-        .height(140.dp)
-        .width(140.dp)
+        .height(100.dp)
+        .width(100.dp)
         ){
         Image(
             painter = painterResource(id = image),
             contentDescription = "avatar",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(140.dp)
+                .size(100.dp)
                 .shadow(
                     elevation = 12.dp,
                     RoundedCornerShape(80.dp),
