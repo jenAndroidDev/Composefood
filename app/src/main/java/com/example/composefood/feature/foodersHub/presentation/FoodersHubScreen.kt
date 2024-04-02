@@ -123,19 +123,21 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
             modifier = modifier
                 .fillMaxWidth(0.85f)
                 .height(120.dp)
-                .align(Alignment.CenterEnd),
+                .align(Alignment.CenterEnd)
+                .padding(end = 24.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
             shape = RoundedCornerShape(
-                topStart = 40.dp,
-                bottomStart = 40.dp,
+                topStart = 50.dp,
+                bottomStart = 50.dp,
                 topEnd = 10.dp,
                 bottomEnd = 10.dp
             ),
 
             ) {
             Column (
-                modifier = modifier.padding(start = 70.dp, top = 16.dp)){
+                modifier = modifier.padding(start = 90.dp, top = 16.dp,
+                    end = 16.dp)){
                 MediumHeightText(text = data.name)
                 Spacer(modifier = modifier.height(6.dp))
                 SubTitleText(text = data.description)
@@ -147,7 +149,7 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
         }
         CircleMenuItem(
             modifier = modifier.align(Alignment.CenterStart)
-                .padding(start = 24.dp),
+                .padding(start = 30.dp),
             image = data.image
 
         )
@@ -184,24 +186,24 @@ fun OrdersList(data:SnapshotStateList<UiModel>){
 fun CircleMenuItem(modifier: Modifier=Modifier,
                    image: Int = R.drawable.sample_circle2){
     Box(modifier = modifier
-        .height(100.dp)
-        .width(100.dp)
+        .height(120.dp)
+        .width(120.dp)
         ){
         Image(
             painter = painterResource(id = image),
             contentDescription = "avatar",
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(100.dp)
+                .size(120.dp)
                 .shadow(
-                    elevation = 12.dp,
-                    RoundedCornerShape(80.dp),
-                    ambientColor = Color.Black,
-                    spotColor = Color.Black
+                    elevation = 16.dp,
+                    shape = CircleShape,
+                    ambientColor = GoldenYellow,
+                    spotColor = GoldenYellow
 
                 )
                 .clip(CircleShape)
-                .border(1.dp, Color.DarkGray, RoundedCornerShape(200.dp))
+
 
         )
     }
