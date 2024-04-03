@@ -1,4 +1,4 @@
-package com.example.composefood.feature.premium.presentation
+package com.example.composefood.feature.search.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
@@ -26,8 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,16 +35,13 @@ import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.components.LargeHeightText
 import com.example.composefood.components.MediumHeightText
 import com.example.composefood.components.ProfileIcon
-import com.example.composefood.feature.home.presentation.CardWithOffsetImage
 import com.example.composefood.feature.home.presentation.SearchFoodTextField
 import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
-import dagger.hilt.android.AndroidEntryPoint
-
 
 
 @Composable
-fun PremiumScreen(
+fun SearchScreen(
     modifier: Modifier = Modifier,
     onClick:()->Unit
 ){
@@ -119,7 +113,7 @@ private fun SearchFood(modifier: Modifier){
 }
 
 @Composable
-private fun SearchFeed(viewModel: PremiumFoodViewModel = hiltViewModel(),modifier: Modifier){
+private fun SearchFeed(viewModel: SearchViewModel = hiltViewModel(), modifier: Modifier){
 
     val uiState  = viewModel.uiState.collectAsStateWithLifecycle()
     val data = uiState.value.data
@@ -149,6 +143,6 @@ private fun SearchFeed(viewModel: PremiumFoodViewModel = hiltViewModel(),modifie
 @Preview
 @Composable
 fun PreviewPremiumFoodScreen(){
-    PremiumScreen {
+    SearchScreen {
     }
 }

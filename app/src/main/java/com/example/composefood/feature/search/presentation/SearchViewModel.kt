@@ -1,11 +1,10 @@
-package com.example.composefood.feature.premium.presentation
+package com.example.composefood.feature.search.presentation
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composefood.R
-import com.example.composefood.feature.home.presentation.TrendingFoods
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -14,7 +13,7 @@ import kotlinx.coroutines.launch
 
 private const val Tag = "PremiumFoodViewModel"
 
-class PremiumFoodViewModel:ViewModel() {
+class SearchViewModel:ViewModel() {
 
     private val _uiState = MutableStateFlow(PremiumFoodUiState())
     val uiState = _uiState.stateIn(

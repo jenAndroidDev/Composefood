@@ -25,8 +25,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.composefood.feature.favourites.presentation.FavouritesScreen
-import com.example.composefood.feature.foodersHub.presentation.OrderScreen
-import com.example.composefood.feature.premium.presentation.PremiumScreen
+import com.example.composefood.feature.cart.presentation.CartScreen
+import com.example.composefood.feature.search.presentation.SearchScreen
 import com.example.composefood.feature.profile.presentation.ProfileScreen
 import com.example.composefood.navigation.BottomBarScreen
 import timber.log.Timber
@@ -112,13 +112,13 @@ fun CoreNavGraph(navHostController: NavHostController){
         }
 
         composable(route = BottomBarScreen.PREMIUM.route){
-            PremiumScreen(){
+            SearchScreen(){
 
             }
         }
 
         composable(route = BottomBarScreen.FOODERSHUB.route){
-            OrderScreen(){
+            CartScreen(){
 
             }
         }

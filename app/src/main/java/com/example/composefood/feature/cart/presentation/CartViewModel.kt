@@ -1,8 +1,7 @@
-package com.example.composefood.feature.foodersHub.presentation
+package com.example.composefood.feature.cart.presentation
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
-import androidx.compose.ui.tooling.preview.UiMode
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composefood.R
@@ -11,8 +10,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-private const val Tag = "FoodersHubViewModel"
-class FoodersHubViewModel:ViewModel() {
+private const val Tag = "CartViewModel"
+class CartViewModel:ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()

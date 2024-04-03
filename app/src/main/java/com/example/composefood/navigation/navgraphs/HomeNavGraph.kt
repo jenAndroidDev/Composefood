@@ -7,9 +7,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.composefood.feature.favourites.presentation.FavouritesScreen
-import com.example.composefood.feature.foodersHub.presentation.OrderScreen
+import com.example.composefood.feature.cart.presentation.CartScreen
 import com.example.composefood.feature.home.presentation.MainScreen
-import com.example.composefood.feature.premium.presentation.PremiumScreen
+import com.example.composefood.feature.search.presentation.SearchScreen
 import com.example.composefood.navigation.BottomBarScreen
 
 
@@ -29,12 +29,12 @@ fun HomeScreenNavGraph(navHostController: NavHostController){
             }
         }
         composable(route = BottomBarScreen.PREMIUM.route){
-            PremiumScreen(){
+            SearchScreen(){
 
             }
         }
         composable(route = BottomBarScreen.FOODERSHUB.route){
-            OrderScreen(){
+            CartScreen(){
 
             }
         }
