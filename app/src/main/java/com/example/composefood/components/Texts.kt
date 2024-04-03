@@ -76,7 +76,7 @@ fun LargeHeightText(
         overflow = TextOverflow.Ellipsis,
         fontSize = 28.sp,
         lineHeight = 36.sp,
-        maxLines = 2
+        maxLines = 2,
     )
 
 

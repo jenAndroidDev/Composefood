@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefood.R
+import com.example.composefood.commons.CounterButton
 import com.example.composefood.commons.HeaderSpacing
 import com.example.composefood.components.CurrencyText
 import com.example.composefood.components.HeaderBackIcon
@@ -125,17 +126,27 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
                 Spacer(modifier = modifier.height(6.dp))
                 SubTitleText(text = data.description)
                 Spacer(modifier = modifier.height(26.dp))
-                Row(horizontalArrangement = Arrangement.End) {
+                Row(
+                    modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically) {
                     CurrencyText(price = data.price.toFloat())
+                    CounterButton()
+
                 }
             }
         }
         CircleMenuItem(
-            modifier = modifier.align(Alignment.CenterStart)
+            modifier = modifier
+                .align(Alignment.CenterStart)
                 .padding(start = 30.dp),
             image = data.image
 
         )
+//        CounterButton(
+//            modifier = modifier
+//                .align(Alignment.BottomEnd)
+//        )
     }
 }
 
@@ -183,11 +194,8 @@ fun CircleMenuItem(modifier: Modifier=Modifier,
                     shape = CircleShape,
                     ambientColor = GoldenYellow,
                     spotColor = GoldenYellow
-
                 )
                 .clip(CircleShape)
-
-
         )
     }
 }
