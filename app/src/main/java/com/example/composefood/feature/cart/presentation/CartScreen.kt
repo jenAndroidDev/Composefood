@@ -49,6 +49,7 @@ import com.example.composefood.components.ProfileIcon
 import com.example.composefood.components.SubTitleText
 import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
+import com.example.composefood.ui.theme.GreyWhite
 
 @Composable
 fun CartScreen(
@@ -96,7 +97,6 @@ private fun Header(modifier: Modifier){
                 size = 40.dp)
         }
     }
-
 }
 
 
@@ -194,10 +194,11 @@ fun CircleMenuItem(modifier: Modifier=Modifier,
             modifier = Modifier
                 .size(120.dp)
                 .shadow(
-                    elevation = 16.dp,
-                    shape = CircleShape,
+                    elevation = 6.dp,
+                    shape = RoundedCornerShape(0.dp),
                     ambientColor = GoldenYellow,
-                    spotColor = GoldenYellow
+                    spotColor = GoldenYellow,
+
                 )
                 .clip(CircleShape)
         )
@@ -209,7 +210,6 @@ fun CircleMenuItem(modifier: Modifier=Modifier,
 @Preview
 @Composable
 fun PreviewFoodOrdersScreen(){
-
     CartScreen {
     }
 }
