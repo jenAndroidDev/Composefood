@@ -24,11 +24,10 @@ import com.example.composefood.ui.theme.GoldenYellow
 fun CounterButton(modifier: Modifier = Modifier){
 
         Row (modifier = modifier
-            .height(40.dp)
+            .height(30.dp)
             .clip(RoundedCornerShape(24.dp))
             .background(color = GoldenYellow)
-            .padding(top = 12.dp, bottom = 12.dp, start = 12.dp,
-                end = 12.dp),
+            .padding(all = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ){

@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,6 +25,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
@@ -60,7 +63,7 @@ fun CartScreen(
         )) {
             HeaderSpacing(modifier = modifier)
             Header(modifier = modifier)
-            OrdersFeed()
+            OrdersFeed(modifier = modifier)
         }
     }
 }
@@ -102,7 +105,7 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
 
     Box(modifier = modifier
         .fillMaxWidth()
-        .height(140.dp)){
+        .wrapContentHeight()){
         Card(
             modifier = modifier
                 .fillMaxWidth(0.85f)
@@ -127,13 +130,15 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
                 SubTitleText(text = data.description)
                 Spacer(modifier = modifier.height(26.dp))
                 Row(
-                    modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(40.dp),
                     verticalAlignment = Alignment.CenterVertically) {
                     CurrencyText(price = data.price.toFloat())
                     CounterButton()
 
                 }
+                Spacer(modifier = modifier.height(6.dp))
             }
         }
         CircleMenuItem(
@@ -143,32 +148,31 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
             image = data.image
 
         )
-//        CounterButton(
-//            modifier = modifier
-//                .align(Alignment.BottomEnd)
-//        )
     }
 }
 
 @Composable
-fun OrdersFeed(viewModel: CartViewModel = hiltViewModel()){
+fun OrdersFeed(viewModel: CartViewModel = hiltViewModel(),
+               modifier: Modifier){
 
     val data = viewModel.uiState.collectAsStateWithLifecycle()
 
     val list = data.value.data
-    OrdersList(data = list)
+    OrdersList(data = list, modifier = modifier)
 }
 
 @Composable
-fun OrdersList(data:SnapshotStateList<UiModel>){
+fun OrdersList(data:SnapshotStateList<UiModel>,modifier: Modifier){
 
-    LazyColumn(modifier = Modifier
+    LazyColumn(modifier = modifier
         .systemBarsPadding()
         .fillMaxSize(),
         ){
         
         items(data.size){
+
             OrderedItem(data = data[it])
+            Spacer(modifier = modifier.height(12.dp))
         }
 
     }

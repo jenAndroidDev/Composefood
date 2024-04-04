@@ -54,6 +54,32 @@ fun MediumHeightText(
 
 @Preview
 @Composable
+fun SmallHeightText(
+    color: Color = InkBlack,
+    text:String = "Sample Text1",
+    fontFamily:FontFamily = FontFamily(
+        Font(R.font.gilroy_regular, FontWeight.Normal),
+        Font(R.font.gilroy_thin, FontWeight.Light),
+        Font(R.font.gilroy_medium, FontWeight.Medium),
+        Font(R.font.gilroy_semibold, FontWeight.SemiBold),
+        Font(R.font.gilroy_bold,FontWeight.Bold)
+
+    )
+
+){
+    Text(
+        text = text,
+        color = color,
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Bold,
+        overflow = TextOverflow.Ellipsis,
+        fontSize = 12.sp,
+        maxLines = 2
+    )
+}
+
+@Preview
+@Composable
 fun LargeHeightText(
     modifier: Modifier = Modifier,
     color: Color = InkBlack,
