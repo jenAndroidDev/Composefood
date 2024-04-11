@@ -62,8 +62,8 @@ fun CartScreen(
         Column(modifier = modifier.background(
             color = GREY_10
         )) {
-            HeaderSpacing(modifier = modifier)
             Header(modifier = modifier)
+            Spacer(modifier = modifier.height(16.dp))
             OrdersFeed(modifier = modifier)
         }
     }
@@ -72,9 +72,11 @@ fun CartScreen(
 @Composable
 private fun Header(modifier: Modifier){
     Row (modifier = modifier
+        .background(color = Color.White, shape = RoundedCornerShape(12.dp))
         .fillMaxWidth()
+        .height(120.dp)
         .padding(),
-        verticalAlignment = Alignment.CenterVertically){
+        verticalAlignment = Alignment.CenterVertically,){
         Row(
             modifier = Modifier
                 .weight(1f),
@@ -85,7 +87,7 @@ private fun Header(modifier: Modifier){
                 icon = Icons.Default.KeyboardArrowLeft)
 
         }
-        MediumHeightText(text = "Card Food")
+        MediumHeightText(text = "Your Orders")
         Box(
             modifier = modifier
                 .weight(1f)
@@ -193,20 +195,10 @@ fun CircleMenuItem(modifier: Modifier=Modifier,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(120.dp)
-                .shadow(
-                    elevation = 6.dp,
-                    shape = RoundedCornerShape(0.dp),
-                    ambientColor = GoldenYellow,
-                    spotColor = GoldenYellow,
-
-                )
                 .clip(CircleShape)
         )
     }
 }
-
-
-
 @Preview
 @Composable
 fun PreviewFoodOrdersScreen(){
