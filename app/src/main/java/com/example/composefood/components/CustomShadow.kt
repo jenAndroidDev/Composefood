@@ -3,14 +3,20 @@ package com.example.composefood.components
 import android.graphics.BlurMaskFilter
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
+import androidx.compose.material.Surface
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
@@ -24,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -99,3 +106,48 @@ fun PreviewCustomShadow(){
     }
 
     }
+
+@Preview
+@Composable
+fun MyButton(){
+    Box(
+        modifier = Modifier
+            .size(64.dp)
+            .background(
+                brush = Brush.radialGradient(
+                    colors = listOf(
+                        Color.Yellow,
+                        Color.Transparent
+                    )
+                )
+            )
+            .padding(bottom = 4.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Surface(
+            shape = CircleShape,
+            modifier = Modifier
+                .size(55.dp)
+                .background(Color.Transparent)
+                .clickable { }
+        ) {
+            Box(
+                modifier = Modifier
+                    .padding()
+                    .background(Color.Gray),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(Color.White)
+                    ,
+                    painter = painterResource(id = R.drawable.item_b),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                )
+            }
+        }
+
+    }
+}
