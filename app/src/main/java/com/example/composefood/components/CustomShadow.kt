@@ -1,15 +1,19 @@
 package com.example.composefood.components
 
 import android.graphics.BlurMaskFilter
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.platform.LocalDensity
@@ -21,16 +25,19 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import com.example.composefood.R
 import com.example.composefood.commons.CircleImage
 
-@Preview
-@Composable
-fun Modifier.CustomShadow(
+
+
+fun Modifier.customShadow(
     color:Color = Color.Black,
     offsetX: Dp = 0.dp,
     offsetY:Dp = 0.dp,
     blurRadius:Dp = 0.dp,
-    shapeRadius:Dp = 0.dp,
+    shapeRadius:Dp = 100.dp,
 
 ) = composed{
 
@@ -55,35 +62,16 @@ fun Modifier.CustomShadow(
             val rightPixel = size.width + leftPixel
             val bottomPixel = size.height + topPixel
 
+            val circleCenter = (shapeRadius/2).toPx()
+            val offsetX = (size.width/2)
+            val offsetY = (size.height/2)
+
             it.drawCircle(
-
                 paint = paint,
-                radius = size.minDimension/4,
-                center = Offset(size.width/2,
-                    size.width/2),
-
-
+                center = Offset(offsetX,offsetY),
+                radius = circleCenter
             )
-//            if (shapeRadius > 0.dp) {
-//                val radiusPx = shapeRadius.toPx()
-//                it.drawRoundRect(
-//                    left = leftPixel,
-//                    top = topPixel,
-//                    right = rightPixel,
-//                    bottom = bottomPixel,
-//                    radiusX = radiusPx,
-//                    radiusY = radiusPx,
-//                    paint = paint,
-//                )
-//            } else {
-//                it.drawRect(
-//                    left = leftPixel,
-//                    top = topPixel,
-//                    right = rightPixel,
-//                    bottom = bottomPixel,
-//                    paint = paint,
-//                )
-//            }
+
         }
     }
 }
@@ -95,27 +83,19 @@ private fun Dp.px(density: Density): Float =
 fun PreviewCustomShadow(){
     Box(
         modifier = Modifier
-            .requiredSize(100.dp)
+            .size(100.dp)
             .background(Color.Yellow),
     ) {
-        Box(
+
+        Image(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(25.dp)
-                .CustomShadow(
-                    offsetX = 6.dp,
-                    offsetY = 6.dp,
-                    blurRadius = 8.dp,
-                ),
-
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Green),
-            ) {
-
-            }
-        }
+                .clip(CircleShape)
+                .background(Color.White)
+                .customShadow(),
+            painter = painterResource(id = R.drawable.item_b),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+        )
     }
-}
+
+    }

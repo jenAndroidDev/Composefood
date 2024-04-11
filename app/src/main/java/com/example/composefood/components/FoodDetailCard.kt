@@ -18,6 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefood.commons.CircleAvatarWithShadow
+import com.example.composefood.commons.MediumHeightText
+import com.example.composefood.commons.SubTitleText
 import com.example.composefood.feature.home.presentation.CaloriesDetails
 import com.example.composefood.feature.home.presentation.PriceDetails
 

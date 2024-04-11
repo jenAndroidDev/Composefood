@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,13 +24,11 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -41,15 +38,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefood.R
 import com.example.composefood.commons.CounterButton
-import com.example.composefood.commons.HeaderSpacing
-import com.example.composefood.components.CurrencyText
+import com.example.composefood.commons.CurrencyText
 import com.example.composefood.components.HeaderBackIcon
-import com.example.composefood.components.MediumHeightText
+import com.example.composefood.commons.MediumHeightText
 import com.example.composefood.components.ProfileIcon
-import com.example.composefood.components.SubTitleText
+import com.example.composefood.commons.SubTitleText
 import com.example.composefood.ui.theme.GREY_10
-import com.example.composefood.ui.theme.GoldenYellow
-import com.example.composefood.ui.theme.GreyWhite
 
 @Composable
 fun CartScreen(

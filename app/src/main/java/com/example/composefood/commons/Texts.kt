@@ -1,4 +1,4 @@
-package com.example.composefood.components
+package com.example.composefood.commons
 
 
 import android.os.Build

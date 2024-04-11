@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -32,7 +31,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.composefood.components.MediumHeightText
+import com.example.composefood.commons.MediumHeightText
 import com.example.composefood.navigation.BottomBarScreen
 import com.example.composefood.navigation.navgraphs.HomeScreenNavGraph
 import com.example.composefood.ui.theme.GoldenYellow

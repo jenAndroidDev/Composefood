@@ -28,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.composefood.R
-import com.example.composefood.components.CustomShadow
 import com.example.composefood.ui.theme.GoldenYellow
 
 @Preview
@@ -189,11 +188,6 @@ fun CircleImageWithShadow(){
 
         Image(
             modifier = Modifier
-                .CustomShadow(
-                    offsetX = 6.dp,
-                    offsetY = 6.dp,
-                    blurRadius = 8.dp,
-                    )
                 .clip(CircleShape)
                 .background(Color.White)
                 .size(100.dp),
