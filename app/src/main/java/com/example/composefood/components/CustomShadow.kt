@@ -5,15 +5,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
 import androidx.compose.material.Surface
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -35,8 +30,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.composefood.R
-import com.example.composefood.commons.CircleImage
-
+import com.example.composefood.ui.theme.GoldenYellow
 
 
 fun Modifier.customShadow(
@@ -107,16 +101,20 @@ fun PreviewCustomShadow(){
 
     }
 
+
 @Preview
 @Composable
-fun MyButton(){
+fun CircleButtonShadowed(
+    size:Dp = 100.dp,
+    image:Int = R.drawable.sample_circle,
+){
     Box(
         modifier = Modifier
-            .size(64.dp)
+            .size(120.dp)
             .background(
                 brush = Brush.radialGradient(
                     colors = listOf(
-                        Color.Yellow,
+                        GoldenYellow,
                         Color.Transparent
                     )
                 )
@@ -127,22 +125,21 @@ fun MyButton(){
         Surface(
             shape = CircleShape,
             modifier = Modifier
-                .size(55.dp)
+                .size(size)
                 .background(Color.Transparent)
                 .clickable { }
         ) {
             Box(
                 modifier = Modifier
-                    .padding()
-                    .background(Color.Gray),
+                    .background(Color.Transparent),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
                     modifier = Modifier
                         .clip(CircleShape)
-                        .background(Color.White)
+                        .size(size)
                     ,
-                    painter = painterResource(id = R.drawable.item_b),
+                    painter = painterResource(id = image),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                 )
