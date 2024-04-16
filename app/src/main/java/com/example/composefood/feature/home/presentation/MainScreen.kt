@@ -61,6 +61,7 @@ import com.example.composefood.commons.LargeHeightText
 import com.example.composefood.commons.MediumHeightText
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.commons.SubTitleText
+import com.example.composefood.components.CircleButtonShadowed
 import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.GreyWhite
@@ -265,21 +266,22 @@ fun CardWithOffsetImage(
         .padding(top = 40.dp)
         .background(shape = shape, color = Color.White)
         ){
-            Image(
-                painter = painterResource(id = offsetImage),
-                contentDescription = "image",
-                contentScale = ContentScale.Crop,
-                modifier = modifier
-                    .size(imageSize)
-                    .shadow(
-                        shape = CircleShape,
-                        elevation = 10.dp,
-                        spotColor = Color.Blue,
-                    )
-                    .align(alignment = Alignment.TopCenter)
-
-
-            )
+//            Image(
+//                painter = painterResource(id = offsetImage),
+//                contentDescription = "image",
+//                contentScale = ContentScale.Crop,
+//                modifier = modifier
+//                    .size(imageSize)
+//                    .shadow(
+//                        shape = CircleShape,
+//                        elevation = 10.dp,
+//                        spotColor = Color.Blue,
+//                    )
+//                    .align(alignment = Alignment.TopCenter)
+//
+//
+//            )
+        CircleButtonShadowed()
         //CircleAvatarWithShadow()
 
             Row(modifier = modifier.fillMaxWidth(),
