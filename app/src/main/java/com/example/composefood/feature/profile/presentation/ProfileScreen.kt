@@ -1,5 +1,6 @@
 package com.example.composefood.feature.profile.presentation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -86,6 +90,7 @@ private fun Header(modifier: Modifier){
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ProfileTab(modifier: Modifier){
 
@@ -104,6 +109,10 @@ fun ProfileTab(modifier: Modifier){
     var selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
+    var pagerState  =  rememberPagerState {
+            tabItems.size
+        }
+
     Column(modifier = modifier.fillMaxSize()) {
         TabRow(selectedTabIndex = selectedTabIndex) {
             tabItems.forEachIndexed { index, tabItem ->
@@ -126,6 +135,14 @@ fun ProfileTab(modifier: Modifier){
                 )
             }
         }
+        HorizontalPager(
+            state = pagerState,
+            modifier = modifier.fillMaxWidth()
+                .weight(1f)) {index->
+
+
+        }
+
     }
 }
 
