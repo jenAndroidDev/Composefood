@@ -13,12 +13,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,6 +48,7 @@ fun ProfileScreen(modifier: Modifier = Modifier){
         Column(modifier = modifier.background(color = GREY_10)) {
             Header(modifier = modifier)
             Spacer(modifier = modifier.height(16.dp))
+            ProfileTab(modifier)
         }
 
     }
@@ -62,7 +72,7 @@ private fun Header(modifier: Modifier){
                 icon = Icons.Default.KeyboardArrowLeft)
 
         }
-        MediumHeightText(text = "Your Profile")
+        MediumHeightText(text = "My Profile")
         Box(
             modifier = modifier
                 .weight(1f)
@@ -72,6 +82,49 @@ private fun Header(modifier: Modifier){
             ProfileIcon(modifier = modifier,
                 imageVector = Icons.Default.Person,
                 size = 40.dp)
+        }
+    }
+}
+
+@Composable
+fun ProfileTab(modifier: Modifier){
+
+    val tabItems = listOf(
+        TabItem(selectedIcon = Icons.Filled.Home,
+            unselectedIcon = Icons.Outlined.Home,
+            "Home"),
+        TabItem(selectedIcon = Icons.Filled.Home,
+            unselectedIcon = Icons.Outlined.Home,
+            "Home"),
+        TabItem(selectedIcon = Icons.Filled.Home,
+            unselectedIcon = Icons.Outlined.Home,
+            "Home"),
+
+    )
+    var selectedTabIndex by remember {
+        mutableIntStateOf(0)
+    }
+    Column(modifier = modifier.fillMaxSize()) {
+        TabRow(selectedTabIndex = selectedTabIndex) {
+            tabItems.forEachIndexed { index, tabItem ->
+                Tab(
+                    selected = (index==selectedTabIndex),
+                    onClick = {
+                    selectedTabIndex = index
+                    },
+                    text = {
+                        Text(text = tabItem.description)
+                    },
+                    icon = {
+                        Icon(imageVector =
+                        if (index==selectedTabIndex){
+                            tabItem.selectedIcon
+                        }else{ tabItem.unselectedIcon },
+                            contentDescription = tabItem.description)
+
+                    }
+                )
+            }
         }
     }
 }

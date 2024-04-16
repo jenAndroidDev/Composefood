@@ -86,7 +86,6 @@ fun RowScope.AddItem(
 ){
     
     BottomNavigationItem(
-
         selected = currentDestination?.hierarchy?.any { it.route==screen.route }!!,
         onClick = {
                   navHostController.navigate(screen.route){
@@ -121,10 +120,11 @@ fun CoreNavGraph(navHostController: NavHostController){
             CartScreen(){
 
             }
+
         }
 
         composable(route = BottomBarScreen.FAVOURITES.route){
-            FavouritesScreen()
+            ProfileScreen()
         }
 
         composable(route = BottomBarScreen.PROFILE.route){
