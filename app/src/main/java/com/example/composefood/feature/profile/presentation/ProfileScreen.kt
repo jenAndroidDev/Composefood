@@ -28,6 +28,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -109,9 +110,14 @@ fun ProfileTab(modifier: Modifier){
     var selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
-    var pagerState  =  rememberPagerState {
-            tabItems.size
-        }
+    val pagerState = rememberPagerState { tabItems.size }
+    
+    LaunchedEffect(selectedTabIndex){
+        pagerState.animateScrollToPage(selectedTabIndex)
+    }
+    LaunchedEffect(pagerState){
+        selectedTabIndex = pagerState.currentPage
+    }
 
     Column(modifier = modifier.fillMaxSize()) {
         TabRow(selectedTabIndex = selectedTabIndex) {
@@ -137,10 +143,20 @@ fun ProfileTab(modifier: Modifier){
         }
         HorizontalPager(
             state = pagerState,
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier
+                .fillMaxWidth()
                 .weight(1f)) {index->
-
-
+            when(index){
+                0->{
+                    PaymentHistoryScreen()
+                }
+                1->{
+                    WalletScreen()
+                }
+                2->{
+                    UserDetailScreen(modifier = modifier)
+                }
+            }
         }
 
     }
