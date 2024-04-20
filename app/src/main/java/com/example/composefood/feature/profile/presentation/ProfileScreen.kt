@@ -27,6 +27,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,10 +43,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefood.commons.MediumHeightText
+import com.example.composefood.commons.ProfileTabItem
 import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.feature.cart.presentation.OrdersFeed
 import com.example.composefood.ui.theme.GREY_10
+import com.example.composefood.ui.theme.GoldenYellow
 
 private const val Tag = "ProfileScreen"
 @Composable
@@ -130,27 +134,47 @@ fun ProfileTab(modifier: Modifier) {
     }
 
     Column(modifier = modifier.fillMaxSize()) {
-        TabRow(selectedTabIndex = selectedTabIndex) {
+        TabRow(selectedTabIndex = selectedTabIndex,
+            indicator = {tabPositions ->
+                if (selectedTabIndex<tabPositions.size){
+                    TabRowDefaults.Indicator(
+                        modifier = modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+                        color = GoldenYellow
+                    )
+                }
+            }
+            ) {
             tabItems.forEachIndexed { index, tabItem ->
-                Tab(
-                    selected = (index == selectedTabIndex),
-                    onClick = {
-                        selectedTabIndex = index
-                    },
-                    text = {
-                        Text(text = tabItem.description)
-                    },
-                    icon = {
-                        Icon(
-                            imageVector =
-                            if (index == selectedTabIndex) {
-                                tabItem.selectedIcon
-                            } else {
-                                tabItem.unselectedIcon
-                            },
-                            contentDescription = tabItem.description
-                        )
 
+//                Tab(
+//                    selected = (index == selectedTabIndex),
+//                    onClick = {
+//                        selectedTabIndex = index
+//                    },
+//                    text = {
+//                        Text(text = tabItem.description)
+//                    },
+//                    icon = {
+//                        Icon(
+//                            imageVector =
+//                            if (index == selectedTabIndex) {
+//                                tabItem.selectedIcon
+//                            } else {
+//                                tabItem.unselectedIcon
+//                            },
+//                            contentDescription = tabItem.description
+//                        )
+//
+//                    }
+//                )
+                ProfileTabItem(
+                    selectedTabIndex = selectedTabIndex,
+                    tabItem = tabItem,
+                    currentIndex = index,
+                    tabSelectedColor = Color.White,
+                    tabUnselectedColor = Color.DarkGray,
+                    onTabItemClicked = {
+                        selectedTabIndex = it
                     }
                 )
             }
