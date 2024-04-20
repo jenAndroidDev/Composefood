@@ -1,5 +1,6 @@
 package com.example.composefood.feature.profile.presentation
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -45,6 +46,7 @@ import com.example.composefood.components.ProfileIcon
 import com.example.composefood.feature.cart.presentation.OrdersFeed
 import com.example.composefood.ui.theme.GREY_10
 
+private const val Tag = "ProfileScreen"
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier){
     Surface(modifier = Modifier
@@ -93,29 +95,37 @@ private fun Header(modifier: Modifier){
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ProfileTab(modifier: Modifier){
+fun ProfileTab(modifier: Modifier) {
 
     val tabItems = listOf(
-        TabItem(selectedIcon = Icons.Filled.Home,
+        TabItem(
+            selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
-            "Home"),
-        TabItem(selectedIcon = Icons.Filled.Home,
+            "Home"
+        ),
+        TabItem(
+            selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
-            "Home"),
-        TabItem(selectedIcon = Icons.Filled.Home,
+            "Home"
+        ),
+        TabItem(
+            selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
-            "Home"),
+            "Home"
+        ),
 
-    )
+        )
     var selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
     val pagerState = rememberPagerState { tabItems.size }
-    
-    LaunchedEffect(selectedTabIndex){
+
+    LaunchedEffect(selectedTabIndex) {
+        Log.d(Tag, "LaunchedEffect...${pagerState.currentPage}")
         pagerState.animateScrollToPage(selectedTabIndex)
     }
-    LaunchedEffect(pagerState){
+    LaunchedEffect(pagerState) {
+        Log.d(Tag, "LaunchedEffect,,, called ${pagerState.currentPage}")
         selectedTabIndex = pagerState.currentPage
     }
 
@@ -123,43 +133,30 @@ fun ProfileTab(modifier: Modifier){
         TabRow(selectedTabIndex = selectedTabIndex) {
             tabItems.forEachIndexed { index, tabItem ->
                 Tab(
-                    selected = (index==selectedTabIndex),
+                    selected = (index == selectedTabIndex),
                     onClick = {
-                    selectedTabIndex = index
+                        selectedTabIndex = index
                     },
                     text = {
                         Text(text = tabItem.description)
                     },
                     icon = {
-                        Icon(imageVector =
-                        if (index==selectedTabIndex){
-                            tabItem.selectedIcon
-                        }else{ tabItem.unselectedIcon },
-                            contentDescription = tabItem.description)
+                        Icon(
+                            imageVector =
+                            if (index == selectedTabIndex) {
+                                tabItem.selectedIcon
+                            } else {
+                                tabItem.unselectedIcon
+                            },
+                            contentDescription = tabItem.description
+                        )
 
                     }
                 )
             }
         }
-        HorizontalPager(
-            state = pagerState,
-            modifier = modifier
-                .fillMaxWidth()
-                .weight(1f)) {index->
-            when(index){
-                0->{
-                    PaymentHistoryScreen()
-                }
-                1->{
-                    WalletScreen()
-                }
-                2->{
-                    UserDetailScreen(modifier = modifier)
-                }
-            }
-        }
-
     }
+
 }
 
 @Preview
