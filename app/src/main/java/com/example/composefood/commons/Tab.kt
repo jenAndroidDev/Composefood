@@ -35,9 +35,5 @@ fun ProfileTabItem(
                 contentDescription = tabItem.description
             )
         },
-
         )
-
-
-
 }

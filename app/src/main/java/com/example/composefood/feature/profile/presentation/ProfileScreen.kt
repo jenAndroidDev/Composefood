@@ -34,10 +34,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,6 +50,7 @@ import com.example.composefood.components.ProfileIcon
 import com.example.composefood.feature.cart.presentation.OrdersFeed
 import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
+import kotlinx.coroutines.launch
 
 private const val Tag = "ProfileScreen"
 @Composable
@@ -117,22 +120,16 @@ fun ProfileTab(modifier: Modifier) {
         ),
 
         )
-    var selectedTabIndex by remember {
+    val selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
     val pagerState = rememberPagerState { tabItems.size }
 
-    LaunchedEffect(selectedTabIndex) {
-        Log.d(Tag, "LaunchedEffect...${pagerState.currentPage}")
-        pagerState.animateScrollToPage(selectedTabIndex)
-    }
-    LaunchedEffect(pagerState) {
-        Log.d(Tag, "LaunchedEffect,,, called ${pagerState.currentPage}")
-        selectedTabIndex = pagerState.currentPage
-    }
+    val scope = rememberCoroutineScope()
 
     Column(modifier = modifier.fillMaxSize()) {
-        TabRow(selectedTabIndex = selectedTabIndex,
+        val coroutineScope = rememberCoroutineScope()
+        TabRow(selectedTabIndex = pagerState.currentPage,
             indicator = {tabPositions ->
                 if (selectedTabIndex<tabPositions.size){
                     TabRowDefaults.Indicator(
@@ -143,25 +140,35 @@ fun ProfileTab(modifier: Modifier) {
             }
             ) {
             tabItems.forEachIndexed { index, tabItem ->
-                ProfileTabItem(
-                    selectedTabIndex = selectedTabIndex,
-                    tabItem = tabItem,
-                    currentIndex = index,
-                    tabSelectedColor = Color.White,
-                    tabUnselectedColor = Color.DarkGray,
-                    onTabItemClicked = {
-                        selectedTabIndex = it
-                    }
+//                ProfileTabItem(
+//                    selectedTabIndex = selectedTabIndex,
+//                    tabItem = tabItem,
+//                    currentIndex = index,
+//                    tabSelectedColor = Color.White,
+//                    tabUnselectedColor = Color.DarkGray,
+//                    onTabItemClicked = {
+//                        coroutineScope.launch {
+//                            pagerState.animateScrollToPage(selectedTabIndex)
+//                        }
+//                    }
+//                )
+                Tab(
+                    selected = pagerState.currentPage == index,
+                    onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } },
+                    text = { Text(text = "Sample") },
+                    unselectedContentColor = MaterialTheme.colorScheme.secondary
                 )
+
             }
+
+
         }
         HorizontalPager(state = pagerState,
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier
+                .fillMaxWidth()
                 .weight(1f)
-
-
-        ) {
-            when(it){
+        ) {index->
+            when(index){
                 0->{
                     UserDetailScreen(modifier = modifier)
                 }
@@ -174,8 +181,6 @@ fun ProfileTab(modifier: Modifier) {
             }
         }
     }
-
-
 }
 
 @Preview
