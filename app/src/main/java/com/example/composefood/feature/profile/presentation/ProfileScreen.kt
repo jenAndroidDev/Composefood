@@ -40,9 +40,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.composefood.R
 import com.example.composefood.commons.MediumHeightText
 import com.example.composefood.commons.ProfileTabItem
 import com.example.composefood.components.HeaderBackIcon
@@ -117,63 +119,40 @@ fun ProfileTab(modifier: Modifier) {
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
             "Home"
-        ),
+        ),)
+    val pagerState = rememberPagerState(pageCount = { tabItems.size })
 
-        )
-    val selectedTabIndex by remember {
-        mutableIntStateOf(0)
-    }
-    val pagerState = rememberPagerState { tabItems.size }
-
-    val scope = rememberCoroutineScope()
-
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(modifier) {
         val coroutineScope = rememberCoroutineScope()
-        TabRow(selectedTabIndex = pagerState.currentPage,
-            indicator = {tabPositions ->
-                if (selectedTabIndex<tabPositions.size){
-                    TabRowDefaults.Indicator(
-                        modifier = modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                        color = GoldenYellow
-                    )
-                }
-            }
-            ) {
-            tabItems.forEachIndexed { index, tabItem ->
-//                ProfileTabItem(
-//                    selectedTabIndex = selectedTabIndex,
-//                    tabItem = tabItem,
-//                    currentIndex = index,
-//                    tabSelectedColor = Color.White,
-//                    tabUnselectedColor = Color.DarkGray,
-//                    onTabItemClicked = {
-//                        coroutineScope.launch {
-//                            pagerState.animateScrollToPage(selectedTabIndex)
-//                        }
-//                    }
-//                )
+        TabRow(
+            selectedTabIndex = pagerState.currentPage
+        ) {
+            tabItems.forEachIndexed { index, page ->
                 Tab(
                     selected = pagerState.currentPage == index,
                     onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } },
-                    text = { Text(text = "Sample") },
+                    text = { Text(text = page.description) },
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.icon_home_v2),
+                            contentDescription = page.description)
+                    },
                     unselectedContentColor = MaterialTheme.colorScheme.secondary
                 )
-
             }
-
-
         }
-        HorizontalPager(state = pagerState,
-            modifier = modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) {index->
-            when(index){
+        HorizontalPager(
+            modifier = Modifier.background(MaterialTheme.colorScheme.background),
+            state = pagerState,
+            verticalAlignment = Alignment.Top
+        ) { index ->
+            when (index) {
+
                 0->{
-                    UserDetailScreen(modifier = modifier)
+                     WalletScreen()
                 }
                 1->{
-                    WalletScreen()
+                    UserDetailScreen(modifier = modifier)
                 }
                 2->{
                     PaymentHistoryScreen()
@@ -182,6 +161,7 @@ fun ProfileTab(modifier: Modifier) {
         }
     }
 }
+
 
 @Preview
 @Composable
