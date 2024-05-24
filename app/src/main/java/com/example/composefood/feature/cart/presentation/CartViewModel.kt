@@ -5,6 +5,7 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composefood.R
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -15,8 +16,25 @@ class CartViewModel:ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
+
+    private val scrollState = MutableSharedFlow<UiAction.Scroll>(1)
+
+    val action:(UiAction)->Unit
+
+
     init {
         getUiModels()
+
+        action  = {
+            onUiAction(it)
+        }
+    }
+    private fun onUiAction(action: UiAction){
+        when(action){
+            is UiAction.Scroll->{
+                viewModelScope.launch { scrollState.emit(action) }
+            }
+        }
     }
     private fun getUiModels(){
 
@@ -73,3 +91,6 @@ data class UiState(
     val data:SnapshotStateList<UiModel> = SnapshotStateList(),
 
 )
+sealed class UiAction{
+    data class Scroll(val totalItemCount:Int):UiAction()
+}

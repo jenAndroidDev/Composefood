@@ -1,5 +1,7 @@
 package com.example.composefood.feature.cart.presentation
 
+import android.nfc.Tag
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +16,8 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
@@ -22,6 +26,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +45,7 @@ import com.example.composefood.commons.SubTitleText
 import com.example.composefood.components.CircleButtonShadowed
 import com.example.composefood.ui.theme.GREY_10
 
+private const val Tag = "CartScreen"
 @Composable
 fun CartScreen(
     modifier: Modifier = Modifier,
@@ -144,6 +150,8 @@ fun OrdersFeed(viewModel: CartViewModel = hiltViewModel(),
                modifier: Modifier){
 
     val data = viewModel.uiState.collectAsStateWithLifecycle()
+    val action = viewModel.action
+
 
     val list = data.value.data
     OrdersList(data = list, modifier = modifier)
@@ -152,9 +160,25 @@ fun OrdersFeed(viewModel: CartViewModel = hiltViewModel(),
 @Composable
 fun OrdersList(data:SnapshotStateList<UiModel>,modifier: Modifier){
 
+    val scrollState = rememberLazyListState()
+
+    if (scrollState.isScrollInProgress){
+        val visibleItemCount = scrollState.layoutInfo.visibleItemsInfo.size
+        val totalItemCount = scrollState.layoutInfo.totalItemsCount
+
+        Log.d(Tag, "OrdersList() called with: scrollState:=${visibleItemCount},${totalItemCount}")
+
+
+
+    }
+
+
+
+
     LazyColumn(modifier = modifier
         .systemBarsPadding()
         .fillMaxSize(),
+        state = scrollState
         ){
         items(data.size){
             OrderedItem(data = data[it])
