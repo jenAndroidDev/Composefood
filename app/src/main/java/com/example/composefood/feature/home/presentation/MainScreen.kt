@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -38,10 +37,8 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -94,7 +91,7 @@ fun MainScreen(
             Spacer(modifier = modifier.height(24.dp))
             SearchFoodSection(modifier)
             Spacer(modifier = modifier.height(16.dp))
-            FoodCategoryList(modifier = modifier)
+            FoodCategoryList(modifier = modifier, onItemClicked = onClick)
         }
     }
 }
@@ -201,7 +198,11 @@ fun FilterFoods(modifier: Modifier = Modifier, data:FilterFoodCategory, onClick:
     }
 }
 @Composable
-fun FoodCategoryList(viewModel: HomeScreenViewModel = hiltViewModel(),modifier: Modifier){
+fun FoodCategoryList(
+    viewModel: HomeScreenViewModel = hiltViewModel(),
+    modifier: Modifier,
+    onItemClicked: () -> Unit
+    ){
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val data = uiState.value.data
     val trendingFeed = uiState.value.trendingData
@@ -219,12 +220,15 @@ fun FoodCategoryList(viewModel: HomeScreenViewModel = hiltViewModel(),modifier: 
                 Spacer(modifier = Modifier.padding(12.dp))
             }
         }
-        TrendingFeed(data = trendingFeed, modifier =modifier)
+        TrendingFeed(data = trendingFeed, modifier =modifier, onClick = onItemClicked)
     }
 }
 
 @Composable
-fun TrendingFeed(data:SnapshotStateList<TrendingFoods>,modifier: Modifier){
+fun TrendingFeed(data:SnapshotStateList<TrendingFoods>,
+                 modifier: Modifier,
+                 onClick: () -> Unit
+                 ){
     val lazyListState = rememberLazyListState()
     LazyRow(contentPadding = PaddingValues(2.dp), state = lazyListState){
         items(
@@ -243,7 +247,8 @@ fun TrendingFeed(data:SnapshotStateList<TrendingFoods>,modifier: Modifier){
                 name = data[it].foodName,
                 description = data[it].foodDescription,
                 price = data[it].price,
-                calories = data[it].price
+                calories = data[it].price,
+                onItemClick = onClick
             )
             Spacer(modifier = Modifier.padding(8.dp))
         }

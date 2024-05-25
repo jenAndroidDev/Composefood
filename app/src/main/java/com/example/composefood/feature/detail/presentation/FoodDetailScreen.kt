@@ -1,5 +1,6 @@
 package com.example.composefood.feature.detail.presentation
 
+import android.widget.Space
 import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -26,12 +28,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefood.R
+import com.example.composefood.commons.CurrencyText
+import com.example.composefood.commons.LargeHeightText
+import com.example.composefood.commons.MediumHeightText
+import com.example.composefood.commons.SubTitleText
 import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.ui.theme.GoldenYellow
@@ -42,12 +49,25 @@ fun FoodDetailScreen(
     modifier: Modifier = Modifier,
     onClick:()->Unit
 ){
-    Surface(modifier = modifier.fillMaxSize()) {
-        Column {
+    Surface(modifier = modifier
+        .fillMaxSize()
+        .background(color = Color.White)) {
+        Column (modifier = modifier
+            .background(color = Color.White)
+            .padding(start = 12.dp)){
             Spacer(modifier = modifier.height(16.dp))
             Header()
             Spacer(modifier = modifier.height(16.dp))
             ContentImage()
+            Spacer(modifier = modifier.height(16.dp))
+            ContentHeader()
+            Spacer(modifier = modifier.height(12.dp))
+            MediumHeightText(text = "Details")
+            Spacer(modifier = modifier.height(12.dp))
+            SubTitleText(text = "Drinking Caffine at your best moments.Drinking Caffine at your best moments.Drinking Caffine at your best moments\"\"")
+            Spacer(modifier = modifier.height(12.dp))
+            MediumHeightText(text = "Ingredients")
+
         }
     }
 }
@@ -61,7 +81,6 @@ private fun Header(modifier: Modifier = Modifier){
         .padding(start = 16.dp, end = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically){
-
         Card (elevation = CardDefaults.elevatedCardElevation()){
             HeaderBackIcon(icon = Icons.Default.KeyboardArrowLeft)
         }
@@ -95,6 +114,26 @@ private fun ContentImage(modifier: Modifier = Modifier){
                 .clip(CircleShape)
         )
     }
+}
+
+@Preview
+@Composable
+private fun ContentHeader(modifier: Modifier = Modifier){
+    Row (modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween){
+        Spacer(modifier = modifier.width(4.dp))
+        LargeHeightText(text = "Italian Coffee")
+        Spacer(modifier = modifier.weight(1f))
+        CurrencyText(price = 9.0f)
+        Spacer(modifier = modifier.width(4.dp))
+
+    }
+}
+
+@Composable
+fun IngredientsList(){
+
 }
 
 @Preview

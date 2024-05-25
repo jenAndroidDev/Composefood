@@ -24,6 +24,7 @@ object Graph{
     const val ONBOARD_GRAPH = "onboard_graph"
     const val HOME_GRAPH = "home_graph"
     const val CORE_GRAPH = "core_graph"
+    const val DETAILS_GRAPH="details_graph"
 
 }
 private const val START_DESTINATION = 1

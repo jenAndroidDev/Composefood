@@ -1,6 +1,7 @@
 package com.example.composefood.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,7 +32,8 @@ fun FoodDetailCard(
     name:String="",
     description:String="",
     price:String="",
-    calories:String=""
+    calories:String="",
+    onItemClick:()->Unit={},
 
 
 ){
@@ -41,7 +43,9 @@ fun FoodDetailCard(
         .background(
             shape = RoundedCornerShape(18.dp),
             color = Color.White
-        ),
+        ).clickable {
+             onItemClick.invoke()
+        },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
