@@ -39,7 +39,6 @@ import com.example.composefood.ui.theme.InkBlack
 import timber.log.Timber
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navHostController: NavHostController = rememberNavController()){
 

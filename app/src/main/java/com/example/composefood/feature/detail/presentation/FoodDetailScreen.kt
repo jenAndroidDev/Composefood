@@ -36,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefood.R
 import com.example.composefood.commons.CurrencyText
+import com.example.composefood.commons.FoodSubDetail
 import com.example.composefood.commons.LargeHeightText
 import com.example.composefood.commons.MediumHeightText
 import com.example.composefood.commons.SubTitleText
@@ -66,7 +67,9 @@ fun FoodDetailScreen(
             Spacer(modifier = modifier.height(12.dp))
             SubTitleText(text = "Drinking Caffine at your best moments.Drinking Caffine at your best moments.Drinking Caffine at your best moments\"\"")
             Spacer(modifier = modifier.height(12.dp))
+            FoodOtherDetails(modifier = modifier)
             MediumHeightText(text = "Ingredients")
+
 
         }
     }
@@ -127,7 +130,21 @@ private fun ContentHeader(modifier: Modifier = Modifier){
         Spacer(modifier = modifier.weight(1f))
         CurrencyText(price = 9.0f)
         Spacer(modifier = modifier.width(4.dp))
+    }
+}
 
+/*
+* Poor Naming Conventions*/
+
+@Composable
+private fun FoodOtherDetails(modifier: Modifier){
+    Row(modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically) {
+        FoodSubDetail(modifier = modifier, text = "2.6", resId = R.drawable.flame_icon)
+        Spacer(modifier = modifier.weight(1f))
+        FoodSubDetail(modifier = modifier, text = "2.6", resId = R.drawable.flame_icon)
+        Spacer(modifier = modifier.weight(1f))
+        FoodSubDetail(modifier = modifier, text = "2.6", resId = R.drawable.flame_icon)
     }
 }
 
