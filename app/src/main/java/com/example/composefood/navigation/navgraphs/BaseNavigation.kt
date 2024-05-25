@@ -10,11 +10,14 @@ import com.example.composefood.feature.home.presentation.HomeScreen
 @Composable
 fun BaseNavGraph(navHostController: NavHostController){
 
-    NavHost(navController = navHostController, route = Graph.BASE_GRAPH, startDestination = Graph.HOME_GRAPH){
+    NavHost(
+        navController = navHostController,
+        route = Graph.BASE_GRAPH,
+        startDestination = Graph.HOME_GRAPH
+    ){
         composable(Graph.HOME_GRAPH){
             HomeScreen()
         }
-
     }
 }
 
