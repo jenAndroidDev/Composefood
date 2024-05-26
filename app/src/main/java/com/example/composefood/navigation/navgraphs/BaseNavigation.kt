@@ -1,5 +1,7 @@
 package com.example.composefood.navigation.navgraphs
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ComposeCompilerApi
 import androidx.navigation.NavHostController
@@ -7,19 +9,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.composefood.feature.home.presentation.HomeScreen
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun BaseNavGraph(navHostController: NavHostController){
 
 
-    NavHost(
-        navController = navHostController,
-        route = Graph.BASE_GRAPH,
-        startDestination = Graph.HOME_GRAPH
-    ){
-        composable(Graph.HOME_GRAPH){
-            HomeScreen()
+        NavHost(
+            navController = navHostController,
+            route = Graph.BASE_GRAPH,
+            startDestination = Graph.HOME_GRAPH
+        ){
+            composable(Graph.HOME_GRAPH){
+                HomeScreen(animatedVisibilityScope = this)
+            }
         }
-    }
+
+
 }
 
 object Graph{

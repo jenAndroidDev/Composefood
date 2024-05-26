@@ -111,9 +111,7 @@ fun CoreNavGraph(navHostController: NavHostController){
         }
 
         composable(route = BottomBarScreen.PREMIUM.route){
-            SearchScreen(){
 
-            }
         }
 
         composable(route = BottomBarScreen.FOODERSHUB.route){

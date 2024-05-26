@@ -1,6 +1,7 @@
 package com.example.composefood.feature.home.presentation
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,7 +41,10 @@ import timber.log.Timber
 
 
 @Composable
-fun HomeScreen(navHostController: NavHostController = rememberNavController()){
+fun HomeScreen(
+    navHostController: NavHostController = rememberNavController(),
+    animatedVisibilityScope: AnimatedVisibilityScope
+    ){
 
     Scaffold(
         bottomBar = { CustomBottomBar(navHostController) }

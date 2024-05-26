@@ -1,5 +1,8 @@
 package com.example.composefood.feature.search.presentation
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,9 +43,11 @@ import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
 
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SearchScreen(
+fun SharedTransitionScope.SearchScreen(
     modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     onClick:()->Unit
 ){
 
@@ -58,7 +63,7 @@ fun SearchScreen(
                 modifier = modifier.padding(start = 12.dp),
                 text = "Found 80 results"
             )
-            SearchFeed(modifier = modifier)
+            SearchFeed(modifier = modifier, animatedVisibilityScope = animatedVisibilityScope)
             Spacer(modifier = modifier.height(40.dp))
         }
     }
@@ -112,8 +117,13 @@ private fun SearchFood(modifier: Modifier){
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-private fun SearchFeed(viewModel: SearchViewModel = hiltViewModel(), modifier: Modifier){
+private fun SharedTransitionScope.SearchFeed(
+    viewModel: SearchViewModel = hiltViewModel(),
+    modifier: Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    ){
 
     val uiState  = viewModel.uiState.collectAsStateWithLifecycle()
     val data = uiState.value.data
@@ -132,7 +142,8 @@ private fun SearchFeed(viewModel: SearchViewModel = hiltViewModel(), modifier: M
                 description = data[it].foodDescription,
                 itemImage = data[it].image,
                 price = data[it].price,
-                calories = data[it].calories
+                calories = data[it].calories,
+                animatedVisibilityScope = animatedVisibilityScope
             )
             Spacer(modifier = Modifier.padding(8.dp))
         }
@@ -143,6 +154,5 @@ private fun SearchFeed(viewModel: SearchViewModel = hiltViewModel(), modifier: M
 @Preview
 @Composable
 fun PreviewPremiumFoodScreen(){
-    SearchScreen {
-    }
+
 }

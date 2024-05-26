@@ -1,13 +1,18 @@
 package com.example.composefood.feature.detail.presentation
 
 import android.widget.Space
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.exponentialDecay
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -45,9 +50,12 @@ import com.example.composefood.components.ProfileIcon
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.PaleWhite
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun FoodDetailScreen(
+fun SharedTransitionScope.FoodDetailScreen(
     modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    resId: Int,
     onClick:()->Unit
 ){
     Surface(modifier = modifier
@@ -59,7 +67,7 @@ fun FoodDetailScreen(
             Spacer(modifier = modifier.height(16.dp))
             Header()
             Spacer(modifier = modifier.height(16.dp))
-            ContentImage()
+            ContentImage(resId = resId, animatedVisibilityScope = animatedVisibilityScope)
             Spacer(modifier = modifier.height(16.dp))
             ContentHeader()
             Spacer(modifier = modifier.height(12.dp))
@@ -71,13 +79,15 @@ fun FoodDetailScreen(
             MediumHeightText(text = "Ingredients")
 
 
+
         }
     }
 }
 //since this composable is used in many screens move it to components.
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview
 @Composable
-private fun Header(modifier: Modifier = Modifier){
+private fun SharedTransitionScope.Header(modifier: Modifier = Modifier){
 
     Row (modifier = modifier
         .fillMaxWidth()
@@ -87,12 +97,19 @@ private fun Header(modifier: Modifier = Modifier){
         Card (elevation = CardDefaults.elevatedCardElevation()){
             HeaderBackIcon(icon = Icons.Default.KeyboardArrowLeft)
         }
+
         ProfileIcon(modifier = modifier, imageVector = Icons.Default.FavoriteBorder) }
+
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview
 @Composable
-private fun ContentImage(modifier: Modifier = Modifier){
+private fun SharedTransitionScope.ContentImage(
+    modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    resId:Int
+    ){
 
     Column(modifier = modifier
         .fillMaxWidth()
@@ -103,10 +120,17 @@ private fun ContentImage(modifier: Modifier = Modifier){
         ) {
         Spacer(modifier = modifier.height(12.dp))
         Image(
-            painter = painterResource(id = R.drawable.item_b),
+            painter = painterResource(id =resId),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
+                .sharedElement(
+                    state = rememberSharedContentState(key = "image/$resId"),
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    boundsTransform = { _, _ ->
+                        tween(durationMillis = 1000)
+                    }
+                )
                 .size(200.dp)
                 .shadow(
                     shape = CircleShape,
@@ -151,11 +175,4 @@ private fun FoodOtherDetails(modifier: Modifier){
 @Composable
 fun IngredientsList(){
 
-}
-
-@Preview
-@Composable
-fun PreviewFoodDetailScreen(){
-    FoodDetailScreen {
-    }
 }

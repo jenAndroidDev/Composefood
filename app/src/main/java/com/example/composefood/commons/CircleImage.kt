@@ -1,5 +1,9 @@
 package com.example.composefood.commons
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -199,13 +203,13 @@ fun CircleImageWithShadow(){
 }
 
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun CircleAvatarWithShadow(
+fun SharedTransitionScope.CircleAvatarWithShadow(
     modifier: Modifier = Modifier,
-    itemImage: Int
+    itemImage: Int,
+    animatedVisibilityScope: AnimatedVisibilityScope
 ){
-
-
     Column(verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.padding(top = 12.dp)) {
@@ -214,6 +218,13 @@ fun CircleAvatarWithShadow(
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
+                .sharedElement(
+                state = rememberSharedContentState(key = "image/$itemImage"),
+                animatedVisibilityScope = animatedVisibilityScope,
+                boundsTransform = { _, _ ->
+                    tween(durationMillis = 1000)
+                }
+            )
                 .size(120.dp)
                 .shadow(
                     shape = CircleShape,

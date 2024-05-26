@@ -1,6 +1,9 @@
 package com.example.composefood.feature.home.presentation
 
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -70,11 +73,12 @@ import timber.log.Timber
 * 3.
 * */
 private const val Tag = "MainScreen"
-@Preview
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun MainScreen(
+fun SharedTransitionScope.MainScreen(
     modifier: Modifier = Modifier,
-    onClick:()->Unit = {},
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onClick:(Int)->Unit = {},
     ){
     Surface(modifier = modifier
         .fillMaxSize(),
@@ -91,7 +95,7 @@ fun MainScreen(
             Spacer(modifier = modifier.height(24.dp))
             SearchFoodSection(modifier)
             Spacer(modifier = modifier.height(16.dp))
-            FoodCategoryList(modifier = modifier, onItemClicked = onClick)
+            FoodCategoryList(modifier = modifier, animatedVisibilityScope = animatedVisibilityScope, onItemClicked = onClick)
         }
     }
 }
@@ -164,7 +168,6 @@ fun SearchFoodTextField(){
 
         Row(horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically) {
-
             Icon(
                 modifier = Modifier.size(20.dp),
                 imageVector = Icons.Default.Search,
@@ -197,11 +200,13 @@ fun FilterFoods(modifier: Modifier = Modifier, data:FilterFoodCategory, onClick:
             fontSize = 12.sp, fontWeight = FontWeight.Bold)
     }
 }
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun FoodCategoryList(
+fun SharedTransitionScope.FoodCategoryList(
     viewModel: HomeScreenViewModel = hiltViewModel(),
     modifier: Modifier,
-    onItemClicked: () -> Unit
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onItemClicked: (Int) -> Unit
     ){
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val data = uiState.value.data
@@ -220,14 +225,21 @@ fun FoodCategoryList(
                 Spacer(modifier = Modifier.padding(12.dp))
             }
         }
-        TrendingFeed(data = trendingFeed, modifier =modifier, onClick = onItemClicked)
+        TrendingFeed(
+            data = trendingFeed,
+            modifier =modifier,
+            animatedVisibilityScope = animatedVisibilityScope,
+            onClick = onItemClicked)
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun TrendingFeed(data:SnapshotStateList<TrendingFoods>,
+fun SharedTransitionScope.TrendingFeed(
+    data:SnapshotStateList<TrendingFoods>,
                  modifier: Modifier,
-                 onClick: () -> Unit
+                 animatedVisibilityScope: AnimatedVisibilityScope,
+                 onClick: (Int) -> Unit
                  ){
     val lazyListState = rememberLazyListState()
     LazyRow(contentPadding = PaddingValues(2.dp), state = lazyListState){
@@ -248,6 +260,7 @@ fun TrendingFeed(data:SnapshotStateList<TrendingFoods>,
                 description = data[it].foodDescription,
                 price = data[it].price,
                 calories = data[it].price,
+                animatedVisibilityScope = animatedVisibilityScope,
                 onItemClick = onClick
             )
             Spacer(modifier = Modifier.padding(8.dp))

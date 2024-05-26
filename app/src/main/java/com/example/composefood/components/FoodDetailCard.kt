@@ -1,5 +1,8 @@
 package com.example.composefood.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,19 +27,19 @@ import com.example.composefood.commons.SubTitleText
 import com.example.composefood.feature.home.presentation.CaloriesDetails
 import com.example.composefood.feature.home.presentation.PriceDetails
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview
 @Composable
-fun FoodDetailCard(
+fun SharedTransitionScope.FoodDetailCard(
     modifier: Modifier = Modifier,
     itemImage:Int=0,
     name:String="",
     description:String="",
     price:String="",
     calories:String="",
-    onItemClick:()->Unit={},
-
-
-){
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onItemClick:(Int)->Unit={},
+    ){
     Column(modifier = modifier
         .width(180.dp)
         .wrapContentHeight()
@@ -44,12 +47,12 @@ fun FoodDetailCard(
             shape = RoundedCornerShape(18.dp),
             color = Color.White
         ).clickable {
-             onItemClick.invoke()
+             onItemClick.invoke(itemImage)
         },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CircleAvatarWithShadow(modifier = modifier,itemImage)
+        CircleAvatarWithShadow(modifier = modifier,itemImage, animatedVisibilityScope = animatedVisibilityScope)
         Row(modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center) {
             Column(modifier = modifier.padding(top = 20.dp,
