@@ -123,6 +123,7 @@ private fun SharedTransitionScope.SearchFeed(
     viewModel: SearchViewModel = hiltViewModel(),
     modifier: Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
+
     ){
 
     val uiState  = viewModel.uiState.collectAsStateWithLifecycle()
@@ -136,15 +137,16 @@ private fun SharedTransitionScope.SearchFeed(
         ){
         items(data.size){
             Spacer(modifier = Modifier.padding(4.dp))
-            FoodDetailCard(
-                modifier = modifier,
-                name = data[it].foodName,
-                description = data[it].foodDescription,
-                itemImage = data[it].image,
-                price = data[it].price,
-                calories = data[it].calories,
-                animatedVisibilityScope = animatedVisibilityScope
-            )
+//            FoodDetailCard(
+//                modifier = modifier,
+//                name = data[it].foodName,
+//                description = data[it].foodDescription,
+//                itemImage = data[it].image,
+//                price = data[it].price,
+//                calories = data[it].calories,
+//                animatedVisibilityScope = animatedVisibilityScope,
+//                sharedTransitionScope =
+//            )
             Spacer(modifier = Modifier.padding(8.dp))
         }
     }

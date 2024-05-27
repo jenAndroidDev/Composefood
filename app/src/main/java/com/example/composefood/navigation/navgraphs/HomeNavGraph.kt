@@ -37,7 +37,7 @@ fun HomeScreenNavGraph(navHostController: NavHostController){
             composable(
                 route = BottomBarScreen.HOME.route,
             ){
-                MainScreen(animatedVisibilityScope = this) {resId->
+                MainScreen(animatedVisibilityScope = this, sharedTransitionScope = this@SharedTransitionLayout) {resId->
                     Log.d(Tag, "HomeScreenNavGraph() called")
                     //navHostController.navigate(Graph.DETAILS_GRAPH)
                     navHostController.navigate("details/$resId")
@@ -64,8 +64,8 @@ fun HomeScreenNavGraph(navHostController: NavHostController){
                 )
             ){
                 val resId = it.arguments?.getInt("resId") ?: 0
-                FoodDetailScreen(animatedVisibilityScope = this, resId = resId) {
-
+                FoodDetailScreen(animatedContentScope = this, sharedTransitionScope = this@SharedTransitionLayout, resId = resId) {
+                    navHostController.popBackStack()
                 }
             }
 

@@ -1,6 +1,7 @@
 package com.example.composefood.feature.home.presentation
 
 
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -21,6 +22,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -34,6 +36,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -77,7 +80,8 @@ private const val Tag = "MainScreen"
 @Composable
 fun SharedTransitionScope.MainScreen(
     modifier: Modifier = Modifier,
-    animatedVisibilityScope: AnimatedVisibilityScope,
+    animatedVisibilityScope: AnimatedContentScope,
+    sharedTransitionScope: SharedTransitionScope,
     onClick:(Int)->Unit = {},
     ){
     Surface(modifier = modifier
@@ -95,7 +99,11 @@ fun SharedTransitionScope.MainScreen(
             Spacer(modifier = modifier.height(24.dp))
             SearchFoodSection(modifier)
             Spacer(modifier = modifier.height(16.dp))
-            FoodCategoryList(modifier = modifier, animatedVisibilityScope = animatedVisibilityScope, onItemClicked = onClick)
+            FoodCategoryList(
+                modifier = modifier,
+                animatedVisibilityScope = animatedVisibilityScope,
+                sharedTransitionScope = sharedTransitionScope,
+                onItemClicked = onClick)
         }
     }
 }
@@ -206,8 +214,10 @@ fun SharedTransitionScope.FoodCategoryList(
     viewModel: HomeScreenViewModel = hiltViewModel(),
     modifier: Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
-    onItemClicked: (Int) -> Unit
-    ){
+    sharedTransitionScope: SharedTransitionScope,
+    onItemClicked: (Int) -> Unit,
+
+){
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val data = uiState.value.data
     val trendingFeed = uiState.value.trendingData
@@ -229,44 +239,46 @@ fun SharedTransitionScope.FoodCategoryList(
             data = trendingFeed,
             modifier =modifier,
             animatedVisibilityScope = animatedVisibilityScope,
+            sharedTransitionScope = sharedTransitionScope,
             onClick = onItemClicked)
     }
 }
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.TrendingFeed(
-    data:SnapshotStateList<TrendingFoods>,
-                 modifier: Modifier,
-                 animatedVisibilityScope: AnimatedVisibilityScope,
-                 onClick: (Int) -> Unit
-                 ){
+fun TrendingFeed(
+    data: SnapshotStateList<TrendingFoods>,
+    modifier: Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    sharedTransitionScope: SharedTransitionScope,
+    onClick: (Int) -> Unit,
+
+    ) {
     val lazyListState = rememberLazyListState()
-    LazyRow(contentPadding = PaddingValues(2.dp), state = lazyListState){
-        items(
-            data.size,
-        ){
-            val scale by remember {
-                derivedStateOf {
-                    lazyListState.firstVisibleItemIndex
-                }
+    LazyRow(contentPadding = PaddingValues(2.dp), state = lazyListState) {
+        itemsIndexed(
+            data,
+        ) {index,it->
+            key(data[index].id) {
+                Spacer(modifier = Modifier.padding(4.dp))
+                FoodDetailCard(
+                    modifier = modifier,
+                    itemImage = it.image,
+                    name = it.foodName,
+                    description = it.foodDescription,
+                    price = it.price,
+                    calories = it.price,
+                    animatedVisibilityScope = animatedVisibilityScope,
+                    sharedTransitionScope = sharedTransitionScope,
+                    onItemClick = onClick
+                )
+                Spacer(modifier = Modifier.padding(8.dp))
             }
-            Timber.tag(Tag).d("visibleItemPosition....$scale")
-            Spacer(modifier = Modifier.padding(4.dp))
-            FoodDetailCard(
-                modifier = modifier,
-                itemImage = data[it].image,
-                name = data[it].foodName,
-                description = data[it].foodDescription,
-                price = data[it].price,
-                calories = data[it].price,
-                animatedVisibilityScope = animatedVisibilityScope,
-                onItemClick = onClick
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
+
         }
     }
 }
+
 
 @Preview
 @Composable

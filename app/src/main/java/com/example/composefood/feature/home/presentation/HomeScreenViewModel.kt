@@ -1,5 +1,6 @@
 package com.example.composefood.feature.home.presentation
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
@@ -84,18 +85,18 @@ class HomeScreenViewModel:ViewModel() {
                 "Natural Aromatic Coffee","200","20"),
             TrendingFoods(2, R.drawable.sample_circle3,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(3, R.drawable.sample_circle2,"Italian Coffee",
+            TrendingFoods(3, R.drawable.sample_circle,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(4, R.drawable.sample_circle3,"Italian Coffee",
+            TrendingFoods(4, R.drawable.smaple_image5,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(4, R.drawable.sample_circle2,"Italian Coffee",
+            TrendingFoods(4, R.drawable.sample_item4,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(4, R.drawable.sample_circle3,"Italian Coffee",
-                "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(4, R.drawable.sample_circle2,"Italian Coffee",
-                "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(4, R.drawable.sample_circle2,"Italian Coffee",
-                "Natural Aromatic Coffee","200","20")
+//            TrendingFoods(4, R.drawable.sample_circle3,"Italian Coffee",
+//                "Natural Aromatic Coffee","200","20"),
+//            TrendingFoods(4, R.drawable.sample_circle2,"Italian Coffee",
+//                "Natural Aromatic Coffee","200","20"),
+//            TrendingFoods(4, R.drawable.sample_circle2,"Italian Coffee",
+//                "Natural Aromatic Coffee","200","20")
 
         )
     }
@@ -125,6 +126,7 @@ data class RecommendedFoods(
     val calories:String,
     val description:String
 )
+@Immutable
 data class TrendingFoods(
     val id:Int,
     val image:Int,

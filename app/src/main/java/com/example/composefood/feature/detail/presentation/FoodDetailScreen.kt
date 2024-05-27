@@ -1,13 +1,17 @@
 package com.example.composefood.feature.detail.presentation
 
 import android.widget.Space
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +33,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,46 +57,51 @@ import com.example.composefood.ui.theme.PaleWhite
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.FoodDetailScreen(
+fun FoodDetailScreen(
     modifier: Modifier = Modifier,
-    animatedVisibilityScope: AnimatedVisibilityScope,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
     resId: Int,
     onClick:()->Unit
 ){
     Surface(modifier = modifier
         .fillMaxSize()
         .background(color = Color.White)) {
-        Column (modifier = modifier
-            .background(color = Color.White)
-            .padding(start = 12.dp)){
-            Spacer(modifier = modifier.height(16.dp))
-            Header()
-            Spacer(modifier = modifier.height(16.dp))
-            ContentImage(resId = resId, animatedVisibilityScope = animatedVisibilityScope)
-            Spacer(modifier = modifier.height(16.dp))
-            ContentHeader()
-            Spacer(modifier = modifier.height(12.dp))
-            MediumHeightText(text = "Details")
-            Spacer(modifier = modifier.height(12.dp))
-            SubTitleText(text = "Drinking Caffine at your best moments.Drinking Caffine at your best moments.Drinking Caffine at your best moments\"\"")
-            Spacer(modifier = modifier.height(12.dp))
-            FoodOtherDetails(modifier = modifier)
-            MediumHeightText(text = "Ingredients")
-
-
-
+        with(sharedTransitionScope){
+            Column (modifier = modifier
+                .background(color = Color.White)
+                .padding(start = 12.dp)){
+                Spacer(modifier = modifier.height(16.dp))
+                Header(onClick = onClick)
+                Spacer(modifier = modifier.height(16.dp))
+                ContentImage(resId = resId, animatedVisibilityScope = animatedContentScope)
+                Spacer(modifier = modifier.height(16.dp))
+                ContentHeader()
+                Spacer(modifier = modifier.height(12.dp))
+                MediumHeightText(text = "Details")
+                Spacer(modifier = modifier.height(12.dp))
+                SubTitleText(text = "Drinking Caffine at your best moments.Drinking Caffine at your best moments.Drinking Caffine at your best moments\"\"")
+                Spacer(modifier = modifier.height(12.dp))
+                FoodOtherDetails(modifier = modifier)
+                MediumHeightText(text = "Ingredients")
+            }
         }
+
     }
 }
 //since this composable is used in many screens move it to components.
-@OptIn(ExperimentalSharedTransitionApi::class)
+
 @Preview
 @Composable
-private fun SharedTransitionScope.Header(modifier: Modifier = Modifier){
+private fun Header(modifier: Modifier = Modifier,
+                   onClick: () -> Unit,){
 
     Row (modifier = modifier
         .fillMaxWidth()
-        .padding(start = 16.dp, end = 16.dp),
+        .padding(start = 16.dp, end = 16.dp)
+        .clickable {
+              onClick.invoke()
+        },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically){
         Card (elevation = CardDefaults.elevatedCardElevation()){
@@ -160,19 +170,30 @@ private fun ContentHeader(modifier: Modifier = Modifier){
 /*
 * Poor Naming Conventions*/
 
+@Preview
 @Composable
-private fun FoodOtherDetails(modifier: Modifier){
-    Row(modifier = modifier.fillMaxWidth(),
+private fun FoodOtherDetails(modifier: Modifier = Modifier){
+    Row(modifier = modifier.fillMaxWidth()
+        .padding(start = 12.dp, end = 12.dp),
         verticalAlignment = Alignment.CenterVertically) {
-        FoodSubDetail(modifier = modifier, text = "2.6", resId = R.drawable.flame_icon)
+        FoodSubDetail(modifier = modifier, text = "2.6", resId = R.drawable.icon_star)
         Spacer(modifier = modifier.weight(1f))
-        FoodSubDetail(modifier = modifier, text = "2.6", resId = R.drawable.flame_icon)
+        FoodSubDetail(modifier = modifier, text = "78 calories", resId = R.drawable.flame_icon)
         Spacer(modifier = modifier.weight(1f))
-        FoodSubDetail(modifier = modifier, text = "2.6", resId = R.drawable.flame_icon)
+        FoodSubDetail(modifier = modifier, text = "20-30 min", resId = R.drawable.chronometer)
     }
 }
 
 @Composable
 fun IngredientsList(){
 
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Composable
+fun SharedTransitionScope.PreviewDetailsScreen(){
+
+    SharedTransitionLayout {
+
+    }
 }

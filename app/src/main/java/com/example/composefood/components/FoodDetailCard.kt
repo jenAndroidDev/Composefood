@@ -28,15 +28,15 @@ import com.example.composefood.feature.home.presentation.CaloriesDetails
 import com.example.composefood.feature.home.presentation.PriceDetails
 
 @OptIn(ExperimentalSharedTransitionApi::class)
-@Preview
 @Composable
-fun SharedTransitionScope.FoodDetailCard(
+fun FoodDetailCard(
     modifier: Modifier = Modifier,
     itemImage:Int=0,
     name:String="",
     description:String="",
     price:String="",
     calories:String="",
+    sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     onItemClick:(Int)->Unit={},
     ){
@@ -52,7 +52,9 @@ fun SharedTransitionScope.FoodDetailCard(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CircleAvatarWithShadow(modifier = modifier,itemImage, animatedVisibilityScope = animatedVisibilityScope)
+        with(sharedTransitionScope){
+            CircleAvatarWithShadow(modifier = modifier,itemImage, animatedVisibilityScope = animatedVisibilityScope)
+        }
         Row(modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center) {
             Column(modifier = modifier.padding(top = 20.dp,
