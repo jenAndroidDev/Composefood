@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefood.commons.CircleAvatarWithShadow
 import com.example.composefood.commons.MediumHeightText
@@ -31,6 +30,7 @@ import com.example.composefood.feature.home.presentation.PriceDetails
 @Composable
 fun FoodDetailCard(
     modifier: Modifier = Modifier,
+    itemId:Int,
     itemImage:Int=0,
     name:String="",
     description:String="",
@@ -38,7 +38,7 @@ fun FoodDetailCard(
     calories:String="",
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
-    onItemClick:(Int)->Unit={},
+    onItemClick:(Int,Int)->Unit={ i: Int, i1: Int -> },
     ){
     Column(modifier = modifier
         .width(180.dp)
@@ -47,19 +47,22 @@ fun FoodDetailCard(
             shape = RoundedCornerShape(18.dp),
             color = Color.White
         ).clickable {
-             onItemClick.invoke(itemImage)
+             onItemClick.invoke(itemId,itemImage)
         },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         with(sharedTransitionScope){
-            CircleAvatarWithShadow(modifier = modifier,itemImage, animatedVisibilityScope = animatedVisibilityScope)
+            CircleAvatarWithShadow(
+                modifier = modifier,
+                itemImage =itemImage,
+                itemId = itemId,
+                animatedVisibilityScope = animatedVisibilityScope)
         }
         Row(modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center) {
             Column(modifier = modifier.padding(top = 20.dp,
-                bottom = 20.dp
-            ),
+                bottom = 20.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally){
                 MediumHeightText(text = name)

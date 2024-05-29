@@ -44,27 +44,27 @@ class SearchViewModel:ViewModel() {
     private fun getTrendingFoodList(): ArrayList<PremiumFoodModel> {
 
         return arrayListOf(
-            PremiumFoodModel(1, R.drawable.item_b,"Italian Coffee",
+            PremiumFoodModel(21, R.drawable.item_b,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(2, R.drawable.item_b,"Italian Coffee",
+            PremiumFoodModel(22, R.drawable.item_b,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(3, R.drawable.sample_circle2,"Italian Coffee",
+            PremiumFoodModel(23, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(4, R.drawable.sample_circle3,"Italian Coffee",
+            PremiumFoodModel(24, R.drawable.sample_circle3,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(5, R.drawable.sample_circle2,"Italian Coffee",
+            PremiumFoodModel(25, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(6, R.drawable.sample_circle3,"Italian Coffee",
+            PremiumFoodModel(26, R.drawable.sample_circle3,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(7, R.drawable.sample_circle2,"Italian Coffee",
+            PremiumFoodModel(27, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(8, R.drawable.sample_circle2,"Italian Coffee",
+            PremiumFoodModel(28, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(9, R.drawable.sample_circle3,"Italian Coffee",
+            PremiumFoodModel(29, R.drawable.sample_circle3,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(10, R.drawable.sample_circle2,"Italian Coffee",
+            PremiumFoodModel(30, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20"),
-            PremiumFoodModel(11, R.drawable.sample_circle2,"Italian Coffee",
+            PremiumFoodModel(31, R.drawable.sample_circle2,"Italian Coffee",
                 "Natural Aromatic Coffee","200","20")
 
         )

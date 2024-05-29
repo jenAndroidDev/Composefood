@@ -26,45 +26,57 @@ import com.example.composefood.navigation.BottomBarScreen
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun HomeScreenNavGraph(navHostController: NavHostController){
+fun HomeScreenNavGraph(navHostController: NavHostController) {
 
     SharedTransitionLayout {
         NavHost(navController = navHostController, startDestination = BottomBarScreen.HOME.route,
             route = Graph.HOME_GRAPH,
-            enterTransition = { EnterTransition.None},
-            exitTransition = { ExitTransition.None}
-        ){
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None }
+        ) {
             composable(
                 route = BottomBarScreen.HOME.route,
-            ){
-                MainScreen(animatedVisibilityScope = this, sharedTransitionScope = this@SharedTransitionLayout) {resId->
+            ) {
+                MainScreen(
+                    animatedVisibilityScope = this,
+                    sharedTransitionScope = this@SharedTransitionLayout
+                ) { itemId, resId ->
                     Log.d(Tag, "HomeScreenNavGraph() called")
                     //navHostController.navigate(Graph.DETAILS_GRAPH)
-                    navHostController.navigate("details/$resId")
+                    navHostController.navigate("details/$itemId/$resId")
                 }
             }
-            composable(route = BottomBarScreen.PREMIUM.route){
-                SearchScreen(animatedVisibilityScope = this){
+            composable(route = BottomBarScreen.PREMIUM.route) {
+                SearchScreen(animatedVisibilityScope = this) {
 
                 }
             }
-            composable(route = BottomBarScreen.FOODERSHUB.route){
-                CartScreen{
+            composable(route = BottomBarScreen.FOODERSHUB.route) {
+                CartScreen {
 
                 }
             }
-            composable(route = BottomBarScreen.FAVOURITES.route){
+            composable(route = BottomBarScreen.FAVOURITES.route) {
                 ProfileScreen()
             }
-            composable(route = "details/{resId}",
+            composable(route = "details/{itemId}/{resId}",
                 arguments = listOf(
-                    navArgument("resId"){
+                    navArgument("resId") {
+                        type = NavType.IntType
+                    },
+                    navArgument("itemId") {
                         type = NavType.IntType
                     }
                 )
-            ){
+            ) {
                 val resId = it.arguments?.getInt("resId") ?: 0
-                FoodDetailScreen(animatedContentScope = this, sharedTransitionScope = this@SharedTransitionLayout, resId = resId) {
+                val itemId = it.arguments?.getInt("itemId") ?: 0
+                FoodDetailScreen(
+                    animatedContentScope = this,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    resId = resId,
+                    itemId = itemId
+                ) {
                     navHostController.popBackStack()
                 }
             }
@@ -74,15 +86,17 @@ fun HomeScreenNavGraph(navHostController: NavHostController){
         }
     }
 }
+
 @OptIn(ExperimentalSharedTransitionApi::class)
-fun NavGraphBuilder.detailsNavGraph(navController:NavHostController,
-                                    ){
+fun NavGraphBuilder.detailsNavGraph(
+    navController: NavHostController,
+) {
     navigation(
         route = Graph.DETAILS_GRAPH,
         startDestination = DetailsScreen.FoodDetails.route
 
-    ){
-        composable(route = DetailsScreen.FoodDetails.route ){
+    ) {
+        composable(route = DetailsScreen.FoodDetails.route) {
             SharedTransitionLayout {
 
             }
@@ -90,8 +104,9 @@ fun NavGraphBuilder.detailsNavGraph(navController:NavHostController,
     }
 
 }
-sealed class DetailsScreen(val route:String){
-    data object FoodDetails:DetailsScreen(route = "DETAILS")
+
+sealed class DetailsScreen(val route: String) {
+    data object FoodDetails : DetailsScreen(route = "DETAILS")
 }
 
 private const val Tag = "HomeScreen"

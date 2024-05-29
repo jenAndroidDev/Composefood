@@ -34,7 +34,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
@@ -68,7 +67,6 @@ import com.example.composefood.components.CircleButtonShadowed
 import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.GreyWhite
-import timber.log.Timber
 
 /*
 * 1.Scroll the Entire Screen With Collapsing Mode
@@ -82,7 +80,7 @@ fun SharedTransitionScope.MainScreen(
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedContentScope,
     sharedTransitionScope: SharedTransitionScope,
-    onClick:(Int)->Unit = {},
+    onClick:(Int,Int)->Unit = { i: Int, i1: Int -> },
     ){
     Surface(modifier = modifier
         .fillMaxSize(),
@@ -215,7 +213,7 @@ fun SharedTransitionScope.FoodCategoryList(
     modifier: Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
-    onItemClicked: (Int) -> Unit,
+    onItemClicked: (Int,Int) -> Unit,
 
 ){
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
@@ -251,7 +249,7 @@ fun TrendingFeed(
     modifier: Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
-    onClick: (Int) -> Unit,
+    onClick: (Int,Int) -> Unit,
 
     ) {
     val lazyListState = rememberLazyListState()
@@ -263,6 +261,7 @@ fun TrendingFeed(
                 Spacer(modifier = Modifier.padding(4.dp))
                 FoodDetailCard(
                     modifier = modifier,
+                    itemId = it.id,
                     itemImage = it.image,
                     name = it.foodName,
                     description = it.foodDescription,

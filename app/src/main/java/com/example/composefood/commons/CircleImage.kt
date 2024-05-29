@@ -208,6 +208,7 @@ fun CircleImageWithShadow(){
 fun SharedTransitionScope.CircleAvatarWithShadow(
     modifier: Modifier = Modifier,
     itemImage: Int,
+    itemId:Int = 0,
     animatedVisibilityScope: AnimatedVisibilityScope
 ){
     Column(verticalArrangement = Arrangement.Center,
@@ -219,7 +220,7 @@ fun SharedTransitionScope.CircleAvatarWithShadow(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .sharedElement(
-                state = rememberSharedContentState(key = "image/$itemImage"),
+                state = rememberSharedContentState(key = "image/$itemId"),
                 animatedVisibilityScope = animatedVisibilityScope,
                 boundsTransform = { _, _ ->
                     tween(durationMillis = 1000)

@@ -137,16 +137,17 @@ private fun SharedTransitionScope.SearchFeed(
         ){
         items(data.size){
             Spacer(modifier = Modifier.padding(4.dp))
-//            FoodDetailCard(
-//                modifier = modifier,
-//                name = data[it].foodName,
-//                description = data[it].foodDescription,
-//                itemImage = data[it].image,
-//                price = data[it].price,
-//                calories = data[it].calories,
-//                animatedVisibilityScope = animatedVisibilityScope,
-//                sharedTransitionScope =
-//            )
+            FoodDetailCard(
+                modifier = modifier,
+                name = data[it].foodName,
+                description = data[it].foodDescription,
+                itemImage = data[it].image,
+                price = data[it].price,
+                calories = data[it].calories,
+                animatedVisibilityScope = animatedVisibilityScope,
+                itemId = data[it].id,
+                sharedTransitionScope =this@SearchFeed
+            )
             Spacer(modifier = Modifier.padding(8.dp))
         }
     }

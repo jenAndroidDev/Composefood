@@ -62,19 +62,25 @@ fun FoodDetailScreen(
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
     resId: Int,
-    onClick:()->Unit
-){
-    Surface(modifier = modifier
-        .fillMaxSize()
-        .background(color = Color.White)) {
-        with(sharedTransitionScope){
-            Column (modifier = modifier
-                .background(color = Color.White)
-                .padding(start = 12.dp)){
+    itemId: Int,
+    onClick: () -> Unit
+) {
+    Surface(
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = Color.White)
+    ) {
+        with(sharedTransitionScope) {
+            Column(
+                modifier = modifier
+                    .background(color = Color.White)
+                    .padding(start = 12.dp)
+            ) {
                 Spacer(modifier = modifier.height(16.dp))
                 Header(onClick = onClick)
                 Spacer(modifier = modifier.height(16.dp))
-                ContentImage(resId = resId, animatedVisibilityScope = animatedContentScope)
+                ContentImage(resId = resId, animatedVisibilityScope = animatedContentScope,
+                    itemId = itemId)
                 Spacer(modifier = modifier.height(16.dp))
                 ContentHeader()
                 Spacer(modifier = modifier.height(12.dp))
@@ -93,22 +99,27 @@ fun FoodDetailScreen(
 
 @Preview
 @Composable
-private fun Header(modifier: Modifier = Modifier,
-                   onClick: () -> Unit,){
+private fun Header(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
 
-    Row (modifier = modifier
-        .fillMaxWidth()
-        .padding(start = 16.dp, end = 16.dp)
-        .clickable {
-              onClick.invoke()
-        },
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp)
+            .clickable {
+                onClick.invoke()
+            },
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically){
-        Card (elevation = CardDefaults.elevatedCardElevation()){
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Card(elevation = CardDefaults.elevatedCardElevation()) {
             HeaderBackIcon(icon = Icons.Default.KeyboardArrowLeft)
         }
 
-        ProfileIcon(modifier = modifier, imageVector = Icons.Default.FavoriteBorder) }
+        ProfileIcon(modifier = modifier, imageVector = Icons.Default.FavoriteBorder)
+    }
 
 }
 
@@ -118,24 +129,26 @@ private fun Header(modifier: Modifier = Modifier,
 private fun SharedTransitionScope.ContentImage(
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
-    resId:Int
-    ){
+    resId: Int,
+    itemId: Int
+) {
 
-    Column(modifier = modifier
-        .fillMaxWidth()
-        .height(200.dp)
-        .background(color = PaleWhite),
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(200.dp)
+            .background(color = PaleWhite),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+    ) {
         Spacer(modifier = modifier.height(12.dp))
         Image(
-            painter = painterResource(id =resId),
+            painter = painterResource(id = resId),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .sharedElement(
-                    state = rememberSharedContentState(key = "image/$resId"),
+                    state = rememberSharedContentState(key = "image/$itemId"),
                     animatedVisibilityScope = animatedVisibilityScope,
                     boundsTransform = { _, _ ->
                         tween(durationMillis = 1000)
@@ -155,10 +168,12 @@ private fun SharedTransitionScope.ContentImage(
 
 @Preview
 @Composable
-private fun ContentHeader(modifier: Modifier = Modifier){
-    Row (modifier = modifier.fillMaxWidth(),
+private fun ContentHeader(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween){
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
         Spacer(modifier = modifier.width(4.dp))
         LargeHeightText(text = "Italian Coffee")
         Spacer(modifier = modifier.weight(1f))
@@ -172,10 +187,13 @@ private fun ContentHeader(modifier: Modifier = Modifier){
 
 @Preview
 @Composable
-private fun FoodOtherDetails(modifier: Modifier = Modifier){
-    Row(modifier = modifier.fillMaxWidth()
-        .padding(start = 12.dp, end = 12.dp),
-        verticalAlignment = Alignment.CenterVertically) {
+private fun FoodOtherDetails(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(start = 12.dp, end = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         FoodSubDetail(modifier = modifier, text = "2.6", resId = R.drawable.icon_star)
         Spacer(modifier = modifier.weight(1f))
         FoodSubDetail(modifier = modifier, text = "78 calories", resId = R.drawable.flame_icon)
@@ -185,13 +203,13 @@ private fun FoodOtherDetails(modifier: Modifier = Modifier){
 }
 
 @Composable
-fun IngredientsList(){
+fun IngredientsList() {
 
 }
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.PreviewDetailsScreen(){
+fun SharedTransitionScope.PreviewDetailsScreen() {
 
     SharedTransitionLayout {
 
