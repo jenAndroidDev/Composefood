@@ -47,7 +47,7 @@ fun MediumHeightText(
         fontFamily = fontFamily,
         fontWeight = FontWeight.Bold,
         overflow = TextOverflow.Ellipsis,
-        fontSize = 16.sp,
+        fontSize = 18.sp,
         maxLines = 2
         )
 }
@@ -125,7 +125,7 @@ fun SubTitleText(
         text = text,
         color = color,
         overflow = TextOverflow.Ellipsis,
-        fontSize = 10.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight.Bold
 
     )
@@ -149,7 +149,7 @@ fun FoodDetailsText(
     Text(
         text = text,
         color = color,
-        fontSize = 12.sp,
+        fontSize = 14.sp,
         fontFamily = fontFamily,
         fontWeight = FontWeight.SemiBold
         )
@@ -158,11 +158,11 @@ fun FoodDetailsText(
 @Preview
 @Composable
 fun CurrencyText(
+    modifier: Modifier = Modifier,
     currencySymbolColor: Color = GoldenYellow,
     symbolValue:String="$",
     priceColor:Color = InkBlack,
     price: Float = 9.80f,
-    modifier: Modifier = Modifier,
     fontFamily: FontFamily = FontFamily(
         Font(R.font.gilroy_regular, FontWeight.Normal),
         Font(R.font.gilroy_thin, FontWeight.Light),

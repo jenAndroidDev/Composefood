@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -68,27 +69,25 @@ fun FoodDetailScreen(
     Surface(
         modifier = modifier
             .fillMaxSize()
-            .background(color = Color.White)
+
     ) {
         with(sharedTransitionScope) {
             Column(
                 modifier = modifier
                     .background(color = Color.White)
-                    .padding(start = 12.dp)
             ) {
-                Spacer(modifier = modifier.height(16.dp))
                 Header(onClick = onClick)
-                Spacer(modifier = modifier.height(16.dp))
                 ContentImage(resId = resId, animatedVisibilityScope = animatedContentScope,
                     itemId = itemId)
-                Spacer(modifier = modifier.height(16.dp))
+                Spacer(modifier = modifier.height(24.dp))
                 ContentHeader()
-                Spacer(modifier = modifier.height(12.dp))
+                Spacer(modifier = modifier.height(16.dp))
+                FoodOtherDetails(modifier = modifier)
+                Spacer(modifier = modifier.height(16.dp))
                 MediumHeightText(text = "Details")
                 Spacer(modifier = modifier.height(12.dp))
                 SubTitleText(text = "Drinking Caffine at your best moments.Drinking Caffine at your best moments.Drinking Caffine at your best moments\"\"")
                 Spacer(modifier = modifier.height(12.dp))
-                FoodOtherDetails(modifier = modifier)
                 MediumHeightText(text = "Ingredients")
             }
         }
@@ -97,7 +96,7 @@ fun FoodDetailScreen(
 }
 //since this composable is used in many screens move it to components.
 
-@Preview
+
 @Composable
 private fun Header(
     modifier: Modifier = Modifier,
@@ -106,8 +105,8 @@ private fun Header(
 
     Row(
         modifier = modifier
+            .background(color = PaleWhite)
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp)
             .clickable {
                 onClick.invoke()
             },
@@ -118,7 +117,7 @@ private fun Header(
             HeaderBackIcon(icon = Icons.Default.KeyboardArrowLeft)
         }
 
-        ProfileIcon(modifier = modifier, imageVector = Icons.Default.FavoriteBorder)
+        //ProfileIcon(modifier = modifier, imageVector = Icons.Default.FavoriteBorder)
     }
 
 }
@@ -136,7 +135,7 @@ private fun SharedTransitionScope.ContentImage(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .size(250.dp)
             .background(color = PaleWhite),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -154,13 +153,7 @@ private fun SharedTransitionScope.ContentImage(
                         tween(durationMillis = 1000)
                     }
                 )
-                .size(200.dp)
-                .shadow(
-                    shape = CircleShape,
-                    elevation = 4.dp,
-                    ambientColor = GoldenYellow,
-                    spotColor = GoldenYellow
-                )
+                .size(250.dp)
                 .clip(CircleShape)
         )
     }

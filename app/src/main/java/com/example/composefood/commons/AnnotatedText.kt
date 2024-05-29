@@ -24,7 +24,7 @@ fun FoodSubDetail(
 
     val annotatedString = buildAnnotatedString {
         appendInlineContent(id="imageId")
-        append(text)
+        append(" ".plus(text))
     }
     val inlineContentMap = mapOf(
         "imageId" to InlineTextContent(
