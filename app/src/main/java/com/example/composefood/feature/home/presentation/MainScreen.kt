@@ -128,7 +128,7 @@ fun HeaderTitle(
     ){
     Column(
         modifier = modifier
-            .fillMaxWidth(0.5f)
+            .fillMaxWidth(0.7f)
             .padding(start = 18.dp),
         horizontalAlignment = Alignment.Start,
         ) {
