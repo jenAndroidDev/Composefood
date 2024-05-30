@@ -45,6 +45,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.composefood.R
 import com.example.composefood.commons.CurrencyText
 import com.example.composefood.commons.FoodSubDetail
@@ -80,18 +81,9 @@ fun FoodDetailScreen(
                 ContentImage(resId = resId, animatedVisibilityScope = animatedContentScope,
                     itemId = itemId)
                 Spacer(modifier = modifier.height(24.dp))
-                ContentHeader()
-                Spacer(modifier = modifier.height(16.dp))
-                FoodOtherDetails(modifier = modifier)
-                Spacer(modifier = modifier.height(16.dp))
-                MediumHeightText(text = "Details")
-                Spacer(modifier = modifier.height(12.dp))
-                SubTitleText(text = "Drinking Caffine at your best moments.Drinking Caffine at your best moments.Drinking Caffine at your best moments\"\"")
-                Spacer(modifier = modifier.height(12.dp))
-                MediumHeightText(text = "Ingredients")
+                FoodDetailsContent(modifier = modifier)
             }
         }
-
     }
 }
 //since this composable is used in many screens move it to components.
@@ -170,7 +162,7 @@ private fun ContentHeader(modifier: Modifier = Modifier) {
         Spacer(modifier = modifier.width(4.dp))
         LargeHeightText(text = "Italian Coffee")
         Spacer(modifier = modifier.weight(1f))
-        CurrencyText(price = 9.0f)
+        CurrencyText(price = 9.0f, fontSize = 26.sp)
         Spacer(modifier = modifier.width(4.dp))
     }
 }
@@ -192,6 +184,21 @@ private fun FoodOtherDetails(modifier: Modifier = Modifier) {
         FoodSubDetail(modifier = modifier, text = "78 calories", resId = R.drawable.flame_icon)
         Spacer(modifier = modifier.weight(1f))
         FoodSubDetail(modifier = modifier, text = "20-30 min", resId = R.drawable.chronometer)
+    }
+}
+
+@Composable
+private fun FoodDetailsContent(modifier: Modifier){
+    Column(modifier = modifier.padding(start = 12.dp, end = 12.dp)) {
+        ContentHeader()
+        Spacer(modifier = modifier.height(16.dp))
+        FoodOtherDetails(modifier = modifier)
+        Spacer(modifier = modifier.height(16.dp))
+        MediumHeightText(text = "Details")
+        Spacer(modifier = modifier.height(12.dp))
+        SubTitleText(text = "Drinking Caffine at your best moments.Drinking Caffine at your best moments.Drinking Caffine at your best moments\"\"")
+        Spacer(modifier = modifier.height(12.dp))
+        MediumHeightText(text = "Ingredients")
     }
 }
 

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composefood.R
@@ -163,6 +164,7 @@ fun CurrencyText(
     symbolValue:String="$",
     priceColor:Color = InkBlack,
     price: Float = 9.80f,
+    fontSize:TextUnit = 26.sp,
     fontFamily: FontFamily = FontFamily(
         Font(R.font.gilroy_regular, FontWeight.Normal),
         Font(R.font.gilroy_thin, FontWeight.Light),
@@ -181,7 +183,7 @@ fun CurrencyText(
         Spacer(modifier = modifier.width(4.dp))
         Text(text = price.toString(),
             color = priceColor,
-            fontSize = 22.sp,
+            fontSize = fontSize,
             fontWeight = FontWeight.SemiBold)
     }
 }
