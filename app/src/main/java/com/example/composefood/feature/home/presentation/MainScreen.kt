@@ -194,7 +194,7 @@ fun FilterFoods(modifier: Modifier = Modifier, data:FilterFoodCategory, onClick:
     Row(modifier = modifier
         .clip(RoundedCornerShape(12.dp))
         .background(color = if (isToggled) GoldenYellow else Color.White)
-        .height(40.dp)
+        .wrapContentHeight()
         .padding(12.dp)
         .clickable {
             onClick.invoke(data.id)

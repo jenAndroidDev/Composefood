@@ -178,13 +178,15 @@ fun CurrencyText(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
-        Text(text = symbolValue, color = currencySymbolColor,
+        Text(text = symbolValue,
+            color = currencySymbolColor,
             fontFamily = fontFamily,
             fontWeight = FontWeight.Medium)
         Spacer(modifier = modifier.width(4.dp))
         Text(text = price.toString(),
             color = priceColor,
             fontSize = fontSize,
+            maxLines = 2,
             fontWeight = FontWeight.SemiBold)
     }
 }

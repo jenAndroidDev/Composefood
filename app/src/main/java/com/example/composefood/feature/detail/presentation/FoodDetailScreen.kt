@@ -165,7 +165,7 @@ private fun ContentHeader(modifier: Modifier = Modifier) {
         Spacer(modifier = modifier.width(4.dp))
         LargeHeightText(text = "Italian Coffee")
         Spacer(modifier = modifier.weight(1f))
-        CurrencyText(price = 9.0f, fontSize = 26.sp)
+        CurrencyText(price = 9.0f, fontSize = 30.sp)
         Spacer(modifier = modifier.width(4.dp))
     }
 }
