@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composefood.R
+import com.example.composefood.ui.theme.GREY_80
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.InkBlack
 import com.example.composefood.ui.theme.OrangeRed
@@ -112,7 +113,7 @@ fun LargeHeightText(
 @Preview
 @Composable
 fun SubTitleText(
-    color: Color = PaleGrey,
+    color: Color = GREY_80,
     text: String = "Eat Delicious Pizza",
     modifier: Modifier = Modifier,
     fontFamily:FontFamily = FontFamily(

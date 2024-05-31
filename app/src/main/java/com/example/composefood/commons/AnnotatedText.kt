@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.composefood.R
 import com.example.composefood.navigation.navgraphs.DetailsScreen
+import com.example.composefood.ui.theme.fontFamily
 
 @Composable
 fun FoodSubDetail(
@@ -51,11 +52,7 @@ fun FoodSubDetail(
 
 }
 
-val fontFamily = FontFamily(
-    Font(R.font.roboto_thin),
-    Font(R.font.roboto_black),
-    Font(R.font.roboto_bold),
-)
+
 
 @Preview
 @Composable

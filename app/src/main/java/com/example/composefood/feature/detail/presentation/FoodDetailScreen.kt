@@ -26,6 +26,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
@@ -43,19 +44,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composefood.R
 import com.example.composefood.commons.CurrencyText
+import com.example.composefood.commons.ExpandableText
 import com.example.composefood.commons.FoodSubDetail
 import com.example.composefood.commons.LargeHeightText
 import com.example.composefood.commons.MediumHeightText
-import com.example.composefood.commons.SubTitleText
 import com.example.composefood.components.HeaderBackIcon
-import com.example.composefood.components.ProfileIcon
-import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.PaleWhite
+import com.example.composefood.ui.theme.fontFamily
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -105,7 +106,9 @@ private fun Header(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Card(elevation = CardDefaults.elevatedCardElevation()) {
+        Card(
+            modifier = modifier.padding(start = 12.dp, top = 12.dp),
+            elevation = CardDefaults.elevatedCardElevation()) {
             HeaderBackIcon(icon = Icons.Default.KeyboardArrowLeft)
         }
 
@@ -189,16 +192,21 @@ private fun FoodOtherDetails(modifier: Modifier = Modifier) {
 
 @Composable
 private fun FoodDetailsContent(modifier: Modifier){
-    Column(modifier = modifier.padding(start = 12.dp, end = 12.dp)) {
+    Column(modifier = modifier
+        .padding(start = 12.dp, end = 12.dp)
+        .background(
+            color = Color.White,
+            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+        )) {
         ContentHeader()
         Spacer(modifier = modifier.height(16.dp))
         FoodOtherDetails(modifier = modifier)
         Spacer(modifier = modifier.height(16.dp))
         MediumHeightText(text = "Details")
         Spacer(modifier = modifier.height(12.dp))
-        SubTitleText(text = "Drinking Caffine at your best moments.Drinking Caffine at your best moments.Drinking Caffine at your best moments\"\"")
+        ExpandableText(fontFamily = fontFamily, text = stringResource(id = R.string.dummy_text))
         Spacer(modifier = modifier.height(12.dp))
-        MediumHeightText(text = "Ingredients")
+        //MediumHeightText(text = "Ingredients")
     }
 }
 
