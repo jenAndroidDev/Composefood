@@ -227,12 +227,12 @@ fun SharedTransitionScope.CircleAvatarWithShadow(
                 }
             )
                 .size(120.dp)
-                .shadow(
-                    shape = CircleShape,
-                    elevation = 16.dp,
-                    ambientColor = GoldenYellow,
-                    spotColor = GoldenYellow
-                )
+//                .shadow(
+//                    shape = CircleShape,
+//                    elevation = 16.dp,
+//                    ambientColor = GoldenYellow,
+//                    spotColor = GoldenYellow
+//                )
                 .clip(CircleShape)
         )
     }

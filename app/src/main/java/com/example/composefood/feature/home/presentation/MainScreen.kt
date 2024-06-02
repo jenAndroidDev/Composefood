@@ -80,6 +80,7 @@ fun SharedTransitionScope.MainScreen(
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedContentScope,
     sharedTransitionScope: SharedTransitionScope,
+    onProfileClick:()->Unit,
     onClick:(Int,Int)->Unit = { i: Int, i1: Int -> },
     ){
     Surface(modifier = modifier
@@ -91,7 +92,7 @@ fun SharedTransitionScope.MainScreen(
             horizontalAlignment = Alignment.Start,
             ){
             Spacer(modifier = modifier.height(30.dp) )
-            HomeHeaderSection(modifier)
+            HomeHeaderSection(modifier,onProfileClick)
             Spacer(modifier = modifier.height(16.dp))
             HeaderTitle(title = "Lets Eat Quality Food 😋",modifier)
             Spacer(modifier = modifier.height(24.dp))
@@ -106,7 +107,7 @@ fun SharedTransitionScope.MainScreen(
     }
 }
 @Composable
-fun HomeHeaderSection(modifier: Modifier){
+fun HomeHeaderSection(modifier: Modifier, onProfileClick: () -> Unit){
     Row(modifier = modifier
         .fillMaxWidth()
         .padding(start = 16.dp, end = 16.dp),
@@ -115,7 +116,7 @@ fun HomeHeaderSection(modifier: Modifier){
         Card(elevation = CardDefaults.elevatedCardElevation()) {
             HeaderBackIcon(icon = Icons.Default.Menu)
         }
-        ProfileIcon(modifier = modifier)
+        ProfileIcon(modifier = modifier, onClick = onProfileClick)
     }
 }
 
@@ -295,21 +296,6 @@ fun CardWithOffsetImage(
         .padding(top = 40.dp)
         .background(shape = shape, color = Color.White)
         ){
-//            Image(
-//                painter = painterResource(id = offsetImage),
-//                contentDescription = "image",
-//                contentScale = ContentScale.Crop,
-//                modifier = modifier
-//                    .size(imageSize)
-//                    .shadow(
-//                        shape = CircleShape,
-//                        elevation = 10.dp,
-//                        spotColor = Color.Blue,
-//                    )
-//                    .align(alignment = Alignment.TopCenter)
-//
-//
-//            )
         CircleButtonShadowed()
         //CircleAvatarWithShadow()
 

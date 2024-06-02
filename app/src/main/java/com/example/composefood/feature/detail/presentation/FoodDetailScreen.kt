@@ -82,8 +82,10 @@ fun FoodDetailScreen(
                     .background(color = Color.White)
             ) {
                 Header(onClick = onClick)
-                ContentImage(resId = resId, animatedVisibilityScope = animatedContentScope,
-                    itemId = itemId)
+                ContentImage(
+                    resId = resId, animatedVisibilityScope = animatedContentScope,
+                    itemId = itemId
+                )
                 Spacer(modifier = modifier.height(24.dp))
                 FoodDetailsContent(modifier = modifier)
             }
@@ -111,11 +113,10 @@ private fun Header(
     ) {
         Card(
             modifier = modifier.padding(start = 12.dp, top = 12.dp),
-            elevation = CardDefaults.elevatedCardElevation()) {
+            elevation = CardDefaults.elevatedCardElevation()
+        ) {
             HeaderBackIcon(icon = Icons.Default.KeyboardArrowLeft)
         }
-
-        //ProfileIcon(modifier = modifier, imageVector = Icons.Default.FavoriteBorder)
     }
 
 }
@@ -194,13 +195,15 @@ private fun FoodOtherDetails(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun FoodDetailsContent(modifier: Modifier){
-    Column(modifier = modifier
-        .padding(start = 12.dp, end = 12.dp)
-        .background(
-            color = Color.White,
-            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
-        )) {
+private fun FoodDetailsContent(modifier: Modifier) {
+    Column(
+        modifier = modifier
+            .padding(start = 12.dp, end = 12.dp)
+            .background(
+                color = Color.White,
+                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+            )
+    ) {
         ContentHeader()
         Spacer(modifier = modifier.height(24.dp))
         FoodOtherDetails(modifier = modifier)
@@ -226,7 +229,7 @@ fun IngredientsList(
 
     LazyRow(contentPadding = PaddingValues(12.dp)) {
 
-        items(ingredientsList.size){
+        items(ingredientsList.size) {
             IngredientItem(modifier = modifier, ingredient = ingredientsList[it])
         }
     }
@@ -236,19 +239,22 @@ fun IngredientsList(
 @Composable
 fun IngredientItem(
     modifier: Modifier = Modifier,
-    ingredient: Ingredient  = Ingredient(R.drawable.cabbage_image,"")
-    ){
-    Column(modifier = modifier
-        .height(100.dp)
-        .width(100.dp)
-        .padding(end = 6.dp)
-        .background(color = ingredient.color, shape = RoundedCornerShape(12.dp)),
+    ingredient: Ingredient = Ingredient(R.drawable.cabbage_image, "")
+) {
+    Column(
+        modifier = modifier
+            .height(100.dp)
+            .width(100.dp)
+            .padding(end = 6.dp)
+            .background(color = ingredient.color, shape = RoundedCornerShape(12.dp)),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
         Image(
             modifier = modifier.size(50.dp),
             painter = painterResource(id = ingredient.resId),
-            contentDescription = ingredient.name)
+            contentDescription = ingredient.name
+        )
     }
 }

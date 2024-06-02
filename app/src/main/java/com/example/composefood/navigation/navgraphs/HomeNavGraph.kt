@@ -39,7 +39,10 @@ fun HomeScreenNavGraph(navHostController: NavHostController) {
             ) {
                 MainScreen(
                     animatedVisibilityScope = this,
-                    sharedTransitionScope = this@SharedTransitionLayout
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    onProfileClick = {
+                        navHostController.navigate(BottomBarScreen.FAVOURITES.route)
+                    }
                 ) { itemId, resId ->
                     Log.d(Tag, "HomeScreenNavGraph() called")
                     //navHostController.navigate(Graph.DETAILS_GRAPH)

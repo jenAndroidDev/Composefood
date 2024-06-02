@@ -92,7 +92,8 @@ private fun Header(modifier: Modifier){
                 .padding(end = 12.dp),
             contentAlignment = Alignment.CenterEnd
         ){
-            ProfileIcon(modifier = modifier,
+            ProfileIcon(
+                modifier = modifier,
                 imageVector = Icons.Default.Search,
                 size = 40.dp)
         }

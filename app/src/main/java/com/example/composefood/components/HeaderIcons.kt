@@ -2,6 +2,7 @@ package com.example.composefood.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.example.composefood.ui.theme.GoldenYellow
 
@@ -56,14 +56,18 @@ fun HeaderBackIcon(
 @Composable
 fun ProfileIcon(
     modifier: Modifier,
-    imageVector: ImageVector = Icons.Default.Person,
-    size: Dp = 50.dp
+    imageVector:ImageVector = Icons.Default.Person,
+    size: Dp = 50.dp,
+    onClick:()->Unit = {}
     ){
 
     Column(modifier = modifier
         .clip(RoundedCornerShape(6.dp))
         .background(GoldenYellow)
-        .size(size),
+        .size(size)
+        .clickable {
+           onClick.invoke()
+        },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
