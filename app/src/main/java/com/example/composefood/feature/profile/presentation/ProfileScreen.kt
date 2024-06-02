@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,6 +26,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -39,6 +43,9 @@ import com.example.composefood.commons.MediumHeightText
 import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.ui.theme.GREY_10
+import com.example.composefood.ui.theme.GoldenYellow
+import com.example.composefood.ui.theme.InkBlack
+import com.example.composefood.ui.theme.PaleGrey
 import kotlinx.coroutines.launch
 
 private const val Tag = "ProfileScreen"
@@ -88,6 +95,13 @@ private fun Header(modifier: Modifier){
     }
 }
 
+@Composable
+private fun ProfileHeader(modifier: Modifier){
+    Row (modifier = modifier.fillMaxWidth()){
+
+    }
+}
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ProfileTab(modifier: Modifier) {
@@ -96,37 +110,46 @@ fun ProfileTab(modifier: Modifier) {
         TabItem(
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
-            "Home"
+            "Account"
         ),
         TabItem(
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
-            "Home"
+            "Payment Method"
         ),
         TabItem(
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
-            "Home"
+            "History"
         ),)
     val pagerState = rememberPagerState(pageCount = { tabItems.size })
 
     Column(modifier) {
         val coroutineScope = rememberCoroutineScope()
         TabRow(
-            selectedTabIndex = pagerState.currentPage
+            selectedTabIndex = pagerState.currentPage,
+            indicator = {tabPositions->
+                if (pagerState.currentPage < tabPositions.size) {
+                    TabRowDefaults.SecondaryIndicator(
+                        Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
+                        color = GoldenYellow
+                    )
+                }
+            }
         ) {
             tabItems.forEachIndexed { index, page ->
                 Tab(
                     selected = pagerState.currentPage == index,
                     onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } },
                     text = { Text(text = page.description) },
-                    icon = {
-                        Icon(
-                            modifier = modifier.size(24.dp),
-                            painter = painterResource(id = R.drawable.icon_home_v2),
-                            contentDescription = page.description)
-                    },
-                    unselectedContentColor = MaterialTheme.colorScheme.secondary
+//                    icon = {
+//                        Icon(
+//                            modifier = modifier.size(24.dp),
+//                            painter = painterResource(id = R.drawable.icon_home_v2),
+//                            contentDescription = page.description)
+//                    },
+                    selectedContentColor = InkBlack,
+                    unselectedContentColor = PaleGrey
                 )
             }
         }
