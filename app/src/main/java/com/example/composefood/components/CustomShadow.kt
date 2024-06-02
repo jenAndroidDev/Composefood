@@ -105,12 +105,12 @@ fun PreviewCustomShadow(){
 @Preview
 @Composable
 fun CircleButtonShadowed(
-    size:Dp = 100.dp,
+    size:Dp = 120.dp,
     image:Int = R.drawable.sample_circle,
 ){
     Box(
         modifier = Modifier
-            .size(120.dp)
+            .size(140.dp)
             .background(
                 brush = Brush.radialGradient(
                     colors = listOf(

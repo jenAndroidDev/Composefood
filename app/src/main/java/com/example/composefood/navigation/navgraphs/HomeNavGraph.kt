@@ -58,7 +58,13 @@ fun HomeScreenNavGraph(navHostController: NavHostController) {
                 }
             }
             composable(route = BottomBarScreen.FOODERSHUB.route) {
-                CartScreen {
+                CartScreen(onProfileClick = {
+                    navHostController.navigate(BottomBarScreen.FAVOURITES.route)
+                },
+                onBackClick = {
+                    navHostController.popBackStack()
+                }
+                ) {
 
                 }
             }

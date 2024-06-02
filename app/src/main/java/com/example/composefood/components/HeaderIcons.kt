@@ -36,14 +36,18 @@ import com.example.composefood.ui.theme.GoldenYellow
 @Composable
 fun HeaderBackIcon(
     modifier: Modifier = Modifier,
-    icon: ImageVector
+    icon: ImageVector,
+    onClick: () -> Unit = {}
     ){
 
     Column(modifier = modifier
         .clip(RoundedCornerShape(8.dp))
         .background(Color.White)
         .shadow(6.dp, spotColor = Color.White, ambientColor = Color.Gray.copy(alpha = 0.2f))
-        .size(50.dp),
+        .size(50.dp)
+        .clickable {
+         onClick.invoke()
+        },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
         ){

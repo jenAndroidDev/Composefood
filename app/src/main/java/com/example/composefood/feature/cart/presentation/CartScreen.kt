@@ -2,6 +2,7 @@ package com.example.composefood.feature.cart.presentation
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,21 +46,23 @@ private const val Tag = "CartScreen"
 @Composable
 fun CartScreen(
     modifier: Modifier = Modifier,
+    onProfileClick:()->Unit = {},
+    onBackClick:()->Unit = {},
     onClick:()->Unit
 ){
     Surface(modifier = modifier
         .fillMaxSize()
     ) {
         Column(modifier = modifier.background(color = GREY_10)) {
-            Header(modifier = modifier)
+            Header(modifier = modifier,onProfileClick = onProfileClick,onBackClick)
             Spacer(modifier = modifier.height(16.dp))
-            OrdersFeed(modifier = modifier)
+            OrdersFeed(modifier = modifier,)
         }
     }
 }
 
 @Composable
-private fun Header(modifier: Modifier){
+private fun Header(modifier: Modifier, onProfileClick: () -> Unit, onBackClick: () -> Unit){
     Row (modifier = modifier
         .background(color = Color.White, shape = RoundedCornerShape(12.dp))
         .fillMaxWidth()
@@ -68,12 +71,15 @@ private fun Header(modifier: Modifier){
         verticalAlignment = Alignment.CenterVertically,){
         Row(
             modifier = Modifier
-                .weight(1f),
+                .weight(1f)
+            ,
             horizontalArrangement = Arrangement.Absolute.Left
         ) {
 
             HeaderBackIcon(modifier = modifier.padding(start = 12.dp),
-                icon = Icons.Default.KeyboardArrowLeft)
+                icon = Icons.Default.KeyboardArrowLeft){
+                onBackClick.invoke()
+            }
 
         }
         MediumHeightText(text = "Your Orders")
@@ -86,7 +92,9 @@ private fun Header(modifier: Modifier){
             ProfileIcon(
                 modifier = modifier,
                 imageVector = Icons.Default.Person,
-                size = 40.dp)
+                size = 40.dp,
+                onClick = onProfileClick
+                )
         }
     }
 }
@@ -101,7 +109,7 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
         Card(
             modifier = modifier
                 .fillMaxWidth(0.85f)
-                .height(120.dp)
+                .height(140.dp)
                 .align(Alignment.CenterEnd)
                 .padding(end = 24.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
@@ -115,8 +123,9 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
 
             ) {
             Column (
-                modifier = modifier.padding(start = 90.dp, top = 16.dp,
+                modifier = modifier.padding(start = 110.dp, top = 16.dp,
                     end = 16.dp)){
+                Spacer(modifier = modifier.height(12.dp))
                 MediumHeightText(text = data.name)
                 Spacer(modifier = modifier.height(6.dp))
                 SubTitleText(text = data.description)
@@ -124,19 +133,18 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
                 Row(
                     modifier
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(80.dp),
                     verticalAlignment = Alignment.CenterVertically) {
                     CurrencyText(price = data.price.toFloat())
+                    Spacer(modifier = modifier.weight(1f))
                     CounterButton()
-
                 }
-                Spacer(modifier = modifier.height(6.dp))
+                Spacer(modifier = modifier.height(12.dp))
             }
         }
         CircleMenuItem(
             modifier = modifier
                 .align(Alignment.CenterStart)
-                .padding(start = 30.dp),
+                .padding(start = 10.dp),
             image = data.image
         )
     }
@@ -148,8 +156,6 @@ fun OrdersFeed(viewModel: CartViewModel = hiltViewModel(),
 
     val data = viewModel.uiState.collectAsStateWithLifecycle()
     val action = viewModel.action
-
-
     val list = data.value.data
     OrdersList(data = list, modifier = modifier)
 }
@@ -164,13 +170,7 @@ fun OrdersList(data:SnapshotStateList<UiModel>,modifier: Modifier){
         val totalItemCount = scrollState.layoutInfo.totalItemsCount
 
         Log.d(Tag, "OrdersList() called with: scrollState:=${visibleItemCount},${totalItemCount}")
-
-
-
     }
-
-
-
 
     LazyColumn(modifier = modifier
         .systemBarsPadding()
@@ -188,8 +188,8 @@ fun OrdersList(data:SnapshotStateList<UiModel>,modifier: Modifier){
 fun CircleMenuItem(modifier: Modifier=Modifier,
                    image: Int){
     Box(modifier = modifier
-        .height(120.dp)
-        .width(120.dp)
+        .height(140.dp)
+        .width(140.dp)
         ){
         CircleButtonShadowed()
     }
