@@ -31,6 +31,7 @@ import com.example.composefood.ui.theme.PaleGrey
 @Preview
 @Composable
 fun MediumHeightText(
+    modifier: Modifier = Modifier,
     color: Color = InkBlack,
     text:String = "Sample Text1",
     fontFamily:FontFamily = FontFamily(
@@ -44,6 +45,7 @@ fun MediumHeightText(
 
 ){
     Text(
+        modifier = modifier,
         text = text,
         color = color,
         fontFamily = fontFamily,

@@ -86,8 +86,6 @@ fun FoodDetailScreen(
                     itemId = itemId)
                 Spacer(modifier = modifier.height(24.dp))
                 FoodDetailsContent(modifier = modifier)
-                Spacer(modifier = modifier.height(24.dp))
-                IngredientsList(modifier = modifier)
             }
         }
     }
@@ -168,7 +166,7 @@ private fun ContentHeader(modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Spacer(modifier = modifier.width(4.dp))
-        LargeHeightText(text = "Italian Coffee")
+        LargeHeightText(text = "Spicy Chicken Dimsum", modifier = modifier.fillMaxWidth(0.5f))
         Spacer(modifier = modifier.weight(1f))
         CurrencyText(price = 9.0f, fontSize = 30.sp)
         Spacer(modifier = modifier.width(4.dp))
@@ -204,13 +202,15 @@ private fun FoodDetailsContent(modifier: Modifier){
             shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
         )) {
         ContentHeader()
-        Spacer(modifier = modifier.height(16.dp))
+        Spacer(modifier = modifier.height(24.dp))
         FoodOtherDetails(modifier = modifier)
-        Spacer(modifier = modifier.height(16.dp))
+        Spacer(modifier = modifier.height(24.dp))
         MediumHeightText(text = "Details")
         Spacer(modifier = modifier.height(12.dp))
         ExpandableText(fontFamily = fontFamily, text = stringResource(id = R.string.dummy_text))
-        Spacer(modifier = modifier.height(12.dp))
+        Spacer(modifier = modifier.height(24.dp))
+        MediumHeightText(text = "Ingredients")
+        IngredientsList(modifier = modifier)
         //MediumHeightText(text = "Ingredients")
     }
 }
@@ -251,5 +251,4 @@ fun IngredientItem(
             painter = painterResource(id = ingredient.resId),
             contentDescription = ingredient.name)
     }
-
 }
