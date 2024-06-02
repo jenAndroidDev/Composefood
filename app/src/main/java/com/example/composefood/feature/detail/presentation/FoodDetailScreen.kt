@@ -12,6 +12,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,6 +43,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefood.R
 import com.example.composefood.commons.CurrencyText
 import com.example.composefood.commons.ExpandableText
@@ -48,6 +53,7 @@ import com.example.composefood.commons.LargeHeightText
 import com.example.composefood.commons.MediumHeightText
 import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.ui.theme.PaleWhite
+import com.example.composefood.ui.theme.Pink20
 import com.example.composefood.ui.theme.fontFamily
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -73,7 +79,6 @@ fun FoodDetailScreen(
             val scrollState = rememberScrollState()
             Column(
                 modifier = modifier
-                    .verticalScroll(scrollState)
                     .background(color = Color.White)
             ) {
                 Header(onClick = onClick)
@@ -81,6 +86,8 @@ fun FoodDetailScreen(
                     itemId = itemId)
                 Spacer(modifier = modifier.height(24.dp))
                 FoodDetailsContent(modifier = modifier)
+                Spacer(modifier = modifier.height(24.dp))
+                IngredientsList(modifier = modifier)
             }
         }
     }
@@ -209,6 +216,40 @@ private fun FoodDetailsContent(modifier: Modifier){
 }
 
 @Composable
-fun IngredientsList() {
+fun IngredientsList(
+    modifier: Modifier,
+    viewModel: FoodDetailViewModel = hiltViewModel()
+
+) {
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val ingredientsList = uiState.value.data
+
+    LazyRow(contentPadding = PaddingValues(12.dp)) {
+
+        items(ingredientsList.size){
+            IngredientItem(modifier = modifier, ingredient = ingredientsList[it])
+        }
+    }
+}
+
+@Preview
+@Composable
+fun IngredientItem(
+    modifier: Modifier = Modifier,
+    ingredient: Ingredient  = Ingredient(R.drawable.cabbage_image,"")
+    ){
+    Column(modifier = modifier
+        .height(100.dp)
+        .width(100.dp)
+        .padding(end = 6.dp)
+        .background(color = ingredient.color, shape = RoundedCornerShape(12.dp)),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+
+        Image(
+            modifier = modifier.size(50.dp),
+            painter = painterResource(id = ingredient.resId),
+            contentDescription = ingredient.name)
+    }
 
 }
