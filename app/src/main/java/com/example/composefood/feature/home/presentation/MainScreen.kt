@@ -70,8 +70,8 @@ import com.example.composefood.ui.theme.GreyWhite
 
 /*
 * 1.Scroll the Entire Screen With Collapsing Mode
-* 2.Bottom Navigation Font Style
-* 3.
+* 2.Bottom Navigation Font Style==Done
+* 3.Filter with Dummy Feed
 * */
 private const val Tag = "MainScreen"
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -81,6 +81,7 @@ fun SharedTransitionScope.MainScreen(
     animatedVisibilityScope: AnimatedContentScope,
     sharedTransitionScope: SharedTransitionScope,
     onProfileClick:()->Unit,
+    onSearchClick:()->Unit,
     onClick:(Int,Int)->Unit = { i: Int, i1: Int -> },
     ){
     Surface(modifier = modifier
@@ -96,7 +97,7 @@ fun SharedTransitionScope.MainScreen(
             Spacer(modifier = modifier.height(16.dp))
             HeaderTitle(title = "Lets Eat Quality Food 😋",modifier)
             Spacer(modifier = modifier.height(24.dp))
-            SearchFoodSection(modifier)
+            SearchFoodSection(modifier,onSearchClick)
             Spacer(modifier = modifier.height(16.dp))
             FoodCategoryList(
                 modifier = modifier,
@@ -139,7 +140,7 @@ fun HeaderTitle(
 }
 
 @Composable
-fun SearchFoodSection(modifier: Modifier){
+fun SearchFoodSection(modifier: Modifier, onSearchClick: () -> Unit){
 
     Row (
         modifier = modifier
@@ -153,7 +154,10 @@ fun SearchFoodSection(modifier: Modifier){
             modifier = modifier
                 .clip(RoundedCornerShape(6.dp))
                 .background(color = GoldenYellow)
-                .size(50.dp)) {
+                .size(50.dp)
+                .clickable {
+                    onSearchClick.invoke()
+                }) {
             Icon(imageVector = Icons.Default.Search, contentDescription =null )
         }
     }
