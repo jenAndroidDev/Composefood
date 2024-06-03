@@ -53,7 +53,11 @@ fun HomeScreenNavGraph(navHostController: NavHostController) {
                 }
             }
             composable(route = BottomBarScreen.PREMIUM.route) {
-                SearchScreen(animatedVisibilityScope = this) {
+                SearchScreen(animatedVisibilityScope = this,
+                    onBackClick = {
+                        navHostController.popBackStack()
+                    }) {itemId,resId->
+                    navHostController.navigate("details/$itemId/$resId")
 
                 }
             }
@@ -89,7 +93,10 @@ fun HomeScreenNavGraph(navHostController: NavHostController) {
                     animatedContentScope = this,
                     sharedTransitionScope = this@SharedTransitionLayout,
                     resId = resId,
-                    itemId = itemId
+                    itemId = itemId,
+                    onBackClick = {
+                        navHostController.popBackStack()
+                    }
                 ) {
                     navHostController.popBackStack()
                 }

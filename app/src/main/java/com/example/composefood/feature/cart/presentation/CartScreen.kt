@@ -123,11 +123,10 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
 
             ) {
             Column (
-                modifier = modifier.padding(start = 110.dp, top = 16.dp,
+                modifier = modifier.padding(start = 100.dp, top = 16.dp,
                     end = 16.dp)){
                 Spacer(modifier = modifier.height(12.dp))
                 MediumHeightText(text = data.name)
-                Spacer(modifier = modifier.height(6.dp))
                 SubTitleText(text = data.description)
                 Spacer(modifier = modifier.height(26.dp))
                 Row(

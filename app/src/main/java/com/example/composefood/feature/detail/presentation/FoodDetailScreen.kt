@@ -64,6 +64,7 @@ fun FoodDetailScreen(
     animatedContentScope: AnimatedContentScope,
     resId: Int,
     itemId: Int,
+    onBackClick:()->Unit,
     onClick: () -> Unit
 ) {
     /*
@@ -81,7 +82,7 @@ fun FoodDetailScreen(
                 modifier = modifier
                     .background(color = Color.White)
             ) {
-                Header(onClick = onClick)
+                Header(onClick = onBackClick)
                 ContentImage(
                     resId = resId, animatedVisibilityScope = animatedContentScope,
                     itemId = itemId
@@ -115,7 +116,7 @@ private fun Header(
             modifier = modifier.padding(start = 12.dp, top = 12.dp),
             elevation = CardDefaults.elevatedCardElevation()
         ) {
-            HeaderBackIcon(icon = Icons.Default.KeyboardArrowLeft)
+            HeaderBackIcon(icon = Icons.Default.KeyboardArrowLeft, onClick = onClick)
         }
     }
 

@@ -48,29 +48,30 @@ import com.example.composefood.ui.theme.GoldenYellow
 fun SharedTransitionScope.SearchScreen(
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
-    onClick:()->Unit
+    onBackClick:()->Unit,
+    onClick:(Int,Int)->Unit
 ){
 
     Surface(modifier = modifier.fillMaxSize()) {
         Column(modifier = modifier
             .background(color = GREY_10)) {
             HeaderSpacing(modifier = modifier)
-            Header(modifier = modifier)
+            Header(modifier = modifier,onBackClick = onBackClick)
             Spacer(modifier = Modifier.height(32.dp))
-            SearchFood(modifier = modifier)
+            SearchBar(modifier = modifier)
             Spacer(modifier = modifier.padding(top = 16.dp))
             LargeHeightText(
                 modifier = modifier.padding(start = 12.dp),
                 text = "Found 80 results"
             )
-            SearchFeed(modifier = modifier, animatedVisibilityScope = animatedVisibilityScope)
+            SearchFeed(modifier = modifier, animatedVisibilityScope = animatedVisibilityScope, onClick = onClick)
             Spacer(modifier = modifier.height(40.dp))
         }
     }
 
 }
 @Composable
-private fun Header(modifier: Modifier){
+private fun Header(modifier: Modifier, onBackClick: () -> Unit){
     Row (modifier = modifier
         .fillMaxWidth()
         .padding(),
@@ -81,8 +82,11 @@ private fun Header(modifier: Modifier){
             horizontalArrangement = Arrangement.Absolute.Left
         ) {
 
-           HeaderBackIcon(modifier = modifier.padding(start = 12.dp),
-               icon = Icons.Default.KeyboardArrowLeft)
+            HeaderBackIcon(
+                modifier = modifier.padding(start = 12.dp),
+                icon = Icons.Default.KeyboardArrowLeft,
+                onClick = onBackClick
+            )
 
         }
         MediumHeightText(text = "Search Food")
@@ -100,7 +104,7 @@ private fun Header(modifier: Modifier){
     }
 }
 @Composable
-private fun SearchFood(modifier: Modifier){
+private fun SearchBar(modifier: Modifier){
 
     Row (modifier = modifier
         .padding(start = 12.dp, end = 12.dp),
@@ -124,6 +128,7 @@ private fun SharedTransitionScope.SearchFeed(
     viewModel: SearchViewModel = hiltViewModel(),
     modifier: Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
+    onClick: (Int, Int) -> Unit
 
     ){
 
@@ -147,7 +152,8 @@ private fun SharedTransitionScope.SearchFeed(
                 calories = data[it].calories,
                 animatedVisibilityScope = animatedVisibilityScope,
                 itemId = data[it].id,
-                sharedTransitionScope =this@SearchFeed
+                sharedTransitionScope =this@SearchFeed,
+                onItemClick = onClick
             )
             Spacer(modifier = Modifier.padding(8.dp))
         }
