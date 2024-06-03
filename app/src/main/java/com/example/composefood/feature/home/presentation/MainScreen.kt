@@ -5,8 +5,10 @@ import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -197,8 +199,9 @@ fun FilterFoods(modifier: Modifier = Modifier, data:FilterFoodCategory, onClick:
     val isToggled by rememberUpdatedState(newValue = data.isSelected)
 
     Row(modifier = modifier
-        .clip(RoundedCornerShape(12.dp))
-        .background(color = if (isToggled) GoldenYellow else Color.White)
+//        .clip(RoundedCornerShape(12.dp))
+        .background(color = if (isToggled) GoldenYellow else Color.White, shape = RoundedCornerShape(12.dp))
+        .border(border = BorderStroke(width = 1.dp, color = GoldenYellow), shape = RoundedCornerShape(12.dp))
         .wrapContentHeight()
         .padding(12.dp)
         .clickable {
