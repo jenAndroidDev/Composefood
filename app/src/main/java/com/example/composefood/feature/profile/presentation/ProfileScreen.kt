@@ -11,23 +11,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,10 +31,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.composefood.R
 import com.example.composefood.commons.MediumHeightText
 import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.components.ProfileIcon
@@ -50,12 +44,15 @@ import kotlinx.coroutines.launch
 
 private const val Tag = "ProfileScreen"
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier){
+fun ProfileScreen(
+    modifier: Modifier = Modifier,
+    onBackClick:()->Unit
+    ){
     Surface(modifier = Modifier
         .fillMaxSize()) {
 
         Column(modifier = modifier.background(color = GREY_10)) {
-            Header(modifier = modifier)
+            Header(modifier = modifier,onBackClick)
             Spacer(modifier = modifier.height(16.dp))
             ProfileTab(modifier)
         }
@@ -63,7 +60,7 @@ fun ProfileScreen(modifier: Modifier = Modifier){
 }
 
 @Composable
-private fun Header(modifier: Modifier){
+private fun Header(modifier: Modifier, onBackClick: () -> Unit){
     Row (modifier = modifier
         .background(color = Color.White, shape = RoundedCornerShape(12.dp))
         .fillMaxWidth()
@@ -76,8 +73,11 @@ private fun Header(modifier: Modifier){
             horizontalArrangement = Arrangement.Absolute.Left
         ) {
 
-            HeaderBackIcon(modifier = modifier.padding(start = 12.dp),
-                icon = Icons.Default.KeyboardArrowLeft)
+            HeaderBackIcon(
+                modifier = modifier.padding(start = 12.dp),
+                icon = Icons.Default.KeyboardArrowLeft,
+                onClick = onBackClick
+            )
 
         }
         MediumHeightText(text = "My Profile")
@@ -89,8 +89,10 @@ private fun Header(modifier: Modifier){
         ){
             ProfileIcon(
                 modifier = modifier,
-                imageVector = Icons.Default.Person,
-                size = 40.dp)
+                imageVector = Icons.Default.Create,
+                size = 40.dp,
+                backgroundColor = PaleGrey,
+                )
         }
     }
 }
@@ -173,10 +175,10 @@ fun ProfileTab(modifier: Modifier) {
         }
     }
 }
-
-
 @Preview
 @Composable
 fun PreviewProfileScreen(){
-    ProfileScreen()
+    ProfileScreen{
+
+    }
 }

@@ -69,7 +69,9 @@ fun HomeScreenNavGraph(navHostController: NavHostController) {
                 }
             }
             composable(route = BottomBarScreen.FAVOURITES.route) {
-                ProfileScreen()
+                ProfileScreen{
+                    navHostController.popBackStack()
+                }
             }
             composable(route = "details/{itemId}/{resId}",
                 arguments = listOf(

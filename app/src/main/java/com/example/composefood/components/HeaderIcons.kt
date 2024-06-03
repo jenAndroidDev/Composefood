@@ -62,12 +62,13 @@ fun ProfileIcon(
     modifier: Modifier,
     imageVector:ImageVector = Icons.Default.Person,
     size: Dp = 50.dp,
+    backgroundColor:Color = GoldenYellow,
     onClick:()->Unit = {}
     ){
 
     Column(modifier = modifier
         .clip(RoundedCornerShape(6.dp))
-        .background(GoldenYellow)
+        .background(backgroundColor)
         .size(size)
         .clickable {
            onClick.invoke()

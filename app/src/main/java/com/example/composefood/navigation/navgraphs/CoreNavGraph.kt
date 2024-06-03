@@ -122,11 +122,15 @@ fun CoreNavGraph(navHostController: NavHostController){
         }
 
         composable(route = BottomBarScreen.FAVOURITES.route){
-            ProfileScreen()
+            ProfileScreen(){
+
+            }
         }
 
         composable(route = BottomBarScreen.PROFILE.route){
-            ProfileScreen()
+            ProfileScreen(){
+
+            }
         }
     }
 
