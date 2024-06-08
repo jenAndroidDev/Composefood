@@ -81,24 +81,17 @@ class HomeScreenViewModel:ViewModel() {
     private fun getTrendingFoodList(): ArrayList<TrendingFoods> {
 
         return arrayListOf(
-            TrendingFoods(1, R.drawable.sample_circle2,"Italian Coffee",
-                "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(2, R.drawable.sample_circle3,"Italian Coffee",
-                "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(3, R.drawable.sample_circle,"Italian Coffee",
-                "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(4, R.drawable.smaple_image5,"Italian Coffee",
-                "Natural Aromatic Coffee","200","20"),
-            TrendingFoods(5, R.drawable.sample_item4,"Italian Coffee",
-                "Natural Aromatic Coffee","200","20"),
-//            TrendingFoods(4, R.drawable.sample_circle3,"Italian Coffee",
-//                "Natural Aromatic Coffee","200","20"),
-//            TrendingFoods(4, R.drawable.sample_circle2,"Italian Coffee",
-//                "Natural Aromatic Coffee","200","20"),
-//            TrendingFoods(4, R.drawable.sample_circle2,"Italian Coffee",
-//                "Natural Aromatic Coffee","200","20")
-
-        )
+            TrendingFoods(1, R.drawable.sample_circle2,"Green Salad Recipe",
+                "Fresh Greens","50","9.8"),
+            TrendingFoods(2, R.drawable.sample_circle3,"Fruits N nuts Platter",
+                "Healthy Diet Meal","100","10"),
+            TrendingFoods(3, R.drawable.sample_circle,"Rice Bowl Meat",
+                "Delicious Meat","600","25"),
+            TrendingFoods(4, R.drawable.smaple_image5,"Edd Salad",
+                "Greens and Panneer Platter","100","22"),
+            TrendingFoods(5, R.drawable.sample_item4,"Italian Soup",
+                "Soup for the soul","200","12"),
+            )
     }
 }
 sealed interface FilterFoodState{

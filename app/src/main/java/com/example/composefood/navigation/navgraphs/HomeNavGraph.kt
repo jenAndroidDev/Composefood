@@ -69,7 +69,7 @@ fun HomeScreenNavGraph(navHostController: NavHostController) {
                     navHostController.popBackStack()
                 }
                 ) {
-
+                    navHostController.navigate("details/")
                 }
             }
             composable(route = BottomBarScreen.FAVOURITES.route) {

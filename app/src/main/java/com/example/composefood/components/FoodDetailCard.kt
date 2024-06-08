@@ -19,12 +19,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.LookaheadScope
 import androidx.compose.ui.unit.dp
 import com.example.composefood.commons.CircleAvatarWithShadow
 import com.example.composefood.commons.MediumHeightText
 import com.example.composefood.commons.SubTitleText
 import com.example.composefood.feature.home.presentation.CaloriesDetails
 import com.example.composefood.feature.home.presentation.PriceDetails
+
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -46,8 +48,9 @@ fun FoodDetailCard(
         .background(
             shape = RoundedCornerShape(18.dp),
             color = Color.White
-        ).clickable {
-             onItemClick.invoke(itemId,itemImage)
+        )
+        .clickable {
+            onItemClick.invoke(itemId, itemImage)
         },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -69,9 +72,9 @@ fun FoodDetailCard(
                 Spacer(modifier =modifier.height(4.dp) )
                 SubTitleText(text = description)
                 Spacer(modifier =modifier.height(8.dp) )
-                CaloriesDetails(modifier = modifier)
+                CaloriesDetails(modifier = modifier, calories = calories)
                 Spacer(modifier =modifier.height(4.dp) )
-                PriceDetails(modifier)
+                PriceDetails(modifier, price = price)
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }

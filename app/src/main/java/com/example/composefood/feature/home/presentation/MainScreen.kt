@@ -258,7 +258,6 @@ fun TrendingFeed(
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
     onClick: (Int,Int) -> Unit,
-
     ) {
     val lazyListState = rememberLazyListState()
     LazyRow(contentPadding = PaddingValues(2.dp), state = lazyListState) {
@@ -274,14 +273,13 @@ fun TrendingFeed(
                     name = it.foodName,
                     description = it.foodDescription,
                     price = it.price,
-                    calories = it.price,
+                    calories = it.calories,
                     animatedVisibilityScope = animatedVisibilityScope,
                     sharedTransitionScope = sharedTransitionScope,
                     onItemClick = onClick
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
             }
-
         }
     }
 }
@@ -316,9 +314,9 @@ fun CardWithOffsetImage(
                     Spacer(modifier =modifier.height(4.dp) )
                     SubTitleText(text = "Best Aroma Coffee")
                     Spacer(modifier =modifier.height(8.dp) )
-                    CaloriesDetails(modifier = modifier)
+                    CaloriesDetails(modifier = modifier, calories = "")
                     Spacer(modifier =modifier.height(4.dp) )
-                    PriceDetails(modifier)
+                    PriceDetails(modifier, price = "")
                     Spacer(modifier = Modifier.height(12.dp))
                 }
             }
@@ -326,17 +324,17 @@ fun CardWithOffsetImage(
 }
 
 @Composable
-fun CaloriesDetails(modifier:Modifier){
+fun CaloriesDetails(modifier:Modifier,calories:String){
     Row (verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start){
         Image(painter = painterResource(id = R.drawable.flame_icon), contentDescription = null,
             modifier = modifier.size(18.dp))
         Spacer(modifier = modifier.width(2.dp))
-        FoodDetailsText()
+        FoodDetailsText(text = calories)
     }
 }
 @Composable
-fun PriceDetails(modifier: Modifier){
+fun PriceDetails(modifier: Modifier,price:String){
     Row (verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start){
         CurrencyText(modifier = modifier)
