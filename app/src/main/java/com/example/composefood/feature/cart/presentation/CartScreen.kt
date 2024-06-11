@@ -1,8 +1,9 @@
 package com.example.composefood.feature.cart.presentation
 
-import android.util.Log
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +17,6 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
@@ -43,11 +43,15 @@ import com.example.composefood.components.CircleButtonShadowed
 import com.example.composefood.ui.theme.GREY_10
 
 private const val Tag = "CartScreen"
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun CartScreen(
+fun SharedTransitionScope.CartScreen(
     modifier: Modifier = Modifier,
     onProfileClick:()->Unit = {},
     onBackClick:()->Unit = {},
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    sharedTransitionScope: SharedTransitionScope,
+    onItemClick:(Int,Int)->Unit,
     onClick:()->Unit
 ){
     Surface(modifier = modifier
@@ -56,13 +60,19 @@ fun CartScreen(
         Column(modifier = modifier.background(color = GREY_10)) {
             Header(modifier = modifier,onProfileClick = onProfileClick,onBackClick)
             Spacer(modifier = modifier.height(16.dp))
-            OrdersFeed(modifier = modifier,)
+            CartFeed(
+                modifier = modifier,
+                animatedVisibilityScope = animatedVisibilityScope,
+                sharedTransitionScope = sharedTransitionScope,
+                onItemClick = onItemClick
+            )
         }
     }
 }
 
 @Composable
-private fun Header(modifier: Modifier, onProfileClick: () -> Unit, onBackClick: () -> Unit){
+private fun Header(modifier: Modifier, onProfileClick: () -> Unit,
+                   onBackClick: () -> Unit,){
     Row (modifier = modifier
         .background(color = Color.White, shape = RoundedCornerShape(12.dp))
         .fillMaxWidth()
@@ -100,8 +110,14 @@ private fun Header(modifier: Modifier, onProfileClick: () -> Unit, onBackClick: 
 }
 
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
+fun CartItem(
+    modifier: Modifier = Modifier,
+    data: UiModel,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onItemClick: (Int, Int) -> Unit){
 
     Box(modifier = modifier
         .fillMaxWidth()
@@ -140,63 +156,91 @@ fun OrderedItem(modifier: Modifier = Modifier,data:UiModel){
                 Spacer(modifier = modifier.height(12.dp))
             }
         }
-        CircleMenuItem(
-            modifier = modifier
-                .align(Alignment.CenterStart)
-                .padding(start = 10.dp),
-            image = data.image
-        )
+        with(sharedTransitionScope){
+            CircleMenuItem(
+                modifier = modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = 10.dp),
+                image = data.image,
+                animatedVisibilityScope = animatedVisibilityScope,
+                sharedTransitionScope = this,
+                itemId = data.id,
+                onItemClick = onItemClick
+            )
+        }
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun OrdersFeed(viewModel: CartViewModel = hiltViewModel(),
-               modifier: Modifier){
+fun SharedTransitionScope.CartFeed(
+    viewModel: CartViewModel = hiltViewModel(),
+    modifier: Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    sharedTransitionScope: SharedTransitionScope,
+    onItemClick: (Int, Int) -> Unit
+) {
 
     val data = viewModel.uiState.collectAsStateWithLifecycle()
     val action = viewModel.action
     val list = data.value.data
-    OrdersList(data = list, modifier = modifier)
+    CartList(
+        data = list, modifier = modifier, animatedVisibilityScope = animatedVisibilityScope,
+        sharedTransitionScope = sharedTransitionScope,
+        onItemClick
+    )
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun OrdersList(data:SnapshotStateList<UiModel>,modifier: Modifier){
-
-    val scrollState = rememberLazyListState()
-
-    if (scrollState.isScrollInProgress){
-        val visibleItemCount = scrollState.layoutInfo.visibleItemsInfo.size
-        val totalItemCount = scrollState.layoutInfo.totalItemsCount
-
-        Log.d(Tag, "OrdersList() called with: scrollState:=${visibleItemCount},${totalItemCount}")
-    }
-
-    LazyColumn(modifier = modifier
-        .systemBarsPadding()
-        .fillMaxSize(),
-        state = scrollState
-        ){
-        items(data.size){
-            OrderedItem(data = data[it])
+fun CartList(
+    data: SnapshotStateList<UiModel>,
+    modifier: Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    sharedTransitionScope: SharedTransitionScope,
+    onItemClick: (Int, Int) -> Unit,
+) {
+    LazyColumn(
+        modifier = modifier
+            .systemBarsPadding()
+            .fillMaxSize(),
+    ) {
+        items(data.size) {
+            CartItem(
+                data = data[it],
+                animatedVisibilityScope = animatedVisibilityScope,
+                sharedTransitionScope = sharedTransitionScope,
+                onItemClick = onItemClick
+            )
             Spacer(modifier = modifier.height(12.dp))
         }
     }
-
 }
-@Composable
-fun CircleMenuItem(modifier: Modifier=Modifier,
-                   image: Int){
-    Box(modifier = modifier
-        .height(140.dp)
-        .width(140.dp)
-        ){
-        CircleButtonShadowed()
-    }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Composable
+fun CircleMenuItem(
+    modifier: Modifier = Modifier,
+    image: Int,
+    itemId: Int,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    sharedTransitionScope: SharedTransitionScope,
+    onItemClick: (Int, Int) -> Unit
+) {
+    Box(
+        modifier = modifier
+            .height(140.dp)
+            .width(140.dp)
+    ) {
+        with(sharedTransitionScope) {
+            CircleButtonShadowed(animatedVisibilityScope = animatedVisibilityScope,
+                itemId = itemId,
+                onItemClick = onItemClick)
+        }
+    }
 }
 @Preview
 @Composable
 fun PreviewFoodOrdersScreen(){
-    CartScreen {
-    }
+
 }

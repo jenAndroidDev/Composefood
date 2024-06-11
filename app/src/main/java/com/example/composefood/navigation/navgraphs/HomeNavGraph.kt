@@ -64,10 +64,14 @@ fun HomeScreenNavGraph(navHostController: NavHostController) {
             composable(route = BottomBarScreen.FOODERSHUB.route) {
                 CartScreen(onProfileClick = {
                     navHostController.navigate(BottomBarScreen.FAVOURITES.route)
+                }, onItemClick = {itemId,resId->
+                    navHostController.navigate("details/$itemId/$resId")
                 },
-                onBackClick = {
+                    onBackClick = {
                     navHostController.popBackStack()
-                }
+                },
+                    animatedVisibilityScope = this,
+                    sharedTransitionScope = this@SharedTransitionLayout
                 ) {
                     navHostController.navigate("details/")
                 }
@@ -103,7 +107,6 @@ fun HomeScreenNavGraph(navHostController: NavHostController) {
             }
 
             //detailsNavGraph(navController = navHostController)
-
         }
     }
 }

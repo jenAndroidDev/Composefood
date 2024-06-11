@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 private const val Tag = "CartViewModel"
 class CartViewModel:ViewModel() {
@@ -54,25 +55,25 @@ class CartViewModel:ViewModel() {
 
     private fun getFakeData():ArrayList<UiModel>{
         return arrayListOf(
-            UiModel(1, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(31, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
                 "10"),
-            UiModel(2, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(32, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
                 "10"),
-            UiModel(3, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(33, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
                 "10"),
-            UiModel(4, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(34, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
                 "10"),
-            UiModel(5, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(35, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
                 "10"),
-            UiModel(6, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(36, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
                 "10"),
-            UiModel(7, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(37, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
                 "10"),
-            UiModel(8, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(38, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
                 "10"),
-            UiModel(9, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(39, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
                 "10"),
-            UiModel(10, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(40, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
                 "10"),
 
         )

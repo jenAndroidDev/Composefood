@@ -1,6 +1,10 @@
 package com.example.composefood.components
 
 import android.graphics.BlurMaskFilter
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -102,11 +106,15 @@ fun PreviewCustomShadow(){
     }
 
 
-@Preview
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun CircleButtonShadowed(
+fun SharedTransitionScope.CircleButtonShadowed(
     size:Dp = 120.dp,
     image:Int = R.drawable.sample_circle,
+    itemId:Int = 0,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onItemClick:(Int,Int)->Unit
+
 ){
     Box(
         modifier = Modifier
@@ -138,6 +146,16 @@ fun CircleButtonShadowed(
                     modifier = Modifier
                         .clip(CircleShape)
                         .size(size)
+                        .sharedElement(
+                            state = rememberSharedContentState(key = "image/$itemId"),
+                            animatedVisibilityScope = animatedVisibilityScope,
+                            boundsTransform = { _, _ ->
+                                tween(durationMillis = 1000)
+                            }
+                        )
+                        .clickable {
+                          onItemClick.invoke(itemId,image)
+                        }
                     ,
                     painter = painterResource(id = image),
                     contentDescription = null,

@@ -115,9 +115,7 @@ fun CoreNavGraph(navHostController: NavHostController){
         }
 
         composable(route = BottomBarScreen.FOODERSHUB.route){
-            CartScreen(){
 
-            }
 
         }
 
