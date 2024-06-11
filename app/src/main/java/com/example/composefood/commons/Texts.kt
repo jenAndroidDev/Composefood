@@ -151,7 +151,7 @@ fun FoodDetailsText(
 
 ){
     Text(
-        text = text,
+        text = text.plus(" calories"),
         color = color,
         fontSize = 14.sp,
         fontFamily = fontFamily,

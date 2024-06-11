@@ -235,7 +235,7 @@ fun CircleMenuItem(
         with(sharedTransitionScope) {
             CircleButtonShadowed(animatedVisibilityScope = animatedVisibilityScope,
                 itemId = itemId,
-                onItemClick = onItemClick)
+                onItemClick = onItemClick,)
         }
     }
 }

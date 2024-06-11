@@ -87,7 +87,7 @@ class HomeScreenViewModel:ViewModel() {
                 "Healthy Diet Meal","100","10"),
             TrendingFoods(3, R.drawable.sample_circle,"Rice Bowl Meat",
                 "Delicious Meat","600","25"),
-            TrendingFoods(4, R.drawable.smaple_image5,"Edd Salad",
+            TrendingFoods(4, R.drawable.smaple_image5,"Egg Salad",
                 "Greens and Panneer Platter","100","22"),
             TrendingFoods(5, R.drawable.sample_item4,"Italian Soup",
                 "Soup for the soul","200","12"),

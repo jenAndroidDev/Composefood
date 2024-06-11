@@ -55,28 +55,17 @@ class CartViewModel:ViewModel() {
 
     private fun getFakeData():ArrayList<UiModel>{
         return arrayListOf(
-            UiModel(31, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(31, R.drawable.sample_circle2,"Green Salad Recipe","Fresh Greens",
                 "10"),
-            UiModel(32, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(32, R.drawable.sample_circle3,"Fruits N nuts Platter","Healthy Diet Meal",
                 "10"),
-            UiModel(33, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(33, R.drawable.sample_circle,"Rice Bowl Meat","Delicious Meat",
                 "10"),
-            UiModel(34, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(34, R.drawable.smaple_image5,"Egg Salad","Greens and Panneer Platter",
                 "10"),
-            UiModel(35, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
+            UiModel(35, R.drawable.sample_item4,"Italian Soup","Soup for the soul",
                 "10"),
-            UiModel(36, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
-                "10"),
-            UiModel(37, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
-                "10"),
-            UiModel(38, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
-                "10"),
-            UiModel(39, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
-                "10"),
-            UiModel(40, R.drawable.sample_circle,"Italian Coffee","Hot Special Coffee ",
-                "10"),
-
-        )
+            )
     }
 
 
