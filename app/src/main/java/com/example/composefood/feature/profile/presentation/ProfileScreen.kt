@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,12 +35,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefood.commons.MediumHeightText
+import com.example.composefood.commons.SmallHeightText
 import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.InkBlack
 import com.example.composefood.ui.theme.PaleGrey
+import com.example.composefood.ui.theme.WhiteGrey
 import kotlinx.coroutines.launch
 
 private const val Tag = "ProfileScreen"
@@ -52,7 +55,7 @@ fun ProfileScreen(
         .fillMaxSize()) {
 
         Column(modifier = modifier.background(color = GREY_10)) {
-            Header(modifier = modifier,onBackClick)
+            ProfileTopAppBar(modifier = modifier,onBackClick)
             Spacer(modifier = modifier.height(16.dp))
             ProfileTab(modifier)
         }
@@ -60,47 +63,66 @@ fun ProfileScreen(
 }
 
 @Composable
-private fun Header(modifier: Modifier, onBackClick: () -> Unit){
-    Row (modifier = modifier
-        .background(color = Color.White, shape = RoundedCornerShape(12.dp))
-        .fillMaxWidth()
-        .height(120.dp)
-        .padding(),
-        verticalAlignment = Alignment.CenterVertically,){
-        Row(
-            modifier = Modifier
-                .weight(1f),
-            horizontalArrangement = Arrangement.Absolute.Left
-        ) {
+private fun ProfileTopAppBar(modifier: Modifier, onBackClick: () -> Unit){
 
-            HeaderBackIcon(
-                modifier = modifier.padding(start = 12.dp),
-                icon = Icons.Default.KeyboardArrowLeft,
-                onClick = onBackClick
-            )
+    Column(
+        modifier = modifier.background(color = Color.White, shape = RoundedCornerShape(12.dp)),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
 
-        }
-        MediumHeightText(text = "My Profile")
-        Box(
-            modifier = modifier
-                .weight(1f)
-                .padding(end = 12.dp),
-            contentAlignment = Alignment.CenterEnd
-        ){
-            ProfileIcon(
-                modifier = modifier,
-                imageVector = Icons.Default.Create,
-                size = 40.dp,
-                backgroundColor = PaleGrey,
+        Row (modifier = modifier
+            .fillMaxWidth()
+            .height(120.dp)
+            .padding(),
+            verticalAlignment = Alignment.CenterVertically,){
+            Row(
+                modifier = Modifier
+                    .weight(1f),
+                horizontalArrangement = Arrangement.Absolute.Left
+            ) {
+
+                HeaderBackIcon(
+                    modifier = modifier.padding(start = 12.dp),
+                    icon = Icons.Default.KeyboardArrowLeft,
+                    onClick = onBackClick
                 )
+
+            }
+            MediumHeightText(text = "My Profile")
+            Box(
+                modifier = modifier
+                    .weight(1f)
+                    .padding(end = 12.dp),
+                contentAlignment = Alignment.CenterEnd
+            ){
+                ProfileIcon(
+                    modifier = modifier,
+                    imageVector = Icons.Default.Create,
+                    size = 40.dp,
+                    backgroundColor = WhiteGrey,
+                )
+            }
         }
+        ProfileHeader(modifier = modifier)
+        Spacer(modifier = modifier.height(24.dp))
     }
+
 }
 
 @Composable
 private fun ProfileHeader(modifier: Modifier){
-    Row (modifier = modifier.fillMaxWidth()){
-
+    Column (modifier = modifier.fillMaxWidth()){
+        Row (modifier = modifier.padding(start = 16.dp)){
+            ProfileIcon(modifier = modifier, size = 60.dp)
+            Spacer(modifier = modifier.width(16.dp))
+            Column {
+                MediumHeightText(text = "Jenin Joseph R J")
+                Spacer(modifier = modifier.height(6.dp))
+                SmallHeightText(text = "rjjenin@gmail.com", color = PaleGrey)
+                Spacer(modifier = modifier.height(6.dp))
+                SmallHeightText(text = "ph 7010347243", color = PaleGrey)
+            }
+        }
     }
 }
 
