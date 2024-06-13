@@ -188,7 +188,7 @@ fun ProfileTab(modifier: Modifier) {
                      WalletScreen()
                 }
                 1->{
-                    UserDetailScreen(modifier = modifier)
+                    PaymentOptionScreen(modifier = modifier)
                 }
                 2->{
                     PaymentHistoryScreen()
