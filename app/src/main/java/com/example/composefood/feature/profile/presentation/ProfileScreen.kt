@@ -38,6 +38,7 @@ import com.example.composefood.commons.MediumHeightText
 import com.example.composefood.commons.SmallHeightText
 import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.components.ProfileIcon
+import com.example.composefood.feature.profile.presentation.paymentoption.PaymentOptionScreen
 import com.example.composefood.ui.theme.GREY_10
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.InkBlack
@@ -166,12 +167,6 @@ fun ProfileTab(modifier: Modifier) {
                     selected = pagerState.currentPage == index,
                     onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } },
                     text = { Text(text = page.description) },
-//                    icon = {
-//                        Icon(
-//                            modifier = modifier.size(24.dp),
-//                            painter = painterResource(id = R.drawable.icon_home_v2),
-//                            contentDescription = page.description)
-//                    },
                     selectedContentColor = InkBlack,
                     unselectedContentColor = PaleGrey
                 )

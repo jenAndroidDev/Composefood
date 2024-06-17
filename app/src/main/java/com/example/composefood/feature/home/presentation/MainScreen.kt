@@ -74,6 +74,7 @@ import com.example.composefood.ui.theme.GreyWhite
 * 1.Scroll the Entire Screen With Collapsing Mode
 * 2.Bottom Navigation Font Style==Done
 * 3.Filter with Dummy Feed
+* 4.Use Scaffold for header
 * */
 private const val Tag = "MainScreen"
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -283,45 +284,6 @@ fun TrendingFeed(
         }
     }
 }
-
-
-//@Preview
-//@Composable
-//fun CardWithOffsetImage(
-//    modifier: Modifier = Modifier,
-//    cardWidth:Dp = 80.dp,
-//    shape:Shape = RoundedCornerShape(18.dp),
-//    imageSize:Dp = 140.dp,
-//    offsetImage:Int = 0,
-//    ){
-//
-//    Box (modifier = modifier
-//        .width(150.dp)
-//        .wrapContentHeight()
-//        .padding(top = 40.dp)
-//        .background(shape = shape, color = Color.White)
-//        ){
-//        CircleButtonShadowed()
-//        //CircleAvatarWithShadow()
-//
-//            Row(modifier = modifier.fillMaxWidth(),
-//                horizontalArrangement = Arrangement.Center) {
-//                Column(modifier = modifier.padding(top = (imageSize-20.dp),
-//                ),
-//                    verticalArrangement = Arrangement.Center,
-//                    horizontalAlignment = Alignment.CenterHorizontally){
-//                    MediumHeightText(text = "Italian Coffee")
-//                    Spacer(modifier =modifier.height(4.dp) )
-//                    SubTitleText(text = "Best Aroma Coffee")
-//                    Spacer(modifier =modifier.height(8.dp) )
-//                    CaloriesDetails(modifier = modifier, calories = "")
-//                    Spacer(modifier =modifier.height(4.dp) )
-//                    PriceDetails(modifier, price = "")
-//                    Spacer(modifier = Modifier.height(12.dp))
-//                }
-//            }
-//        }
-//}
 
 @Composable
 fun CaloriesDetails(modifier:Modifier,calories:String){
