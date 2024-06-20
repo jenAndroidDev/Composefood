@@ -15,12 +15,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -104,8 +107,8 @@ private fun PaymentOptionsList(
 private fun PaymentOption(modifier: Modifier,
                           item:PaymentOptions){
 
-    val checked by remember {
-        mutableStateOf(true)
+    var checked by remember {
+        mutableStateOf(false)
     }
     Row (modifier = modifier
         .fillMaxWidth()
@@ -118,9 +121,12 @@ private fun PaymentOption(modifier: Modifier,
         Spacer(modifier = modifier.width(6.dp))
         MediumHeightText(text = item.paymentOption)
         Spacer(modifier = modifier.weight(1f))
-        Switch(checked =checked , onCheckedChange = {
-
-        })
+        RadioButton(
+            selected = checked,
+            onClick = {
+            checked=!checked
+        },
+        )
     }
 }
 

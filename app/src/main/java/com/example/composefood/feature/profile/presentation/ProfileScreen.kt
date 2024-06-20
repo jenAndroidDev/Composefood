@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,18 +21,24 @@ import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composefood.commons.MediumHeightText
@@ -45,22 +52,58 @@ import com.example.composefood.ui.theme.InkBlack
 import com.example.composefood.ui.theme.PaleGrey
 import com.example.composefood.ui.theme.WhiteGrey
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 private const val Tag = "ProfileScreen"
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     onBackClick:()->Unit
     ){
-    Surface(modifier = Modifier
-        .fillMaxSize()) {
+    val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehaviour.nestedScrollConnection),
+        topBar = {
+            CenterAlignedTopAppBar(title = {
+                MediumHeightText(text = "My Profile")
 
-        Column(modifier = modifier.background(color = GREY_10)) {
-            ProfileTopAppBar(modifier = modifier,onBackClick)
+            },
+                navigationIcon = {
+                    HeaderBackIcon(
+                        modifier = modifier.padding(start = 12.dp),
+                        icon = Icons.Default.KeyboardArrowLeft,
+                        onClick = onBackClick
+                    )
+                },
+                actions = {
+                    ProfileIcon(
+                        modifier = modifier,
+                        imageVector = Icons.Default.Create,
+                        size = 40.dp,
+                        backgroundColor = WhiteGrey,
+                    )
+                }
+            )
+        }) { innerPadding ->
+        Timber.tag(Tag).d("$innerPadding")
+
+        Column(modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(paddingValues = innerPadding)
+            .background(color = GREY_10)) {
+            Spacer(modifier = modifier.height(16.dp))
+            ProfileHeader(modifier = modifier)
             Spacer(modifier = modifier.height(16.dp))
             ProfileTab(modifier)
         }
     }
+//    Surface(modifier = Modifier
+//        .fillMaxSize()) {
+//        val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+//
+//    }
 }
 
 @Composable
@@ -149,7 +192,7 @@ fun ProfileTab(modifier: Modifier) {
         ),)
     val pagerState = rememberPagerState(pageCount = { tabItems.size })
 
-    Column(modifier) {
+    Column(modifier.fillMaxWidth()) {
         val coroutineScope = rememberCoroutineScope()
         TabRow(
             selectedTabIndex = pagerState.currentPage,
