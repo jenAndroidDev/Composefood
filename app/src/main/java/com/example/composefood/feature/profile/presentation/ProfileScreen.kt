@@ -7,12 +7,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,7 +25,6 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
@@ -47,6 +46,7 @@ import com.example.composefood.components.HeaderBackIcon
 import com.example.composefood.components.ProfileIcon
 import com.example.composefood.feature.profile.presentation.paymentoption.PaymentOptionScreen
 import com.example.composefood.ui.theme.GREY_10
+import com.example.composefood.ui.theme.GREY_80
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.InkBlack
 import com.example.composefood.ui.theme.PaleGrey
@@ -94,77 +94,22 @@ fun ProfileScreen(
             .padding(paddingValues = innerPadding)
             .background(color = GREY_10)) {
             Spacer(modifier = modifier.height(16.dp))
-            ProfileHeader(modifier = modifier)
+            ProfileDetails(modifier = modifier)
             Spacer(modifier = modifier.height(16.dp))
             ProfileTab(modifier)
         }
     }
-//    Surface(modifier = Modifier
-//        .fillMaxSize()) {
-//        val scrollBehaviour = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-//
-//    }
 }
-
 @Composable
-private fun ProfileTopAppBar(modifier: Modifier, onBackClick: () -> Unit){
-
-    Column(
-        modifier = modifier.background(color = Color.White, shape = RoundedCornerShape(12.dp)),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-
-        Row (modifier = modifier
-            .fillMaxWidth()
-            .height(120.dp)
-            .padding(),
-            verticalAlignment = Alignment.CenterVertically,){
-            Row(
-                modifier = Modifier
-                    .weight(1f),
-                horizontalArrangement = Arrangement.Absolute.Left
-            ) {
-
-                HeaderBackIcon(
-                    modifier = modifier.padding(start = 12.dp),
-                    icon = Icons.Default.KeyboardArrowLeft,
-                    onClick = onBackClick
-                )
-
-            }
-            MediumHeightText(text = "My Profile")
-            Box(
-                modifier = modifier
-                    .weight(1f)
-                    .padding(end = 12.dp),
-                contentAlignment = Alignment.CenterEnd
-            ){
-                ProfileIcon(
-                    modifier = modifier,
-                    imageVector = Icons.Default.Create,
-                    size = 40.dp,
-                    backgroundColor = WhiteGrey,
-                )
-            }
-        }
-        ProfileHeader(modifier = modifier)
-        Spacer(modifier = modifier.height(24.dp))
-    }
-
-}
-
-@Composable
-private fun ProfileHeader(modifier: Modifier){
+private fun ProfileDetails(modifier: Modifier){
     Column (modifier = modifier.fillMaxWidth()){
         Row (modifier = modifier.padding(start = 16.dp)){
             ProfileIcon(modifier = modifier, size = 60.dp)
             Spacer(modifier = modifier.width(16.dp))
-            Column {
+            Column(modifier = modifier.wrapContentSize()) {
                 MediumHeightText(text = "Jenin Joseph R J")
-                Spacer(modifier = modifier.height(6.dp))
-                SmallHeightText(text = "rjjenin@gmail.com", color = PaleGrey)
-                Spacer(modifier = modifier.height(6.dp))
-                SmallHeightText(text = "ph 7010347243", color = PaleGrey)
+                SmallHeightText(text = "rjjeninjoseph@gmail.com", color = GREY_80)
+                SmallHeightText(text = "ph 7010347243", color = GREY_80)
             }
         }
     }
@@ -211,7 +156,7 @@ fun ProfileTab(modifier: Modifier) {
                     onClick = { coroutineScope.launch { pagerState.animateScrollToPage(index) } },
                     text = { Text(text = page.description) },
                     selectedContentColor = InkBlack,
-                    unselectedContentColor = PaleGrey
+                    unselectedContentColor = GREY_80
                 )
             }
         }

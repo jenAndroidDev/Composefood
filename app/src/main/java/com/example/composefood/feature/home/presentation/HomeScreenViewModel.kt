@@ -93,6 +93,7 @@ class HomeScreenViewModel:ViewModel() {
                 "Soup for the soul","200","12"),
             )
     }
+
 }
 sealed interface FilterFoodState{
     data class Success(val data:List<FilterFoodCategory>):FilterFoodState
