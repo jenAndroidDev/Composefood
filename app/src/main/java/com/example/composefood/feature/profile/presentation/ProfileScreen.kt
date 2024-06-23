@@ -65,10 +65,13 @@ fun ProfileScreen(
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehaviour.nestedScrollConnection),
         topBar = {
-            CenterAlignedTopAppBar(title = {
+            CenterAlignedTopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White),
+                title = {
                 MediumHeightText(text = "My Profile")
 
-            },
+            }
+                ,
                 navigationIcon = {
                     HeaderBackIcon(
                         modifier = modifier.padding(start = 12.dp),
@@ -93,7 +96,6 @@ fun ProfileScreen(
             .wrapContentHeight()
             .padding(paddingValues = innerPadding)
             .background(color = GREY_10)) {
-            Spacer(modifier = modifier.height(16.dp))
             ProfileDetails(modifier = modifier)
             Spacer(modifier = modifier.height(16.dp))
             ProfileTab(modifier)
@@ -102,7 +104,9 @@ fun ProfileScreen(
 }
 @Composable
 private fun ProfileDetails(modifier: Modifier){
-    Column (modifier = modifier.fillMaxWidth()){
+    Column (modifier = modifier
+        .fillMaxWidth()
+        .background(Color.White, shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp))){
         Row (modifier = modifier.padding(start = 16.dp)){
             ProfileIcon(modifier = modifier, size = 60.dp)
             Spacer(modifier = modifier.width(16.dp))
@@ -110,8 +114,10 @@ private fun ProfileDetails(modifier: Modifier){
                 MediumHeightText(text = "Jenin Joseph R J")
                 SmallHeightText(text = "rjjeninjoseph@gmail.com", color = GREY_80)
                 SmallHeightText(text = "ph 7010347243", color = GREY_80)
+
             }
         }
+
     }
 }
 

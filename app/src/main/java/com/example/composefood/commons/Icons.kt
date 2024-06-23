@@ -30,7 +30,7 @@ fun IconPaymentOption(
 
     Column(modifier = modifier
         .background(color = Color.White, shape = RoundedCornerShape(16.dp))
-        .border(border = BorderStroke(width = 2.dp, color = PaleGrey), shape = RoundedCornerShape(12.dp))
+        .border(border = BorderStroke(width = 1.dp, color = PaleGrey.copy(alpha = 0.7f)), shape = RoundedCornerShape(12.dp))
         .size(80.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {

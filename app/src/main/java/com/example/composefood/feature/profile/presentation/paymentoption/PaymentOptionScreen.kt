@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Switch
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.composefood.commons.IconPaymentOption
+import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.PaleWhite
 
 @Composable
@@ -50,7 +52,6 @@ fun PaymentOptionScreen(modifier: Modifier = Modifier){
             AddPaymentCards(modifier = modifier)
         }
     }
-
 }
 
 @Composable
@@ -82,7 +83,13 @@ private fun AddPaymentCards(
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val data = uiState.value.data.toList()
 
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier
+        .fillMaxWidth()
+        .background(
+            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+            color = Color.White
+        )) {
+        Spacer(modifier = modifier.height(12.dp))
         MediumHeightText(text = "Add New Card", modifier = modifier.padding(start = 12.dp))
         PaymentOptionsList(modifier = modifier, data = data)
     }
