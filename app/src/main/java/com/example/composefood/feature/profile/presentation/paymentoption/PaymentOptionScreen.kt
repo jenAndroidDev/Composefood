@@ -36,6 +36,7 @@ import com.example.composefood.ui.theme.PaleGrey
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.composefood.commons.CommonRoundedCornerBtn
 import com.example.composefood.commons.IconPaymentOption
 import com.example.composefood.ui.theme.GoldenYellow
 import com.example.composefood.ui.theme.PaleWhite
@@ -106,6 +107,9 @@ private fun PaymentOptionsList(
             PaymentOption(modifier = modifier, item = data[it])
             Spacer(modifier = modifier.height(12.dp))
         }
+        item {
+            CommonRoundedCornerBtn(label = "Add Now")
+        }
     }
 }
 
@@ -133,6 +137,7 @@ private fun PaymentOption(modifier: Modifier,
             onClick = {
             checked=!checked
         },
+            colors = RadioButtonDefaults.colors().copy(selectedColor = GoldenYellow.copy(alpha = 0.4f))
         )
     }
 }

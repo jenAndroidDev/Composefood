@@ -29,6 +29,7 @@ class PaymentOptionViewModel:ViewModel() {
         val list = arrayListOf(
             PaymentOptions(1,R.drawable.icon_google_pay,"Google Pay"),
             PaymentOptions(2,R.drawable.icon_phone_pe,"Phone Pe"),
+            PaymentOptions(3,R.drawable.apple,"Apply Pay")
             )
         val tempList = uiState.value.data.toMutableList()
         tempList.addAll(

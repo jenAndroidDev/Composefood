@@ -2,6 +2,7 @@ package com.example.composefood.commons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,3 +42,22 @@ fun CounterButton(modifier: Modifier = Modifier){
         }
 
 }
+
+@Preview
+@Composable
+fun CommonRoundedCornerBtn(
+    modifier: Modifier=Modifier,
+    label:String="Add Now"
+    ){
+    Column(modifier = modifier
+        .fillMaxWidth()
+        .height(50.dp)
+        .background(color = GoldenYellow, shape = RoundedCornerShape(12.dp)),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+
+        MediumHeightText(text = label)
+    }
+}
+
+
