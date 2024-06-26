@@ -78,6 +78,9 @@ class HomeScreenViewModel:ViewModel() {
             }
         }
     }
+    private fun filterFood(category:String){
+        val tempList = uiState.value.trendingData.toMutableStateList()
+    }
     private fun getTrendingFoodList(): ArrayList<TrendingFoods> {
 
         return arrayListOf(
@@ -90,8 +93,26 @@ class HomeScreenViewModel:ViewModel() {
             TrendingFoods(4, R.drawable.smaple_image5,"Egg Salad",
                 "Greens and Panneer Platter","100","22"),
             TrendingFoods(5, R.drawable.sample_item4,"Italian Soup",
+                "Soup for the soul","200","12", category = Category.VEG.name),
+            TrendingFoods(6, R.drawable.sample_circle2,"Green Salad Recipe",
+                "Fresh Greens","50","9.8"),
+            TrendingFoods(7, R.drawable.sample_circle3,"Fruits N nuts Platter",
+                "Healthy Diet Meal","100","10"),
+            TrendingFoods(8, R.drawable.sample_circle,"Rice Bowl Meat",
+                "Delicious Meat","600","25", category = Category.VEG.name),
+            TrendingFoods(9, R.drawable.smaple_image5,"Egg Salad",
+                "Greens and Panneer Platter","100","22"),
+            TrendingFoods(10, R.drawable.sample_item4,"Italian Soup",
                 "Soup for the soul","200","12"),
-            )
+            TrendingFoods(11, R.drawable.sample_circle3,"Fruits N nuts Platter",
+                "Healthy Diet Meal","100","10"),
+            TrendingFoods(12, R.drawable.sample_circle,"Rice Bowl Meat",
+                "Delicious Meat","600","25"),
+            TrendingFoods(13, R.drawable.smaple_image5,"Egg Salad",
+                "Greens and Panneer Platter","100","22"),
+            TrendingFoods(14, R.drawable.sample_item4,"Italian Soup",
+                "Soup for the soul","200","12"),
+        )
     }
 
 }
@@ -127,5 +148,13 @@ data class TrendingFoods(
     val foodName:String,
     val foodDescription:String,
     val calories:String,
-    val price: String
+    val price: String,
+    val category:String=Category.ALL.name
 )
+enum class Category{
+    ALL,
+    VEG,
+    NON_VEG,
+    DAIRY,
+    DRY,
+}
