@@ -137,7 +137,7 @@ private fun PaymentOption(modifier: Modifier,
             onClick = {
             checked=!checked
         },
-            colors = RadioButtonDefaults.colors().copy(selectedColor = GoldenYellow.copy(alpha = 0.4f))
+            colors = RadioButtonDefaults.colors().copy(selectedColor = GoldenYellow)
         )
     }
 }
