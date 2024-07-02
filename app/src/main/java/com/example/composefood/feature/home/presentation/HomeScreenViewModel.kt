@@ -75,6 +75,7 @@ class HomeScreenViewModel:ViewModel() {
             val currentItem = data.next()
             if (id==currentItem.id){
                 data.set(currentItem.copy(isSelected = !currentItem.isSelected))
+
             }
         }
     }
@@ -103,7 +104,7 @@ class HomeScreenViewModel:ViewModel() {
             TrendingFoods(9, R.drawable.smaple_image5,"Egg Salad",
                 "Greens and Panneer Platter","100","22"),
             TrendingFoods(10, R.drawable.sample_item4,"Italian Soup",
-                "Soup for the soul","200","12"),
+                "Soup for the soul","200","12", category = Category.VEG.name),
             TrendingFoods(11, R.drawable.sample_circle3,"Fruits N nuts Platter",
                 "Healthy Diet Meal","100","10"),
             TrendingFoods(12, R.drawable.sample_circle,"Rice Bowl Meat",
@@ -122,7 +123,8 @@ sealed interface FilterFoodState{
 }
 data class FilterFoodUiState(
     val data:SnapshotStateList<FilterFoodCategory> = SnapshotStateList(),
-    val trendingData:SnapshotStateList<TrendingFoods> = SnapshotStateList()
+    val trendingData:SnapshotStateList<TrendingFoods> = SnapshotStateList(),
+    val filteredData:SnapshotStateList<TrendingFoods> = SnapshotStateList()
 )
 sealed interface RecommendedFoodState{
     data class Success(val data:List<RecommendedFoods>):RecommendedFoodState

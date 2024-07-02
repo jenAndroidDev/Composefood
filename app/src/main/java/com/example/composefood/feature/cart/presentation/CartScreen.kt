@@ -1,7 +1,9 @@
 package com.example.composefood.feature.cart.presentation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -51,7 +53,7 @@ fun SharedTransitionScope.CartScreen(
     onBackClick:()->Unit = {},
     animatedVisibilityScope: AnimatedVisibilityScope,
     sharedTransitionScope: SharedTransitionScope,
-    onItemClick:(Int,Int)->Unit,
+    onItemClick:(Int,Int)->Unit = { i: Int, i1: Int -> },
     onClick:()->Unit
 ){
     Surface(modifier = modifier
@@ -131,8 +133,8 @@ fun CartItem(
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
             shape = RoundedCornerShape(
-                topStart = 50.dp,
-                bottomStart = 50.dp,
+                topStart = 10.dp,
+                bottomStart = 10.dp,
                 topEnd = 10.dp,
                 bottomEnd = 10.dp
             ),
@@ -143,6 +145,7 @@ fun CartItem(
                     end = 16.dp)){
                 Spacer(modifier = modifier.height(12.dp))
                 MediumHeightText(text = data.name)
+                Spacer(modifier = modifier.height(6.dp))
                 SubTitleText(text = data.description)
                 Spacer(modifier = modifier.height(26.dp))
                 Row(
@@ -159,8 +162,8 @@ fun CartItem(
         with(sharedTransitionScope){
             CircleMenuItem(
                 modifier = modifier
-                    .align(Alignment.CenterStart)
-                    .padding(start = 10.dp),
+                    .padding(top = 10.dp, start = 10.dp)
+                    .align(Alignment.TopStart),
                 image = data.image,
                 animatedVisibilityScope = animatedVisibilityScope,
                 sharedTransitionScope = this,
@@ -229,18 +232,27 @@ fun CircleMenuItem(
 ) {
     Box(
         modifier = modifier
-            .height(140.dp)
-            .width(140.dp)
+            .height(150.dp)
+            .width(150.dp)
     ) {
         with(sharedTransitionScope) {
             CircleButtonShadowed(animatedVisibilityScope = animatedVisibilityScope,
                 itemId = itemId,
-                onItemClick = onItemClick,)
+                onItemClick = onItemClick,
+                image = image)
         }
     }
 }
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview
 @Composable
 fun PreviewFoodOrdersScreen(){
-
+    val item:(Int,Int)->Unit
+    SharedTransitionLayout {
+        AnimatedVisibility(visible = true) {
+            CartScreen(animatedVisibilityScope = this, sharedTransitionScope = this@SharedTransitionLayout,) {
+                
+            }
+        }
+    }
 }
