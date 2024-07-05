@@ -109,7 +109,7 @@ fun PreviewCustomShadow(){
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SharedTransitionScope.CircleButtonShadowed(
-    size:Dp = 150.dp,
+    size:Dp = 120.dp,
     image:Int = R.drawable.sample_circle,
     itemId:Int = 0,
     animatedVisibilityScope: AnimatedVisibilityScope,
@@ -119,14 +119,6 @@ fun SharedTransitionScope.CircleButtonShadowed(
     Box(
         modifier = Modifier
             .size(140.dp)
-            .background(
-                brush = Brush.radialGradient(
-                    colors = listOf(
-                        GoldenYellow,
-                        Color.Transparent
-                    )
-                )
-            )
             .padding(bottom = 4.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -135,7 +127,9 @@ fun SharedTransitionScope.CircleButtonShadowed(
             modifier = Modifier
                 .size(size)
                 .background(Color.Transparent)
-                .clickable { }
+                .clickable {
+
+                }
         ) {
             Box(
                 modifier = Modifier

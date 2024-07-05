@@ -2,10 +2,14 @@ package com.example.composefood.commons
 
 
 import android.os.Build
+import android.widget.Space
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -177,14 +181,16 @@ fun CurrencyText(
     )
 ) {
     Row(
+        modifier = modifier.background(color = Color.White),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
         Text(text = symbolValue,
             color = currencySymbolColor,
             fontFamily = fontFamily,
-            fontWeight = FontWeight.Medium)
-        Spacer(modifier = modifier.width(4.dp))
+            fontWeight = FontWeight.Medium,
+            modifier = modifier.padding(top = 4.dp))
+        Spacer(modifier = modifier.width(2.dp))
         Text(text = price.toString(),
             color = priceColor,
             fontSize = fontSize,

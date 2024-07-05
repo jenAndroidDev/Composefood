@@ -56,16 +56,29 @@ class CartViewModel:ViewModel() {
     private fun getFakeData():ArrayList<UiModel>{
         return arrayListOf(
             UiModel(31, R.drawable.sample_circle2,"Green Salad Recipe","Fresh Greens",
-                "10"),
+                "9.80"),
             UiModel(32, R.drawable.sample_circle3,"Fruits N nuts Platter","Healthy Diet Meal",
-                "10"),
-            UiModel(33, R.drawable.item_b,"Rice Bowl Meat","Delicious Meat",
-                "10"),
-            UiModel(34, R.drawable.sample_item4,"Egg Salad","Greens and Panneer Platter",
-                "10"),
+                "6.99"),
+            UiModel(33, R.drawable.image_sushi,"Rice Bowl Meat","Delicious Meat",
+                "8.62"),
+            UiModel(34, R.drawable.image_salman,"Egg Salad","Greens and Panneer Platter",
+                "15.50"),
             UiModel(35, R.drawable.sample_item4,"Italian Soup","Soup for the soul",
-                "10"),
+                "12.50"),
+            UiModel(36, R.drawable.sample_circle2,"Green Salad Recipe","Fresh Greens",
+                "9.80"),
+            UiModel(37, R.drawable.sample_circle3,"Fruits N nuts Platter","Healthy Diet Meal",
+                "6.99"),
+            UiModel(38, R.drawable.image_sushi,"Rice Bowl Meat","Delicious Meat",
+                "8.62"),
+            UiModel(39, R.drawable.image_salman,"Egg Salad","Greens and Panneer Platter",
+                "15.50"),
+            UiModel(34, R.drawable.sample_item4,"Italian Soup","Soup for the soul",
+                "12.50"),
+        )
             )
+
+
     }
 
 

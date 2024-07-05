@@ -71,7 +71,7 @@ fun SharedTransitionScope.CartScreen(
         }
     }
 }
-
+//replace header with scaffold
 @Composable
 private fun Header(modifier: Modifier, onProfileClick: () -> Unit,
                    onBackClick: () -> Unit,){
@@ -130,13 +130,12 @@ fun CartItem(
                 .height(140.dp)
                 .align(Alignment.CenterEnd)
                 .padding(end = 24.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
             shape = RoundedCornerShape(
                 topStart = 10.dp,
                 bottomStart = 10.dp,
-                topEnd = 10.dp,
-                bottomEnd = 10.dp
+                topEnd = 16.dp,
+                bottomEnd = 16.dp
             ),
 
             ) {
@@ -145,12 +144,13 @@ fun CartItem(
                     end = 16.dp)){
                 Spacer(modifier = modifier.height(12.dp))
                 MediumHeightText(text = data.name)
-                Spacer(modifier = modifier.height(6.dp))
+                Spacer(modifier = modifier.height(4.dp))
                 SubTitleText(text = data.description)
-                Spacer(modifier = modifier.height(26.dp))
+                Spacer(modifier = modifier.weight(1f))
                 Row(
                     modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                    ,
                     verticalAlignment = Alignment.CenterVertically) {
                     CurrencyText(price = data.price.toFloat())
                     Spacer(modifier = modifier.weight(1f))
@@ -176,7 +176,7 @@ fun CartItem(
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.CartFeed(
+fun CartFeed(
     viewModel: CartViewModel = hiltViewModel(),
     modifier: Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
